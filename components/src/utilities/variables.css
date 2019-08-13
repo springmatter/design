@@ -1,0 +1,48 @@
+:root {
+  /* colors */
+  --green: #24a148;
+  --green-hover: #006516;
+  --blue: #006CFF;
+  --blue-hover: #003acd;
+  --red: #da1e28;
+  --red-hover: #a80000;
+  --yellow: #fdd13a;
+  --yellow-hover: #cb9f08;
+  --purple: #8a3ffc;
+  --purple-hover: #580dca;
+
+  --white: #ffffff;
+  --black: #171717;
+
+  --gray1: #f3f3f3;
+  --gray2: #dcdcdc;
+  --gray3: #bebebe;
+  --gray4: #a5a5a5;
+  --gray5: #8c8c8c;
+  --gray6: #6f6f6f;
+  --gray7: #565656;
+  --gray8: #3d3d3d;
+  --gray9: #282828;
+
+  --overlay: rgba(23, 23, 23, 0.5);
+  
+  /* used for detailed spacing */
+  --sp1: 4px;
+  --sp2: 8px;
+  --sp3: 16px;
+  --sp4: 24px;
+  --sp5: 32px;
+
+  /* used for layout */
+  --sp6: 40px;
+  --sp7: 48px;
+  --sp8: 64px;
+  --sp9: 96px;
+
+  /* length should be chosen based on the distance traveled of the animatied element */
+  --transition-short: 50ms cubic-bezier(0.2, 0, 1, 0.9);
+  --transition-medium: 100ms cubic-bezier(0.2, 0, 1, 0.9);
+  --transition-long: 200ms cubic-bezier(0.2, 0, 1, 0.9);
+
+  --focus-outline: 2px solid var(--blue);
+}

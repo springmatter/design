@@ -1,0 +1,38 @@
+a {
+  color: var(--blue);
+  text-decoration: none;
+  transition: color var(--transition-short);
+  padding: var(--sp1);
+  display: inline-block;
+  margin: 1px;
+}
+
+a.black {
+  color: var(--black);
+}
+
+a:hover {
+  text-decoration: none;
+  color: var(--blue-hover);
+}
+
+a.black:hover {
+  text-decoration: none;
+  color: var(--blue);
+}
+
+a > figure {
+  color: var(--black);
+  transition: all var(--transition-long);
+}
+
+a:hover > figure {
+  border: 1px solid var(--blue);
+  text-decoration: none;
+  color: var(--blue-hover);
+}
+
+a:focus {
+  outline: var(--focus-outline);
+}
+

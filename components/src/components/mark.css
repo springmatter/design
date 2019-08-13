@@ -1,0 +1,39 @@
+mark {
+  font-style: italic;
+  font-size: 0.75rem;
+  position: relative;
+  padding: 1px 12px 1px 24px;
+  background: transparent;
+  color: var(--blue);
+  display: inline-block;
+}
+
+mark::first-line {
+  color: var(--black);
+}
+
+mark::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  top: 7px;
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  left: var(--sp2);
+}
+
+mark::after {
+  content: "";
+  background-color: currentColor;
+  background-blend-mode: multiply;
+  opacity: 0.1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: var(--sp6);
+  display: block;
+  width: 100%;
+  height: 100%;
+}

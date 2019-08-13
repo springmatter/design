@@ -1,0 +1,85 @@
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-wrap { flex-wrap: wrap; }
+.flex-col { flex-direction: column; }
+
+.m0 { margin: 0; }
+.m1 { margin: var(--sp1); }
+.m2 { margin: var(--sp2); }
+.m3 { margin: var(--sp3); }
+.m4 { margin: var(--sp4); }
+.m5 { margin: var(--sp5); }
+.m6 { margin: var(--sp6); }
+.m7 { margin: var(--sp7); }
+.m8 { margin: var(--sp8); }
+.m9 { margin: var(--sp9); }
+
+.mt1 { margin-top: var(--sp1); }
+.mr1 { margin-right: var(--sp1); }
+.mb1 { margin-bottom: var(--sp1); }
+.ml1 { margin-left: var(--sp1); }
+.mt2 { margin-top: var(--sp2); }
+.mr2 { margin-right: var(--sp2); }
+.mb2 { margin-bottom: var(--sp2); }
+.ml2 { margin-left: var(--sp2); }
+.mt3 { margin-top: var(--sp3); }
+.mr3 { margin-right: var(--sp3); }
+.mb3 { margin-bottom: var(--sp3); }
+.ml3 { margin-left: var(--sp3); }
+
+.mla { margin-left: auto; }
+.mra { margin-right: auto; }
+.m0a { margin: 0 auto; }
+
+.m02 { margin: 0 var(--sp2); }
+.m20 { margin: var(--sp2) 0; }
+
+.p0 { padding: 0; }
+.p1 { padding: var(--sp1); }
+.p2 { padding: var(--sp2); }
+.p3 { padding: var(--sp3); }
+.p4 { padding: var(--sp4); }
+.p5 { padding: var(--sp5); }
+.p6 { padding: var(--sp6); }
+.p7 { padding: var(--sp7); }
+.p8 { padding: var(--sp8); }
+.p9 { padding: var(--sp9); }
+
+.p79 { padding: var(--sp7) var(--sp9); }
+
+.h1 { height: var(--sp1); }
+.h2 { height: var(--sp2); }
+.h3 { height: var(--sp3); }
+.h4 { height: var(--sp4); }
+.h5 { height: var(--sp5); }
+.h6 { height: var(--sp6); }
+.h7 { height: var(--sp7); }
+.h8 { height: var(--sp8); }
+.h9 { height: var(--sp9); }
+.h100 { height: 100%; }
+
+.w1 { width: var(--sp1); }
+.w2 { width: var(--sp2); }
+.w3 { width: var(--sp3); }
+.w4 { width: var(--sp4); }
+.w5 { width: var(--sp5); }
+.w6 { width: var(--sp6); }
+.w7 { width: var(--sp7); }
+.w8 { width: var(--sp8); }
+.w9 { width: var(--sp9); }
+.w100 { width: 100%; }
+
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+.float-left { float: left; }
+.float-right { float: right; }
+
+.i { font-style: italic; }
+.b { font-weight: bold; }

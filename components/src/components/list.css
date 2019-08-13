@@ -1,0 +1,29 @@
+ul {
+  overflow: scroll;
+  list-style-type: none;
+  padding: 0;
+  display: block;
+  margin: 0;
+}
+
+li {
+  margin-bottom: var(--sp2);
+  padding: 0;
+}
+
+dl {
+  font-size: 0.75rem;
+  font-weight: normal;
+  line-height: 1rem;
+  letter-spacing: 0.32px;
+}
+
+dt {
+  font-style: italic;
+  float: left;
+}
+
+dd {
+  text-align: right;
+  margin-bottom: var(--sp1);
+}

@@ -1,0 +1,62 @@
+form {
+  display: flex;
+  flex-flow: column wrap;
+  position: relative;
+  padding: var(--sp3);
+  padding-bottom: var(--sp9);
+}
+
+form > fieldset:last-child {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  flex-flow: row no-wrap;
+  padding: 0;
+  border: 0;
+  height: var(--sp8);
+  margin: 0;
+}
+
+form > fieldset:last-child > button {
+  margin: 0;
+  width: 50%;
+  height: 100%;
+}
+
+form legend {
+  margin: 0;
+}
+
+form > label {
+  margin-top: var(--sp3);
+  margin-bottom: var(--sp1);
+}
+
+form > label:first-child {
+  margin: 0;
+}
+
+input {
+  padding: var(--sp1);
+  height: var(--sp5);
+  border-radius: 3px;
+  border: 1px solid var(--gray2);
+}
+
+input[type=radio] {
+  box-shadow: none;
+  height: auto;
+}
+
+input[type=color] {
+  background: white;
+  width: var(--sp9);
+  /* height: var(--sp6); */
+  padding: 2px 4px;
+}
+
+select:focus,
+input:focus {
+  outline: var(--focus-outline);
+}

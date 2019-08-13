@@ -6,6 +6,7 @@ mark {
   background: transparent;
   color: var(--blue);
   display: inline-block;
+  white-space: nowrap;
 }
 
 mark::first-line {

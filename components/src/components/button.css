@@ -26,6 +26,7 @@ button.secondary {
 button:disabled {
   background: var(--gray2);
   color: var(--gray4);
+  cursor: not-allowed;
 }
 
 button.ghost:disabled,

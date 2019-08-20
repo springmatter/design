@@ -9,14 +9,18 @@
           <div class="std">
             <button>Primary</button>
             <button class="secondary">Secondary</button>
+            <button disabled>Disabled</button>
             <button class="ghost">Ghost</button>
+            <button disabled class="ghost">Ghost disabled</button>
           </div>
           <div class="icns">
             <button>Primary <SmIcon name="plus" /></button>
             <button class="secondary">Secondary <SmIcon name="plus" /></button>
+            <button class="secondary" disabled>Disabled <SmIcon name="plus" /></button>
             <button class="ghost">Ghost <SmIcon name="plus" /></button>
           </div>
           <button class="icon"><SmIcon name="map" /></button>
+          <button class="icon" disabled><SmIcon name="map" /></button>
         </div>
       </main>
     </template>

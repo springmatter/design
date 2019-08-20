@@ -18,13 +18,23 @@ button {
   margin: 0;
 }
 
-button.primary, button {
-  background: var(--blue);
+button.secondary {
+  background: var(--black);
   margin: 0;
 }
 
-button.secondary {
-  background: var(--black);
+button:disabled {
+  background: var(--gray2);
+  color: var(--gray4);
+}
+
+button.ghost:disabled,
+button.icon:disabled {
+  color: var(--gray4);
+}
+
+button.primary, button {
+  background: var(--blue);
   margin: 0;
 }
 

@@ -3,7 +3,7 @@
     <template v-if="!blank">
       <SmNav type="top" :title="title" />
       <SmNav type="side" :links="links" :collapse="collapseSide" />
-      <SmContent />
+      <!-- <SmContent /> -->
     </template>
     <slot v-if="blank"></slot>
   </div>
@@ -31,7 +31,7 @@ export default {
     links: {
       type: Array,
       required: false,
-      default: [],
+      default: () => [],
       validator: function (value) {
         if (value.length > 0) {
           return "name" in value[0] && "route" in value[0];

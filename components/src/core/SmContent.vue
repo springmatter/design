@@ -1,5 +1,10 @@
 <template>
-  <router-view class="SmContent"></router-view>
+  <div class="SmContent">
+    <header><slot name="header"></slot></header>
+    <main><slot></slot></main>
+    <footer><slot name="footer"></slot></footer>
+    <aside><slot name="aside"></slot></aside>
+  </div>
 </template>
 
 <script>

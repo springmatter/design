@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
-    <nav id="nav-top">
+  <SmApp blank>
+    <SmNav type="top" title="Springmatter" blank>
       <router-link class="logolink" to="/">
         <img src="./logo.png" />
       </router-link>
       <router-link
         :to="$route.fullPath.replace(/\/notes/, '')"
-        class="view-toggle mla"
+        class="view-toggle ml-auto"
         :class="{ active: !notes, disabled: onIntro }"
       >
         Canvas
@@ -18,35 +18,34 @@
       >
         Notes
       </router-link>
-    </nav>
-    <nav id="nav-side">
-      <h3>Introduction</h3>
+    </SmNav>
+    <SmNav type="side" class="sidenav" blank>
+      <h3 class="m-0 mt-4">Introduction</h3>
       <ul>
-        <li v-for="page in introPages" :key="page.name">
+        <li v-for="page in introPages" :key="page.name" class="m-0">
           <router-link :to="'/' + page.name + (notes ? '/notes' : '')">
             {{ page.name }}
           </router-link>
         </li>
       </ul>
-      <h3>Core</h3>
+      <h3 class="m-0 mt-4">Core</h3>
       <ul>
-        <li v-for="page in corePages" :key="page.name">
+        <li v-for="page in corePages" :key="page.name" class="m-0">
           <router-link :to="'/' + page.name + (notes ? '/notes' : '')">
             {{ page.name }}
           </router-link>
         </li>
       </ul>
-      <h3>Components</h3>
+      <h3 class="m-0 mt-4">Components</h3>
       <ul>
-        <li v-for="page in componentPages" :key="page.name">
+        <li v-for="page in componentPages" :key="page.name" class="m-0">
           <router-link :to="'/' + page.name + (notes ? '/notes' : '')">
             {{ page.name }}
           </router-link>
         </li>
       </ul>
-    </nav>
-    <router-view class="content" />
-  </div>
+    </SmNav>
+  </SmApp>
 </template>
 
 <script>
@@ -75,20 +74,10 @@ export default {
 </script>
 
 <style scoped>
-.meta-nav {
-  width: 300px;
-  height: 100vh;
-  background: blue;
-}
-
-#nav-side {
-  width: calc(var(--sp9) * 2);
-  display: block;
-  padding: 0 var(--sp4);
-}
-
-#nav-side > ul > li {
-  margin: 0;
+.sidenav {
+  width: calc(var(--sp9) * 2) !important;
+  display: block !important;
+  padding: 0 var(--sp4) !important;
 }
 
 .logolink {
@@ -103,9 +92,6 @@ export default {
   object-fit: cover;
 }
 
-#nav-side > h3 {
-  margin: var(--sp4) 0 var(--sp1) 0;
-}
 .view-toggle {
   border-bottom: 3px solid white;
   height: 100%;

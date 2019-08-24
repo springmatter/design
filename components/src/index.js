@@ -1,14 +1,15 @@
 import Vue from "vue";
 import upperFirst from "lodash/upperFirst";
 import camelCase from "lodash/camelCase";
-import "normalize.css/normalize.css";
+import "bootstrap/dist/css/bootstrap-reboot.min.css";
+import "bootstrap/dist/css/bootstrap-utilities.min.css";
 
 const requireCss = require.context(".", true, /\.css$/);
 requireCss.keys().forEach(requireCss);
 
 var components = [];
 
-const requireComponent = require.context("./components", true, /\.vue$/);
+const requireComponent = require.context("./", true, /\.vue$/);
 requireComponent.keys().forEach(fileName => {
   // Get component config
   const componentConfig = requireComponent(fileName);

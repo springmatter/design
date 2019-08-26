@@ -1,6 +1,6 @@
 <template>
   <SmTextLayout>
-    <div class="loading"></div>
+    <SmLoading />
   </SmTextLayout>
 </template>
 

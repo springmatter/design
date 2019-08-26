@@ -9,14 +9,11 @@ import Typography from "./views/Typography.vue";
 import Utilities from "./views/Utilities.vue";
 
 import Buttons from "./views/Buttons.vue";
-import Figures from "./views/Figures.vue";
+import Cards from "./views/Cards.vue";
 import Forms from "./views/Forms.vue";
 import Icons from "./views/Icons.vue";
-import List from "./views/List.vue";
 import Loading from "./views/Loading.vue";
-import Marks from "./views/Marks.vue";
-import Modal from "./views/Modal.vue";
-import Tabs from "./views/Tabs.vue";
+import Tags from "./views/Tags.vue";
 
 Vue.use(Router);
 
@@ -55,9 +52,9 @@ export default new Router({
       component: Buttons
     },
     {
-      path: "/figures",
-      name: "figures",
-      component: Figures
+      path: "/cards",
+      name: "cards",
+      component: Cards
     },
     {
       path: "/forms",
@@ -70,29 +67,14 @@ export default new Router({
       component: Icons
     },
     {
-      path: "/list",
-      name: "list",
-      component: List
-    },
-    {
       path: "/loading",
       name: "loading",
       component: Loading
     },
     {
-      path: "/marks",
-      name: "marks",
-      component: Marks
-    },
-    {
-      path: "/modal",
-      name: "modal",
-      component: Modal
-    },
-    {
-      path: "/tabs",
-      name: "tabs",
-      component: Tabs
+      path: "/tags",
+      name: "tags",
+      component: Tags
     }
   ]
 });

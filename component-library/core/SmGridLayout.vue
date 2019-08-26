@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     update: function() {
-      console.log("updating");
       for(let child of this.$el.childNodes) {
         if(!child.hasChildNodes()) {
           this[child.className.split(" ")[0]] = false;
@@ -66,24 +65,27 @@ export default {
   display: flex;
   @apply border-b;
   @apply border-gray-1;
+  @apply p-2;
 }
 
 .SmFooter {
   grid-area: footer;
+  display: flex;
   @apply border-t;
   @apply border-gray-1;
+  @apply p-2;
 }
 
 .SmAside {
   grid-area: aside;
-  display: flex;
-  flex-flow: column;
   @apply border-l;
   @apply border-gray-1;
+  @apply p-2;
 }
 
 .SmMain {
   grid-area: main;
   overflow: scroll;
+  @apply p-2;
 }
 </style>

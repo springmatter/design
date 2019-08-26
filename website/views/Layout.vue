@@ -1,6 +1,8 @@
 <template>
   <SmTabLayout @close-tab="tabs.splice($event - 1, 1)">
-    <SmTextLayout data-tab="SmTextLayout"></SmTextLayout>
+    <SmTextLayout data-tab="SmTextLayout">
+      <SmButton type="primary" @click="tabs.push(tabs.length)">Spawn tab</SmButton>
+    </SmTextLayout>
     <SmGridLayout
       v-for="tab in tabs"
       :key="tab"

@@ -6,11 +6,13 @@ table {
 
 th, td {
   text-align: left;
-  padding: var(--sp2) 0;
-  background: var(--white);
-  border-bottom: 1px solid var(--gray1);
   border: none;
-  height: var(--sp5);
+  @apply py-2;
+  @apply px-0;
+  @apply bg-white;
+  @apply border-b;
+  @apply border-gray-1;
+  @apply h-5;
 }
 
 th {
@@ -19,7 +21,8 @@ th {
   z-index: 1000;
   cursor: pointer;
   user-select: none;
-  border-bottom: 1px solid var(--gray1);
+  @apply border-b;
+  @apply border-gray-1;
 }
 
 th > * {
@@ -27,20 +30,21 @@ th > * {
 }
 
 th:first-child, td:first-child {
-  padding-left: var(--sp5);
+  @apply pl-5;
 }
 
 th:last-child, td:last-child {
-  padding-right: var(--sp5);
+  @apply pr-5;
 }
 
 table > caption {
   position: sticky;
   top: 0;
   text-align: left;
-  height: var(--sp7);
-  background: var(--white);
-  padding: var(--sp2) var(--sp5);
+  @apply h-7;
+  @apply bg-white;
+  @apply py-2;
+  @apply px-5;
   z-index: 1000;
 }
 

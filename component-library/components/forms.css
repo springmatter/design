@@ -2,8 +2,8 @@ form {
   display: flex;
   flex-flow: column wrap;
   position: relative;
-  padding: var(--sp3);
-  padding-bottom: var(--sp9);
+  @apply p-3;
+  @apply pb-9;
 }
 
 form > fieldset:last-child {
@@ -14,7 +14,7 @@ form > fieldset:last-child {
   flex-flow: row no-wrap;
   padding: 0;
   border: 0;
-  height: var(--sp8);
+  @apply h-8;
   margin: 0;
 }
 
@@ -29,8 +29,8 @@ form legend {
 }
 
 form > label {
-  margin-top: var(--sp3);
-  margin-bottom: var(--sp1);
+  @apply mt-3;
+  @apply mb-1;
 }
 
 form > label:first-child {
@@ -38,10 +38,11 @@ form > label:first-child {
 }
 
 input {
-  padding: var(--sp1);
-  height: var(--sp5);
+  @apply p-1;
+  @apply h-5;
   border-radius: 3px;
-  border: 1px solid var(--gray2);
+  @apply border;
+  @apply border-gray-2;
 }
 
 input[type=radio] {
@@ -51,12 +52,6 @@ input[type=radio] {
 
 input[type=color] {
   background: white;
-  width: var(--sp9);
-  /* height: var(--sp6); */
+  @apply w-9;
   padding: 2px 4px;
-}
-
-select:focus,
-input:focus {
-  outline: var(--focus-outline);
 }

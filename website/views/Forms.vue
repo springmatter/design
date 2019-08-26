@@ -1,7 +1,7 @@
 
 <template>
   <SmTextLayout>
-    Forms are still a work in progress, but should work mostly like standard HTML5 forms for now.
+    <input type="text"></input>
   </SmTextLayout>
 </template>
 

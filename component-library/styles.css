@@ -1,5 +1,8 @@
 @tailwind base;
 
+@import "./components/forms.css";
+@import "./components/table.css";
+
 *,
 *::before,
 *::after {
@@ -108,13 +111,13 @@ sup {
 
 a {
   @apply text-blue;
-  text-decoration: none;
+  @apply no-underline;
   background-color: transparent;
 }
 
 a:hover {
   @apply text-blue-dark;
-  text-decoration: underline;
+  @apply no-underline;
 }
 
 img {
@@ -142,6 +145,10 @@ summary {
 
 ol {
   @apply list-decimal;
+}
+
+li {
+  @apply mb-2;
 }
 @tailwind components;
 

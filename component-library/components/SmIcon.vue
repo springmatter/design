@@ -42,20 +42,21 @@ export default {
   stroke-linecap: round;
   stroke-linejoin: round;
   fill: none;
+  display: inline;
 }
 
 .SmIcon.s {
-  width: 18px;
-  height: 18px;
+  @apply w-4;
+  @apply h-4;
 }
 
 .SmIcon.m {
-  width: 22px;
-  height: 22px;
+  @apply w-5;
+  @apply h-5;
 }
 
 .SmIcon.l {
-  width: 26px;
-  height: 26px;
+  @apply w-6;
+  @apply h-6;
 }
 </style>

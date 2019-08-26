@@ -1,12 +1,16 @@
 <template>
   <SmTextLayout>
-    <div class="figs">
-      <figure>
-        <figcaption>
-          <h5>no. 38</h5>
-          <h3>Driving With Pets</h3>
-          <h4>A figure with a title, subtitle, and sidetitle</h4>
-        </figcaption>
+      <SmButton type="primary" @click="modal = true">Open modal card</SmButton>
+      <SmCard v-if="modal" @close="modal = false" modal>
+        <template #title>
+          I am a modal
+        </template>
+        Close me if you dare
+      </SmCard>
+      <SmCard>
+        <template #title>Driving With Pets</template>
+        <template #sidetitle>no. 38</template>
+        <template #subtitle>An SmCard with a title, subtitle, and sidetitle</template>
         Unrestrained pets can interfere with your driving and distract your
         attention from driving. In a collision or sudden stop, unrestrained pets
         or cages can be thrown around inside the vehicle and hurt you or your
@@ -18,32 +22,28 @@
         carrier’s handle. Never restrain pets or pet carriers in the front
         passenger’s seat. For further information, consult your veterinarian,
         local an- imal protection society or pet shop.
-      </figure>
-      <figure>
-        I'm a figure with just text. Before you operate your vehicle, carefully
+      </SmCard>
+      <SmCard class="w-10">
+        I'm a SmCard with just text. Before you operate your vehicle, carefully
         read this manual. To protect yourself and extend the service life of
         your vehicle, follow the instructions in this manual. Failure to observe
         these instructions may result in se- rious injury and damage to your
         vehicle.
-      </figure>
-      <figure>
-        <figcaption>
-          <h5>no. 42</h5>
-          <h3>Seatbelt Safety</h3>
-          <h4>A figure with titles and image</h4>
-        </figcaption>
+      </SmCard>
+      <SmCard>
+          <template #sidetitle>no. 42</template>
+          <template #title>Seatbelt Safety</template>
+          <template #subtitle>A SmCard with titles and image</template>
         <img class="img" :src="fig1" />
-      </figure>
-      <figure>
+      </SmCard>
+      <SmCard>
         <img class="img" :src="fig2" />
-      </figure>
+      </SmCard>
       <a href="">
-        <figure>
-          <figcaption>
-            <h5>no. 38</h5>
-            <h3>I'm a Linked Figure</h3>
-            <h4>A figure with a title, subtitle, and sidetitle</h4>
-          </figcaption>
+        <SmCard>
+            <template #sidetitle>no. 38</template>
+            <template #title>I'm a Linked Figure</template>
+            <template #subtitle>A SmCard with a title, subtitle, and sidetitle</template>
           Unrestrained pets can interfere with your driving and distract your
           attention from driving. In a collision or sudden stop, unrestrained
           pets or cages can be thrown around inside the vehicle and hurt you or
@@ -56,9 +56,8 @@
           carriers in the front passenger’s seat. For further information,
           consult your veterinarian, local an- imal protection society or pet
           shop.
-        </figure>
+        </SmCard>
       </a>
-    </div>
   </SmTextLayout>
 </template>
 
@@ -70,27 +69,12 @@ export default {
   data: function() {
     return {
       fig1: fig1,
-      fig2: fig2
+      fig2: fig2,
+      modal: false
     };
   }
 };
 </script>
 
 <style scoped>
-.figs {
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.figs figure {
-  margin: var(--sp4) 0;
-  width: 500px;
-}
-
-.img {
-  width: 100%;
-}
 </style>

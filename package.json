@@ -1,10 +1,10 @@
 {
-  "name": "xxx",
-  "version": "1.0.0",
-  "private": true,
+  "name": "@springmatter/components",
+  "version": "3.0.0",
+  "main": "./component-library/index.js",
   "scripts": {
     "serve": "vue-cli-service serve website/main.js",
-    "build:components": "vue-cli-service build --target lib --name SmComponents components/index.js",
+    "build:components": "vue-cli-service build --target lib --name SmComponents component-library/index.js",
     "build:docs": "vue-cli-service build --dest docs/ --modern website/main.js"
   },
   "dependencies": {

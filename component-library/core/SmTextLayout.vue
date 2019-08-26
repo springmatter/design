@@ -1,6 +1,6 @@
 <template>
-  <div class="SmTextLayout py-7 overflow-auto">
-    <main class="mx-auto w-1/2">
+  <div class="SmTextLayout">
+    <main class="content">
       <slot></slot>
     </main>
   </div>
@@ -15,5 +15,12 @@ export default {
 <style scoped>
 .SmTextLayout {
   grid-area: content;
+  @apply py-7;
+  @apply overflow-auto;
+}
+
+.SmTextLayout > .content {
+  @apply mx-auto;
+  @apply w-1/2;
 }
 </style>

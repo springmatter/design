@@ -1,10 +1,13 @@
 <template>
-  <div :class="{ 'cursor-not-allowed': disabled }" class="inline-block">
-    <button :class="classes">
-      <slot></slot>
-      <SmIcon v-if="icon !== ''" :name="icon" :class="{ 'ml-3': type !== 'icon' }" />
-    </button>
-  </div>
+  <button class="SmButton" :class="[type, { small: small }]" @click="$emit('click')">
+    <slot></slot>
+    <SmIcon 
+      v-if="icon !== ''" 
+      :name="icon" 
+      :class="{ 'ml-2': type !== 'icon'}"
+      :size="type === 'icon' && !small ? 'm' : 's'" 
+    />
+  </button>
 </template>
 
 <script>
@@ -24,38 +27,76 @@ export default {
       required: false,
       default: ""
     },
-    disabled: {
+    small: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     }
   },
-  computed: {
-    classes: function() {
-      return this[this.type + "Classes"];
-    },
-    defaultClasses: function() {
-      return "text-white flex items-center rounded-lg";
-    },
-    disabledClasses: function() {
-      return "text-gray-5 pointer-events-none rounded-lg";
-    },
-    primaryClasses: function() {
-      return this.disabled ? this.disabledClasses + " py-2 px-4 bg-gray-2" : 
-        this.defaultClasses + " py-2 px-4 bg-blue hover:bg-blue-dark";
-    },
-    secondaryClasses: function() {
-      return this.disabled ? this.disabledClasses + " py-2 px-4 bg-gray-2" : 
-        this.defaultClasses + " py-2 px-4 bg-gray-9 hover:bg-black";
-    },
-    ghostClasses: function() {
-      return this.disabled ? this.disabledClasses + " p-1": 
-        this.defaultClasses + " p-1 bg-transparent text-blue hover:text-blue-dark";
-    },
-    iconClasses: function() {
-      return this.disabled ? this.disabledClasses : 
-        "p-1 bg-transparent h-auto w-auto text-gray-10 hover:text-black";
-    }
-  }
 }
 </script>
+
+<style scoped>
+.SmButton {
+  @apply text-white;
+  @apply flex;
+  @apply items-center;
+  @apply rounded-lg;
+}
+
+.SmButton:disabled {
+  @apply text-gray-5;
+  @apply pointer-events-none;
+}
+
+.primary,
+.secondary {
+  @apply py-2;
+  @apply px-4;
+}
+
+.primary:disabled,
+.secondary:disabled {
+  @apply py-2;
+  @apply px-4;
+  @apply bg-gray-2;
+}
+
+.primary {
+  @apply bg-blue;
+}
+
+.primary:hover {
+  @apply bg-blue-dark;
+}
+
+.secondary {
+  @apply bg-gray-9;
+}
+
+.secondary:hover {
+  @apply bg-black;
+}
+
+.ghost,
+.icon {
+  @apply p-1;
+  @apply bg-transparent;
+}
+
+.ghost {
+  @apply text-blue;
+}
+
+.ghost:hover {
+  @apply text-blue-dark;
+}
+
+.icon {
+  @apply text-gray-10;
+}
+
+.icon:hover {
+  @apply text-black;
+}
+</style>

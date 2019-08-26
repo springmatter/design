@@ -1,5 +1,4 @@
 module.exports = {
-  important: true,
   theme: {
     colors: {
       transparent: 'transparent',

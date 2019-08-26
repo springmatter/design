@@ -1,23 +1,21 @@
 <template>
   <div class="SmTabLayout">
-    <header id="tabBar">
+    <div class="tab-bar">
       <div
-        class="border-r border-b border-gray-1 bg-white h-full relative flex items-center"
+        class="tab-container"
         v-for="(tab, index) in tabs"
-        :class="{ activeTab: activeTab === index }"
         :key="index"
+        :class="{ activeTab: activeTab === index }"
       >
-        <!-- <button class="ghost" @click="switchTab(index)"> -->
-        <!--   <label :style="{ pointerEvents: 'none' }">{{ tab.tabName }}</label> -->
-        <!-- </button> -->
-        <!-- <button v-if="index > 0" class="icon close" @click="closeTab(index)"> -->
-        <!--   <SmIcon name="x-circle" size="small" /> -->
-        <!-- </button> -->
+        <small><SmButton type="ghost" @click="switchTab(index)" class="tab-button">
+          {{ tab.tabName }}
+        </SmButton></small>
+        <SmButton v-if="index > 0" icon="x" @click="closeTab(index)" class="tab-close" small/>
       </div>
-    </header>
-    <main id="currentTab">
+    </div>
+    <div id="currentTab">
       <slot></slot>
-    </main>
+    </div>
   </div>
 </template>
 
@@ -80,52 +78,46 @@ export default {
 };
 </script>
 
-<style>
-#tabBar {
-  padding: 0;
+<style scoped>
+.SmTabLayout {
+  @apply flex;
+  @apply flex-col;
 }
-
-
 .activeTab {
-  border-bottom: 1px solid var(--white);
-  position: relative;
+  border-bottom: 1px solid white !important;
 }
 
-.tab > .ghost {
-  color: var(--gray2);
-  height: 100%;
-  margin: 0;
+.tab-bar {
+  @apply flex;
+  @apply w-full;
+  @apply border-b;
+  @apply border-gray-1;
 }
 
-.activeTab > .ghost {
-  color: var(--black);
-}
-.tab > .ghost:hover {
-  color: var(--black);
-}
-
-.tab > .ghost:focus {
-  z-index: var(--z8);
-  color: var(--black);
+.tab-container {
+  @apply border-r;
+  @apply border-b;
+  @apply border-gray-1;
+  @apply bg-white;
+  @apply flex;
+  @apply -mb-px;
 }
 
-.tab > .close {
-  color: var(--gray2);
+.tab-button {
+  @apply p-2;
+  @apply text-gray-3;
 }
 
-.tab > .close:hover {
-  color: var(--black);
+.tab-button:hover,
+.tab-close:hover {
+  @apply text-black;
 }
 
-#currentTab > * {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-    "header aside"
-    "main   aside"
-    "footer aside";
-  height: 100%;
-  width: 100%;
+#currentTab {
+  @apply flex-grow;
+}
+
+.tab-close {
+  @apply text-gray-3;
 }
 </style>

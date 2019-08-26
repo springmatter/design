@@ -1,6 +1,6 @@
 <template>
   <SmApp blank>
-    <SmNav type="top" />
+    <SmNav type="top" class="p-2"/>
     <SmNav type="side" class="px-3" blank>
       <router-link to="/" class="p-2">
         <img src="./logo.png" class="w-9" />

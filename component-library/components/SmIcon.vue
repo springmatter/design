@@ -20,10 +20,10 @@ export default {
     },
     size: {
       type: String,
-      default: "medium",
+      default: "m",
       required: false,
       validator: function(value) {
-        return ["small", "medium", "large"].indexOf(value) !== -1;
+        return ["s", "m", "l"].indexOf(value) !== -1;
       }
     },
   },
@@ -44,18 +44,18 @@ export default {
   fill: none;
 }
 
-.SmIcon.small {
-  width: 24px;
-  height: 24px;
+.SmIcon.s {
+  width: 18px;
+  height: 18px;
 }
 
-.SmIcon.medium {
+.SmIcon.m {
   width: 22px;
   height: 22px;
 }
 
-.SmIcon.large {
-  width: 24px;
-  height: 24px;
+.SmIcon.l {
+  width: 26px;
+  height: 26px;
 }
 </style>

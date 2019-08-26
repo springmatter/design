@@ -1,15 +1,15 @@
 <template>
   <div class="SmGridLayout">
-    <header class="SmHeader border-b border-gray-1" v-if="SmHeader">
+    <header class="SmHeader" v-if="SmHeader">
       <slot name="header"></slot>
     </header>
     <main class="SmMain" v-if="SmMain">
       <slot name="main"></slot>
     </main>
-    <footer class="SmFooter border-t border-gray-1" v-if="SmFooter">
+    <footer class="SmFooter" v-if="SmFooter">
       <slot name="footer"></slot>
     </footer>
-    <aside class="SmAside border-l border-gray-1" v-if="SmAside">
+    <aside class="SmAside" v-if="SmAside">
       <slot name="aside"></slot>
     </aside>
   </div>
@@ -56,21 +56,30 @@ export default {
   "main   aside"
   "footer aside";
   overflow: hidden;
+
+  @apply w-full;
+  @apply h-full;
 }
 
 .SmHeader {
   grid-area: header;
   display: flex;
+  @apply border-b;
+  @apply border-gray-1;
 }
 
 .SmFooter {
   grid-area: footer;
+  @apply border-t;
+  @apply border-gray-1;
 }
 
 .SmAside {
   grid-area: aside;
   display: flex;
   flex-flow: column;
+  @apply border-l;
+  @apply border-gray-1;
 }
 
 .SmMain {

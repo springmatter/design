@@ -1,8 +1,8 @@
 <template>
-    <nav :class="classes">
+    <nav :class="'nav-' + type">
       <template v-if="!blank">
         <template v-if="type === 'top'">
-          <router-link to="/" title="Home" black>
+          <router-link to="/" title="Home" v-if="title !== ''">
             <h4 class="m-0">{{ title }}</h4>
           </router-link>
 
@@ -35,12 +35,6 @@
 <script>
 export default {
   name: "SmNav",
-  computed: {
-    classes: function() {
-      const BORDER = this.type === "top" ? "border-b" : "border-r";
-      return `nav-${this.type} ${BORDER} border-gray-1`;
-    }
-  },
   props: {
     blank: {
       type: Boolean,
@@ -76,13 +70,17 @@ export default {
 nav.nav-top {
   grid-area: topNav;
   display: flex;
+  @apply border-b;
+  @apply border-gray-1;
 }
 
 nav.nav-side {
   grid-area: sideNav;
   display: flex;
   flex-flow: column;
-  border-top: 1px solid white;
   margin-top: -1px;
+  @apply bg-white;
+  @apply border-r;
+  @apply border-gray-1;
 }
 </style>

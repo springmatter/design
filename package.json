@@ -1,0 +1,25 @@
+{
+  "name": "xxx",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve website/main.js",
+    "build:components": "vue-cli-service build --target lib --name SmComponents components/index.js",
+    "build:docs": "vue-cli-service build --dest docs/ --modern website/main.js"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "core-js": "^2.6.5",
+    "feather-icons": "^4.24.1",
+    "tailwindcss": "^1.1.2",
+    "vue": "^2.6.10",
+    "vue-markdown": "^2.2.4",
+    "vue-router": "^3.0.3",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.11.0",
+    "@vue/cli-service": "^3.11.0",
+    "vue-template-compiler": "^2.6.10"
+  }
+}

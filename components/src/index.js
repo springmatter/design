@@ -1,5 +1,4 @@
 import "./styles.css";
-import "./components/forms.css";
 
 var components = [];
 

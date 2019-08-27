@@ -50,12 +50,8 @@ export default {
 
 .modal {
   position: fixed;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  top: 30vh;
-  @apply z-50;
-  @apply w-1/4;
+  @apply mx-auto inset-x-0;
+  @apply z-40;
   @apply shadow-xl;
 }
 
@@ -64,5 +60,6 @@ export default {
   top: 0;
   right: 0;
   @apply m-1;
+  @apply z-50;
 }
 </style>

@@ -1,20 +1,20 @@
 <template>
   <SmTextLayout class="root">
-    <SmButton type="primary" small>Click me</SmButton>
-    <SmButton type="secondary">Click me</SmButton>
-    <SmButton type="ghost">Click me</SmButton>
+    <SmButton kind="primary" small>Click me</SmButton>
+    <SmButton kind="secondary">Click me</SmButton>
+    <SmButton kind="ghost">Click me</SmButton>
     <SmButton icon="map"/>
     <br />
 
-    <SmButton type="primary"disabled>Click me</SmButton>
-    <SmButton type="secondary" disabled>Click me</SmButton>
-    <SmButton type="ghost" disabled>Click me</SmButton>
+    <SmButton kind="primary"disabled>Click me</SmButton>
+    <SmButton kind="secondary" disabled>Click me</SmButton>
+    <SmButton kind="ghost" disabled>Click me</SmButton>
     <SmButton icon="map" disabled/>
     <br />
     
-    <SmButton type="primary" icon="plus">Click me</SmButton>
-    <SmButton type="secondary" icon="plus">Click me</SmButton>
-    <SmButton type="ghost" icon="plus">Click me</SmButton>
+    <SmButton kind="primary" icon="plus">Click me</SmButton>
+    <SmButton kind="secondary" icon="plus">Click me</SmButton>
+    <SmButton kind="ghost" icon="plus">Click me</SmButton>
   </SmTextLayout>
 </template>
 

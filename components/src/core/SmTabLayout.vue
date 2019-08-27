@@ -7,7 +7,7 @@
         :key="index"
         :class="{ activeTab: activeTab === index }"
       >
-        <small><SmButton type="ghost" @click="switchTab(index)" class="tab-button">
+        <small><SmButton kind="ghost" @click="switchTab(index)" class="tab-button">
           {{ tab.tabName }}
         </SmButton></small>
         <SmButton v-if="index > 0" icon="x" @click="closeTab(index)" class="tab-close" small/>

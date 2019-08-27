@@ -41,7 +41,7 @@ export default {
   @apply text-white;
   @apply flex;
   @apply items-center;
-  @apply rounded-lg;
+  @apply rounded-sm;
 }
 
 .SmButton:disabled {

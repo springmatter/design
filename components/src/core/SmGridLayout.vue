@@ -30,21 +30,21 @@ export default {
   grid-area: header;
   @apply border-b;
   @apply border-gray-1;
-  @apply p-2;
+  @apply py-2 px-3;
 }
 
 .SmGridLayout > footer {
   grid-area: footer;
   @apply border-t;
   @apply border-gray-1;
-  @apply p-2;
+  @apply p-3;
 }
 
 .SmGridLayout > aside {
   grid-area: aside;
   @apply border-l;
   @apply border-gray-1;
-  @apply p-2;
+  @apply p-3;
 }
 
 .SmGridLayout > aside > .SmCard {

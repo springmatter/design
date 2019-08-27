@@ -3,52 +3,22 @@
     <SmTextLayout data-tab="SmTextLayout">
       <SmButton type="primary" @click="tabs.push(tabs.length)">Spawn tab</SmButton>
     </SmTextLayout>
-    <SmApp
-      title="Default App"
-      data-tab="App example"
-      class="w-1/2 h-1/2"
-      :links="[
-        {
-          name: 'smile',
-          route: '/'
-        },
-        {
-          name: 'meh',
-          route: '/'
-        },
-        {
-          name: 'frown',
-          route: '/'
-        },
-        {
-          name: 'anchor',
-          route: '/'
-        },
-        {
-          name: 'bell',
-          route: '/'
-        },
-        {
-          name: 'dollar-sign',
-          route: '/'
-        }
-    ]" />
     <SmGridLayout
       v-for="tab in tabs"
       :key="tab"
       :data-tab="'SmGridLayout #' + tab">
-      <template #header>
+      <header>
         HEADER {{ tab }}
-      </template>
-      <template #main>
+      </header>
+      <main>
         MAIN {{ tab }}
-      </template>
-      <template #footer>
+      </main>
+      <footer>
         FOOTER {{ tab }}
-      </template>
-      <template #aside>
+      </footer>
+      <aside>
         ASIDE {{ tab }}
-      </template>
+      </aside>
     </SmGridLayout>
   </SmTabLayout>
 </template>

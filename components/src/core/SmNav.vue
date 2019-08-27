@@ -18,8 +18,8 @@
         </template>
         <template v-if="type === 'side'">
           <router-link 
-            v-for="link in links" 
-            :key="link.route" 
+            v-for="(link, index) in links" 
+            :key="index" 
             :to="link.route" 
             class="mb-3 text-black"
             black

@@ -47,6 +47,6 @@ export default {
   background: black;
   display: inline-block;
   @apply rounded-full;
-  @apply mr-2;
+  @apply mr-1;
 }
 </style>

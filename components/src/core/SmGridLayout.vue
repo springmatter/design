@@ -50,7 +50,7 @@ export default {
 }
 
 .SmGridLayout > aside > .SmCard {
-  @apply border-t-0 border-r-0 border-l-0 rounded-none;
+  @apply border-t-0 border-r-0 border-l-0 border-gray-1 rounded-none;
 }
 
 .SmGridLayout > main {

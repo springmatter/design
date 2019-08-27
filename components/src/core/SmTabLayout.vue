@@ -82,9 +82,11 @@ export default {
 .SmTabLayout {
   @apply flex;
   @apply flex-col;
+  @apply h-full w-full overflow-hidden;
 }
 .activeTab {
   border-bottom: 1px solid white !important;
+  @apply text-black;
 }
 
 .tab-bar {

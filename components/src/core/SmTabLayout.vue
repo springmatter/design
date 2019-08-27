@@ -84,10 +84,6 @@ export default {
   @apply flex-col;
   @apply h-full w-full overflow-hidden;
 }
-.activeTab {
-  border-bottom: 1px solid white !important;
-  @apply text-black;
-}
 
 .tab-bar {
   @apply flex;
@@ -121,5 +117,10 @@ export default {
 
 .tab-close {
   @apply text-gray-3;
+}
+
+.activeTab {
+  border-bottom: 1px solid white !important;
+  @apply text-black;
 }
 </style>

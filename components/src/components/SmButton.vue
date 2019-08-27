@@ -100,7 +100,7 @@ export default {
   @apply text-black;
 }
 
-.small {
+.small, .small:disabled {
   @apply py-1;
 }
 </style>

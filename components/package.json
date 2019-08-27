@@ -1,15 +1,15 @@
 {
   "name": "@springmatter/components",
-  "version": "3.0.1",
-  "main": "dist/SmComponents.common.js",
+  "version": "3.0.2",
+  "main": "dist/index.js",
   "files": [
     "src",
     "dist/*"
   ],
   "scripts": {
     "serve": "vue-cli-service serve website/main.js",
-    "build:components": "vue-cli-service build --target lib --name SmComponents src/index.js",
-    "build:docs": "vue-cli-service build --dest docs/ --modern website/main.js"
+    "build:components": "./build.sh",
+    "build:docs": "vue-cli-service build --dest ../docs/ --modern website/main.js"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",

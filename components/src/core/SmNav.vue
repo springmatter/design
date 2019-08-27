@@ -2,8 +2,8 @@
     <nav :class="'nav-' + type">
       <template v-if="!blank">
         <template v-if="type === 'top'">
-          <router-link to="/" title="Home" v-if="title !== ''">
-            <h4 class="m-0">{{ title }}</h4>
+          <router-link class="text-black" to="/" title="Home" v-if="title !== ''">
+            <h5>{{ title }}</h5>
           </router-link>
 
           <!-- <router-link -->
@@ -21,7 +21,7 @@
             v-for="link in links" 
             :key="link.route" 
             :to="link.route" 
-            class="mb-1 mx-1"
+            class="mb-3 text-black"
             black
           >
             <SmIcon :name="link.name" />
@@ -72,6 +72,7 @@ nav.nav-top {
   display: flex;
   @apply border-b;
   @apply border-gray-1;
+  @apply py-2 px-3;
 }
 
 nav.nav-side {
@@ -82,5 +83,6 @@ nav.nav-side {
   @apply bg-white;
   @apply border-r;
   @apply border-gray-1;
+  @apply p-3;
 }
 </style>

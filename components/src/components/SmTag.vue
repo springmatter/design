@@ -39,6 +39,7 @@ export default {
   @apply whitespace-no-wrap;
   padding: 3px 10px 3px 8px;
   @apply text-gray-9;
+  @apply italic;
 }
 
 .dot {

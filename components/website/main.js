@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 
 import VueMarkdown from "vue-markdown";
-import components from "../component-library/index.js";
+import components from "../src/index.js";
 components.forEach(comp => { Vue.component(comp.name, comp); });
 
 Vue.component("VueMarkdown", VueMarkdown);

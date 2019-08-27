@@ -1,5 +1,3 @@
-import Vue from "vue";
-
 import "./styles.css";
 
 var components = [];

@@ -99,4 +99,8 @@ export default {
 .icon:hover {
   @apply text-black;
 }
+
+.small {
+  @apply py-1;
+}
 </style>

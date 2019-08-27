@@ -1,6 +1,6 @@
 {
   "name": "@springmatter/components",
-  "version": "3.1.6",
+  "version": "3.1.7",
   "main": "dist/index.js",
   "files": [
     "src",
@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve website/main.js",
-    "publish-components": "./build.sh && npm publish",
+    "pub": "./build.sh && npm publish",
     "build:docs": "vue-cli-service build --dest ../docs/ --modern website/main.js"
   },
   "dependencies": {

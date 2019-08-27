@@ -1,6 +1,6 @@
 <template>
   <SmTextLayout class="root">
-    <SmButton type="primary">Click me</SmButton>
+    <SmButton type="primary" small>Click me</SmButton>
     <SmButton type="secondary">Click me</SmButton>
     <SmButton type="ghost">Click me</SmButton>
     <SmButton icon="map"/>

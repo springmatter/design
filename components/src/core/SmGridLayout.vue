@@ -28,7 +28,6 @@ export default {
 
 .SmGridLayout > header {
   grid-area: header;
-  display: flex;
   @apply border-b;
   @apply border-gray-1;
   @apply p-2;
@@ -36,7 +35,6 @@ export default {
 
 .SmGridLayout > footer {
   grid-area: footer;
-  display: flex;
   @apply border-t;
   @apply border-gray-1;
   @apply p-2;

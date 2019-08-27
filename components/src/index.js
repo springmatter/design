@@ -1,6 +1,6 @@
 import "./styles.css";
-@import "./components/forms.css";
-@import "./components/table.css";
+import "./components/forms.css";
+import "./components/table.css";
 
 
 var components = [];

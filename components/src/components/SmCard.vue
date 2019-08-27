@@ -1,6 +1,6 @@
 <template>
   <div class="SmCard" :class="{ linked: linked, modal: modal }">
-    <SmButton class="close-btn" icon="x" @click="$emit('close')"/>
+    <SmButton v-if="modal" class="close-btn" icon="x" @click="$emit('close')"/>
     <slot></slot>
   </div>
 </template>

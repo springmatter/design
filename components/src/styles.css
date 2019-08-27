@@ -1,8 +1,5 @@
 @tailwind base;
 
-@import "./components/forms.css";
-@import "./components/table.css";
-
 *,
 *::before,
 *::after {

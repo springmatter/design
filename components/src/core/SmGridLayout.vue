@@ -49,9 +49,14 @@ export default {
   @apply p-2;
 }
 
+.SmGridLayout > aside > .SmCard {
+  @apply border-t-0 border-r-0 border-l-0 rounded-none;
+}
+
 .SmGridLayout > main {
   grid-area: main;
   overflow: scroll;
   @apply p-2;
 }
+
 </style>

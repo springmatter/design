@@ -5,7 +5,9 @@
       <SmNav type="side" :links="links" />
       <router-view></router-view>
     </template>
-    <slot v-if="blank"></slot>
+    <template v-if="blank">
+      <slot></slot>
+    </template>
   </div>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
-  <button class="SmButton" :class="[type, { small: small }]" @click="$emit('click')">
+  <button class="SmButton" :class="[kind, { small: small }]" @click="$emit('click')">
     <slot></slot>
     <SmIcon 
       v-if="icon !== ''" 
       :name="icon" 
-      :class="{ 'ml-2': type !== 'icon'}"
-      :size="type === 'icon' && !small ? 'm' : 's'" 
+      :class="{ 'ml-2': kind !== 'icon'}"
+      :size="kind === 'icon' && !small ? 'm' : 's'" 
     />
   </button>
 </template>
@@ -14,7 +14,7 @@
 export default {
   name: "SmButton",
   props: {
-    type: {
+    kind: {
       type: String,
       required: false,
       default: "icon",

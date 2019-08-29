@@ -1,6 +1,6 @@
 <template>
     <nav :class="'nav-' + type">
-      <template v-if="!blank">
+      <template>
         <template v-if="type === 'top'">
           <router-link class="text-black" to="/" title="Home" v-if="title !== ''">
             <h5>{{ title }}</h5>
@@ -15,6 +15,7 @@
           <!--   / {{ bc.printed }} -->
           <!-- </router-link> -->
           <!-- <userDropdown class="mla p3" /> -->
+          <slot></slot>
         </template>
         <template v-if="type === 'side'">
           <router-link 
@@ -27,8 +28,6 @@
             <SmIcon :name="link.name" />
           </router-link>
         </template>
-      </template>
-      <template v-if="blank">
         <slot></slot>
       </template>
     </nav>
@@ -38,11 +37,6 @@
 export default {
   name: "SmNav",
   props: {
-    blank: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     type: {
       type: String,
       required: true

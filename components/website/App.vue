@@ -1,7 +1,7 @@
 <template>
   <SmApp blank>
     <SmNav type="top" class="p-2"/>
-    <SmNav type="side" class="px-3" blank>
+    <SmNav type="side" class="px-3">
       <router-link to="/" class="p-2">
         <img src="./logo.png" class="w-9" />
       </router-link>

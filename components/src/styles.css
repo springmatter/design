@@ -87,7 +87,7 @@ strong {
 }
 
 small {
-  @apply text-sm;
+  @apply text-xs;
 }
 
 sub,

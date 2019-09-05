@@ -15,7 +15,6 @@
           <!--   / {{ bc.printed }} -->
           <!-- </router-link> -->
           <!-- <userDropdown class="mla p3" /> -->
-          <slot></slot>
         </template>
         <template v-if="type === 'side'">
           <router-link 

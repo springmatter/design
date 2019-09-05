@@ -1,5 +1,6 @@
 <template>
   <SmTextLayout class="root">
+    <ComponentSpec :comp="SmButton" />
     <SmButton kind="primary" small>Click me</SmButton>
     <SmButton kind="secondary">Click me</SmButton>
     <SmButton kind="ghost">Click me</SmButton>
@@ -19,7 +20,16 @@
 </template>
 
 <script>
+import ComponentSpec from "../components/ComponentSpec.vue";
+import SmButton from "../../../components/src/components/SmButton.vue";
+
 export default {
+  components: { ComponentSpec },
+  data: function() {
+    return {
+      SmButton: SmButton
+    };
+  }
 };
 </script>
 

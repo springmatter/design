@@ -2,7 +2,7 @@
   <button class="SmButton" :class="[kind, { small: small }]" @click="$emit('click')">
     <slot></slot>
     <SmIcon 
-      v-if="icon !== ''" 
+      v-if="icon" 
       :name="icon" 
       :class="{ 'ml-2': kind !== 'icon'}"
       :size="kind === 'icon' && !small ? 'm' : 's'" 
@@ -24,8 +24,7 @@ export default {
     },
     icon: {
       type: String,
-      required: false,
-      default: ""
+      required: false
     },
     small: {
       type: Boolean,

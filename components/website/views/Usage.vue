@@ -1,35 +1,36 @@
 <template>
   <SmTextLayout>
-    <VueMarkdown>
-# Usage
+    <h1>Usage</h1>
 
-### Framework Structure
+    <h3>Framework Structure</h3>
+    <p>Fundamentally <code>@springmatter/components</code> consists of:</p>
+    <ol>
+      <li>Custom HTML defaults built on top of
+        <a href="https://necolas.github.io/normalize.css/">normalize.css</a>
+      </li>
+      <li>Layout components</li>
+      <li>Other components</li>
+      <li>CSS utility classes via 
+        <a href="https://tailwindcss.com/">tailwindcss</a>
+      </li>
+    </ol>
 
-Fundamentally `@springmatter/components` consists of:
+    <h3>Setup</h3>
+    <p>Springmatter components is intended to be used with vue-cli 3 or later. </p>
+    <p>First install:</p>
 
-1. Sane HTML defaults via [Bootstrap's Reboot](https://getbootstrap.com/docs/4.3/content/reboot/)
-2. App and content level layout components
-3. CSS utility classes via [Bootstrap's Utilities](https://getbootstrap.com/docs/4.3/utilities/)
-4. A Vue component library
+    <pre>npm install @springmatter/components</pre>
 
-### Setup
+    <p>Second import the components into your main file and register the components (note this must be done before calling <code>new Vue()</code>, and it will also automatically include our CSS files):</p>
 
-Springmatter components is intended to be used with vue-cli 3 or later. 
+    <pre>
+  import components from "@springmatter/components";
+  for (let c of components) { Vue.component(c.name, c); }
 
-First install:
-```
-npm install @springmatter/components
-```
+  new Vue({ ... });</pre>
 
-Second import the components into your main file and register the components (note this must be done before calling `new Vue()`, and it will also automatically include our CSS files):
-```
-import components from "@springmatter/components";
-components.forEach(comp => { Vue.component(comp.name, comp); });
+    <p>Using this method, the components will be globally registered and usable in any of your Vue components.</p>
 
-new Vue({ ... });
-```
-    </VueMarkdown>
-    <p>If this is your first time using @springmatter/design we recommend you head to the <router-link to="/layout">layout section</router-link>, as this is the basis for all Springmatter apps.</p>
   </SmTextLayout>
 </template>
 

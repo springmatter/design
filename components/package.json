@@ -10,7 +10,7 @@
   "scripts": {
     "serve": "vue-cli-service serve website/main.js",
     "pub": "./build.sh && npm publish",
-    "build:docs": "vue-cli-service build --dest ../docs/ --modern website/main.js"
+    "build:docs": "rm -rf ../docs/ && vue-cli-service build --dest ../docs/ --modern website/main.js"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",

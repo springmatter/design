@@ -8,7 +8,7 @@
       <h6 class="m-2 mt-5">Introduction</h6>
       <ul>
         <li v-for="page in introPages" :key="page.name" class="my-1">
-          <router-link :to="'/' + page.name" class="p-2">
+          <router-link :to="page.path" class="p-2">
             {{ page.name }}
           </router-link>
         </li>
@@ -16,7 +16,7 @@
       <h6 class="m-2 mt-5">Layout</h6>
       <ul>
         <li v-for="page in layoutPages" :key="page.name" class="my-1">
-          <router-link :to="'/' + page.name" class="p-2">
+          <router-link :to="page.path" class="p-2">
             {{ page.name }}
           </router-link>
         </li>
@@ -24,7 +24,7 @@
       <h6 class="m-2 mt-5">Components</h6>
       <ul>
         <li v-for="page in componentPages" :key="page.name" class="my-1">
-          <router-link :to="'/' + page.name" class="p-2">
+          <router-link :to="page.path" class="p-2">
             {{ page.name }}
           </router-link>
         </li>

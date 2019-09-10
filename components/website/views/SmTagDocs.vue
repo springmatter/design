@@ -1,5 +1,6 @@
 <template>
   <SmTextLayout>
+    <ComponentSpec compName="SmTag" />
     <ul class="list">
       <li><SmTag color="#00cec9">These are all tags</SmTag></li>
       <li><SmTag color="#ff7675">They can be any color you want</SmTag></li>

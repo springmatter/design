@@ -8,7 +8,8 @@
 
 <script>
 export default {
-  name: "SmTextLayout"
+  name: "SmTextLayout",
+  slotted: true
 }
 </script>
 

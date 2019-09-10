@@ -1,5 +1,6 @@
 <template>
   <SmTextLayout>
+    <ComponentSpec compName="SmIcon" />
     <div class="flex justify-center items-center mb-5">
       <SmIcon name="smile" size="s" />
       <SmIcon name="smile" class="ml-2"/>

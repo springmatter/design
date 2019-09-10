@@ -8,6 +8,7 @@
 <script>
 export default {
   name: "SmCard",
+  slotted: true,
   data: function() {
     return {
       linked: false
@@ -17,7 +18,8 @@ export default {
     modal: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
+      description: "Styles the card for use as a modal window that appears centered on top of existing content. Adds a close button that emits a 'close' event. User is responsible for hiding and showing the modal."
     }
   },
   methods: {
@@ -37,11 +39,12 @@ export default {
 <style scoped>
 .SmCard {
   @apply bg-white;
-  @apply p-3;
+  @apply p-4;
   @apply border;
   @apply border-gray-2;
   @apply rounded;
   @apply text-black;
+  overflow: scroll;
 }
 
 .linked:hover {
@@ -53,9 +56,11 @@ export default {
   @apply mx-auto inset-x-0;
   @apply z-40;
   @apply shadow-xl;
+  top: 40vh;
+  transform: translateY(-50%);
 }
 
-.modal .close-btn {
+.modal > .close-btn {
   position: absolute;
   top: 0;
   right: 0;

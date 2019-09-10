@@ -1,5 +1,5 @@
 <template>
-  <small class="SmTag" :style="{ background: rgbaColor }">
+  <small class="SmTag text-sm" :style="{ background: rgbaColor }">
     <span class="dot" :style=" { background: hexColor }"></span>
     <slot></slot>
   </small>
@@ -8,13 +8,16 @@
 <script>
 export default {
   name: "SmTag",
+  slotted: true,
   props: {
     color: {
       type: String,
       required: true,
       validator: function(value) {
+        // IGNORE
         return /(^#?[0-9A-Fa-f]{6}$)|(^#?[0-9A-Fa-f]{3}$)/i.test(value);
-      }
+      },
+      description: "The background color of the tag. Must be a valid hex color in one of the following forms: #123456, #123, 12345, or 123"
     }
   },
   computed: {
@@ -37,9 +40,9 @@ export default {
 .SmTag {
   @apply rounded-full;
   @apply whitespace-no-wrap;
-  padding: 3px 10px 3px 8px;
+  padding: 3px 14px 3px 8px;
   @apply text-gray-9;
-  @apply italic;
+  @apply italic inline-flex items-center;
 }
 
 .dot {
@@ -48,6 +51,6 @@ export default {
   background: black;
   display: inline-block;
   @apply rounded-full;
-  @apply mr-1;
+  @apply mr-2;
 }
 </style>

@@ -1,16 +1,17 @@
 <template>
   <SmTextLayout class="root">
-    <ComponentSpec :comp="SmButton" />
+    <ComponentSpec compName="SmButton" />
+
     <SmButton kind="primary" small>Click me</SmButton>
     <SmButton kind="secondary">Click me</SmButton>
     <SmButton kind="ghost">Click me</SmButton>
-    <SmButton icon="map"/>
+    <SmButton kind="blank" icon="map"/>
     <br />
 
     <SmButton kind="primary"disabled>Click me</SmButton>
     <SmButton kind="secondary" disabled>Click me</SmButton>
     <SmButton kind="ghost" disabled>Click me</SmButton>
-    <SmButton icon="map" disabled/>
+    <SmButton kind="blank" icon="map" disabled/>
     <br />
     
     <SmButton kind="primary" icon="plus">Click me</SmButton>
@@ -20,21 +21,8 @@
 </template>
 
 <script>
-import ComponentSpec from "../components/ComponentSpec.vue";
-import SmButton from "../../../components/src/components/SmButton.vue";
-
-export default {
-  components: { ComponentSpec },
-  data: function() {
-    return {
-      SmButton: SmButton
-    };
-  }
-};
+export default {};
 </script>
 
 <style scoped>
-.root * {
-  @apply m-2;
-}
 </style>

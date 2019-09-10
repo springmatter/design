@@ -1,19 +1,22 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import Introduction from "./views/Introduction.vue";
+import Philosophy from "./views/Philosophy.vue";
 import Usage from "./views/Usage.vue";
-
-import Layout from "./views/Layout.vue";
-import Typography from "./views/Typography.vue";
+import Defaults from "./views/Defaults.vue";
 import Utilities from "./views/Utilities.vue";
 
-import Buttons from "./views/Buttons.vue";
-import Cards from "./views/Cards.vue";
-import Forms from "./views/Forms.vue";
-import Icons from "./views/Icons.vue";
-import Loading from "./views/Loading.vue";
-import Tags from "./views/Tags.vue";
+import SmAppDocs from "./views/SmAppDocs.vue";
+import SmNavDocs from "./views/SmNavDocs.vue";
+import SmGridLayoutDocs from "./views/SmGridLayoutDocs.vue";
+import SmTabLayoutDocs from "./views/SmTabLayoutDocs.vue";
+import SmTextLayoutDocs from "./views/SmTextLayoutDocs.vue";
+
+import SmButtonDocs from "./views/SmButtonDocs.vue";
+import SmCardDocs from "./views/SmCardDocs.vue";
+import SmIconDocs from "./views/SmIconDocs.vue";
+import SmLoadingDocs from "./views/SmLoadingDocs.vue";
+import SmTagDocs from "./views/SmTagDocs.vue";
 
 Vue.use(Router);
 
@@ -23,58 +26,73 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "introduction",
-      component: Introduction,
+      name: "Philosophy",
+      component: Philosophy,
     },
     {
       path: "/usage",
-      name: "usage",
+      name: "Usage",
       component: Usage,
     },
     {
-      path: "/layout",
-      name: "layout",
-      component: Layout
-    },
-    {
-      path: "/typography",
-      name: "typography",
-      component: Typography
+      path: "/defaults",
+      name: "Defaults",
+      component: Defaults
     },
     {
       path: "/utilities",
-      name: "utilities",
+      name: "Utilities",
       component: Utilities
     },
     {
-      path: "/buttons",
-      name: "buttons",
-      component: Buttons
+      path: "/SmApp",
+      name: "SmApp",
+      component: SmAppDocs
     },
     {
-      path: "/cards",
-      name: "cards",
-      component: Cards
+      path: "/SmNav",
+      name: "SmNav",
+      component: SmNavDocs
     },
     {
-      path: "/forms",
-      name: "forms",
-      component: Forms
+      path: "/SmGridLayout",
+      name: "SmGridLayout",
+      component: SmGridLayoutDocs
     },
     {
-      path: "/icons",
-      name: "icons",
-      component: Icons
+      path: "/SmTabLayout",
+      name: "SmTabLayout",
+      component: SmTabLayoutDocs
     },
     {
-      path: "/loading",
-      name: "loading",
-      component: Loading
+      path: "/SmTextLayout",
+      name: "SmTextLayout",
+      component: SmTextLayoutDocs
     },
     {
-      path: "/tags",
-      name: "tags",
-      component: Tags
+      path: "/SmButton",
+      name: "SmButton",
+      component: SmButtonDocs
+    },
+    {
+      path: "/SmCard",
+      name: "SmCard",
+      component: SmCardDocs
+    },
+    {
+      path: "/SmIcon",
+      name: "SmIcon",
+      component: SmIconDocs
+    },
+    {
+      path: "/SmLoading",
+      name: "SmLoading",
+      component: SmLoadingDocs
+    },
+    {
+      path: "/SmTag",
+      name: "SmTag",
+      component: SmTagDocs
     }
   ]
 });

@@ -1,65 +1,75 @@
 <template>
-  <section>
+  <SmCard class="mb-7">
     <h2 class="m-0">{{ comp.name }}</h2>
-    <pre class="p-3 bg-gray-1">
-<{{ comp.name + " " + compProps }}
->
-</{{ comp.name }}></pre>
-    <small>
-      <ul class="list-disc ml-4 mt-2">
-        <li>
-          <code>!</code> before prop name denotes required prop
-        </li>
-        <li>
-          <code>Type(value)</code> denotes default prop value
-        </li>
-        <li>
-          <code>val1|val2|val3|val4</code> denotes enum
-        </li>
-      </ul>
-    </small>
-  </section>
+    <code class="p-3 my-2 block">{{ compStr }}</code>
+    <h4 v-if="'props' in comp" class="mb-4">Props</h4>
+    <dl>
+      <template v-for="(prop, key) in comp.props">
+        <dt class="font-normal">
+          <code>{{ key }}</code>
+          <small v-if="prop.required" class="ml-1 text-red">Required</small>
+          <small class="text-blue">
+            {{ prop.type.toString().replace(/function |\(\).*/g, "") }}
+            <span v-if="'validator' in prop && !prop.validator.toString().includes('IGNORE')">
+              {{
+                prop.validator
+                .toString()
+                .match(/\[.*\]/g)[0]
+                .replace(/,/g, " |")
+              }}
+            </span>
+          </small>
+          <small v-if="'default' in prop" class="text-green">
+            default:
+            {{ 
+              prop.type.toString().indexOf("String") !== -1 ?
+                `"${prop.default}"` :
+                prop.default
+            }}
+          </small>
+        </dt>
+        <dd class="mb-5 ml-4 mt-2">
+          {{ prop.description }}
+        </dd>
+      </template>
+    </dl>
+  </SmCard>
 </template>
 
 <script>
 export default {
   props: {
-    comp: {
-      type: Object,
+    compName: {
+      type: String,
       required: true
     }
   },
   computed: {
-    compProps: function() {
+    comp: function() {
+      return this.$root.$data.comps[this.compName];
+    },
+    compStr: function() {
       var ps = this.comp.props;
-      var propStr = "";
-      var allRequired = true;
+      var compStr = `<${this.comp.name}`;
       for(let p in ps) {
-        var typeStr = ps[p].type.toString().replace(/function |\(\).*/g, "");
-
-        if ("default" in ps[p]) {
-          typeStr += `(${ps[p].default})`;
-        }
-
-        if ("validator" in ps[p]) {
-          var enums = ps[p].validator
-            .toString()
-            .match(/\[.*\]/g)[0]
-            .replace(/,/g, "|")
-            .replace(/\[|\]| |"/g, "");
-          typeStr = enums;
-        }
-
         if (ps[p].required) {
-          propStr = `\n  !${p}="${typeStr}"` + propStr;
-        } else {
-          propStr = propStr + `\n  ${p}="${typeStr}"`;
-          allRequired = false;
-        }
+          var typeStr = ps[p].type.toString().replace(/function |\(\).*/g, "");
 
+          var newProp = `${p}="${typeStr}"`
+          if (typeStr !== "String") {
+            newProp = ":" + newProp;
+          }
+          compStr = `${compStr} ${newProp}`;
+        }
       }
 
-      return propStr;
+      if (this.comp.slotted) {
+        compStr += `></${this.comp.name}>`;
+      } else {
+        compStr += " />";
+      }
+
+      return compStr;
     }
   }
 }

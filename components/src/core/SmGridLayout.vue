@@ -6,7 +6,8 @@
 
 <script>
 export default {
-  name: "SmGridLayout"
+  name: "SmGridLayout",
+  slotted: true
 }
 </script>
 
@@ -30,21 +31,21 @@ export default {
   grid-area: header;
   @apply border-b;
   @apply border-gray-1;
-  @apply py-2 px-3;
+  @apply py-2 px-4;
 }
 
 .SmGridLayout > footer {
   grid-area: footer;
   @apply border-t;
   @apply border-gray-1;
-  @apply p-3;
+  @apply p-4;
 }
 
 .SmGridLayout > aside {
   grid-area: aside;
   @apply border-l;
   @apply border-gray-1;
-  @apply p-3;
+  @apply p-4;
 }
 
 .SmGridLayout > aside > .SmCard {

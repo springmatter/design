@@ -1,10 +1,9 @@
 <template>
   <SmTextLayout>
-      <SmButton type="primary" @click="modal = true">Open modal card</SmButton>
-      <SmCard v-if="modal" @close="modal = false" modal>
-        <template #title>
-          I am a modal
-        </template>
+      <ComponentSpec compName="SmCard" />
+      <SmButton kind="primary" @click="modal = true">Open modal card</SmButton>
+      <SmCard v-if="modal" class="w-1/3" @close="modal = false" modal>
+        <h5>I am a modal testing testing testingtesting t</h5>
         Close me if you dare
       </SmCard>
       <SmCard>

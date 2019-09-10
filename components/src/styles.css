@@ -22,8 +22,6 @@ body {
 button:focus {
   outline: #0062FF solid 2px;
   outline-offset: 1px;
-  @apply z-30;
-  position: relative;
 }
 
 hr {
@@ -87,7 +85,7 @@ strong {
 }
 
 small {
-  @apply text-xs;
+  @apply text-xs tracking-wider;
 }
 
 sub,

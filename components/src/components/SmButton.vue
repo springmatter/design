@@ -4,8 +4,7 @@
     <SmIcon 
       v-if="icon" 
       :name="icon" 
-      :class="{ 'ml-2': kind !== 'icon'}"
-      :size="kind === 'icon' && !small ? 'm' : 's'" 
+      :size="small ? 's' : 'm'" 
     />
   </button>
 </template>
@@ -13,23 +12,26 @@
 <script>
 export default {
   name: "SmButton",
+  slotted: true,
   props: {
     kind: {
       type: String,
       required: false,
-      default: "icon",
+      default: "blank",
       validator: function(value) {
-        return ["primary", "secondary", "ghost", "icon"].indexOf(value) !== -1
-      }
+        return ["primary", "secondary", "ghost", "blank"].indexOf(value) !== -1
+      },
+      description: "Determines the visual style of the button. If no kind is applied the button acts as a simple clickable wrapper."
     },
     icon: {
       type: String,
-      required: false
+      required: false,
+      description: "The name of an icon to be included in the button. In primary, secondary, and ghost buttons the icon will appear beside the text, in default buttons the icon will be centered. Must correspond to the name of an icon from the feather icons set (See SmIcon page for full list of available icons)."
     },
     small: {
       type: Boolean,
       required: false,
-      default: false,
+      description: "Shrinks the button vertically for use inline, in headers, etc."
     }
   },
 }
@@ -41,6 +43,8 @@ export default {
   @apply flex;
   @apply items-center;
   @apply rounded-sm;
+  @apply p-1;
+  @apply bg-transparent;
 }
 
 .SmButton:disabled {
@@ -52,6 +56,12 @@ export default {
 .secondary {
   @apply py-2;
   @apply px-4;
+}
+
+.primary > svg,
+.secondary > svg,
+.ghost > svg {
+  @apply ml-2;
 }
 
 .primary:disabled,
@@ -77,12 +87,6 @@ export default {
   @apply bg-black;
 }
 
-.ghost,
-.icon {
-  @apply p-1;
-  @apply bg-transparent;
-}
-
 .ghost {
   @apply text-blue;
 }
@@ -91,11 +95,11 @@ export default {
   @apply text-blue-dark;
 }
 
-.icon {
-  @apply text-gray-10;
+.blank {
+  @apply text-gray-9;
 }
 
-.icon:hover {
+.blank:hover {
   @apply text-black;
 }
 

@@ -1,7 +1,7 @@
-
 <template>
   <SmTextLayout>
-    <input type="text"></input>
+    <ComponentSpec compName="SmLoading" />
+    <SmLoading />
   </SmTextLayout>
 </template>
 

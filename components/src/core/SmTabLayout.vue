@@ -7,9 +7,11 @@
         :key="index"
         :class="{ activeTab: activeTab === index }"
       >
-        <small><SmButton kind="ghost" @click="switchTab(index)" class="tab-button">
+        <SmButton kind="ghost" @click="switchTab(index)" class="tab-button">
+          <small>
           {{ tab.tabName }}
-        </SmButton></small>
+          </small>
+        </SmButton>
         <SmButton v-if="index > 0" icon="x" @click="closeTab(index)" class="tab-close" small/>
       </div>
     </div>
@@ -22,6 +24,7 @@
 <script>
 export default {
   name: "SmTabLayout",
+  slotted: true,
   components: {},
   data: function() {
     return {
@@ -29,6 +32,13 @@ export default {
       activeTab: -1,
       observer: null
     };
+  },
+  props: {
+    noSwitch: {
+      type: Boolean,
+      required: false,
+      description: "By default, SmTabLayout will switch to a new tab when it is added as one of its children. This disables that behavior."
+    }
   },
   methods: {
     closeTab: function(index) {
@@ -52,12 +62,18 @@ export default {
       this.tabs[this.activeTab].style.display = "grid";
     },
     update: function() {
+      var newChilds = Array.from(document.getElementById("currentTab").childNodes);
+      var sw = this.tabs.length < newChilds.length;
       this.tabs = Array.from(document.getElementById("currentTab").childNodes);
       const at = this.activeTab;
       this.tabs.forEach(function(tab, index) {
         tab.tabName = tab.getAttribute("data-tab");
         tab.style.display = index === at ? "grid" : "none";
       });
+
+      if (sw && !this.noSwitch) {
+        this.switchTab(this.tabs.length - 1);
+      }
     }
   },
   mounted: function() {
@@ -82,14 +98,19 @@ export default {
 .SmTabLayout {
   @apply flex;
   @apply flex-col;
-  @apply h-full w-full overflow-hidden;
+  @apply h-full w-full;
+  overflow: hidden;
 }
 
 .tab-bar {
-  @apply flex;
-  @apply w-full;
   @apply border-b;
   @apply border-gray-1;
+  overflow: scroll;
+  white-space: nowrap;
+}
+
+.tab-bar::-webkit-scrollbar {
+  display: none;
 }
 
 .tab-container {
@@ -97,13 +118,19 @@ export default {
   @apply border-b;
   @apply border-gray-1;
   @apply bg-white;
-  @apply flex;
   @apply -mb-px;
+  @apply text-gray-3;
+  display: inline-block;
 }
 
 .tab-button {
   @apply p-2;
-  @apply text-gray-3;
+  color: inherit;
+  display: inline-block;
+}
+
+.tab-close {
+  display: inline-block;
 }
 
 .tab-button:hover,
@@ -111,8 +138,16 @@ export default {
   @apply text-black;
 }
 
+.tab-button:focus,
+.tab-close:focus {
+  outline-offset: -2px;
+  @apply relative z-30;
+}
+
 #currentTab {
   @apply flex-grow;
+  overflow: scroll;
+  height: 1px;
 }
 
 .tab-close {

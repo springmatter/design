@@ -21,7 +21,7 @@ import SmTagDocs from "./views/SmTagDocs.vue";
 Vue.use(Router);
 
 export default new Router({
-  mode: "hash",
+  mode: "history",
   base: "/design/",
   routes: [
     {

@@ -1,5 +1,5 @@
 <template>
-  <button class="SmButton" :class="[kind, { small: small }]" @click="$emit('click')">
+  <button class="SmButton" :class="[kind, { small: small }]" @click="$emit('click')" @mouseover="$emit('mouseover')">
     <slot></slot>
     <SmIcon 
       v-if="icon" 

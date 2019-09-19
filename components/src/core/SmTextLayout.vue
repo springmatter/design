@@ -13,7 +13,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .SmTextLayout {
   grid-area: content;
   @apply py-7;
@@ -25,19 +25,27 @@ export default {
   @apply w-1/2;
 }
 
-pre {
+.SmTextLayout > pre {
   @apply bg-gray-1 p-2 my-4;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+.SmTextLayout > h1,
+.SmTextLayout > h2,
+.SmTextLayout > h3,
+.SmTextLayout > h4,
+.SmTextLayout > h5,
+.SmTextLayout > h6,
+.SmTextLayout > p {
   @apply mb-4;
 }
 
-li {
+.SmTextLayout > ul > li,
+.SmTextLayout > ol > li {
   @apply my-1;
 }
 
-ol, ul {
+.SmTextLayout > ol,
+.SmTextLayout > ul {
   @apply m-4 list-inside;
 }
 </style>

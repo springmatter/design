@@ -1,5 +1,5 @@
 <template>
-    <nav :class="'nav-' + kind">
+    <nav :id="'nav-' + kind">
       <template>
         <template v-if="kind === 'top'">
           <router-link class="text-black" to="/" title="Home" v-if="title !== ''">
@@ -67,8 +67,8 @@ export default {
 }
 </script>
 
-<style scoped>
-nav.nav-top {
+<style>
+#nav-top {
   grid-area: topNav;
   display: flex;
   @apply border-b;
@@ -76,7 +76,7 @@ nav.nav-top {
   @apply py-2 px-3;
 }
 
-nav.nav-side {
+#nav-side {
   grid-area: sideNav;
   display: flex;
   flex-flow: column;

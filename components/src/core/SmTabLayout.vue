@@ -94,7 +94,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .SmTabLayout {
   @apply flex;
   @apply flex-col;

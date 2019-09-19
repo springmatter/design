@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .SmGridLayout {
   grid-area: content;
   display: grid;

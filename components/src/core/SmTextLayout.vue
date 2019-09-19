@@ -13,7 +13,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .SmTextLayout {
   grid-area: content;
   @apply py-7;

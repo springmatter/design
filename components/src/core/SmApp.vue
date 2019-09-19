@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #SmApp {
   width: 100vw;
   height: 100vh;

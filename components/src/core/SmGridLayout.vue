@@ -15,12 +15,12 @@ export default {
 .SmGridLayout {
   grid-area: content;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr auto;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-  "header aside"
-  "main   aside"
-  "footer aside";
+  "leftaside header aside"
+  "leftaside main   aside"
+  "leftaside footer aside";
   overflow: hidden;
 
   @apply w-full;
@@ -46,6 +46,11 @@ export default {
   @apply border-l;
   @apply border-gray-1;
   @apply p-4;
+}
+
+.SmGridLayout > aside.left {
+  grid-area: leftaside;
+  @apply border-r border-l-0 border-gray-1 p-4;
 }
 
 .SmGridLayout > aside > .SmCard {

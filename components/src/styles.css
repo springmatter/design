@@ -20,7 +20,7 @@ body {
 
 :focus,
 button:focus {
-  outline: #0062FF solid 2px;
+  outline: #0062ff solid 2px;
   outline-offset: 1px;
 }
 
@@ -97,11 +97,11 @@ sup {
 }
 
 sub {
-  bottom: -.25em;
+  bottom: -0.25em;
 }
 
 sup {
-  top: -.5em;
+  top: -0.5em;
 }
 
 a {
@@ -145,6 +145,44 @@ ol {
 li {
   @apply mb-2;
 }
+
+form {
+  display: flex;
+  flex-flow: column wrap;
+  position: relative;
+  @apply p-3;
+}
+
+form > label {
+  @apply mt-3 mb-1;
+}
+
+input {
+  @apply bg-white rounded-sm border border-gray-3 block p-1;
+  height: 30px;
+}
+
+select {
+  @apply p-2 border border-gray-3 rounded-sm;
+  height: 30px;
+}
+
+input[type="radio"] {
+  box-shadow: none;
+  height: auto;
+}
+
+input[type="color"] {
+  background: white;
+  @apply w-full;
+  padding: 0 1px;
+  height: 30px;
+}
+
+input[type="color"]:hover {
+  cursor: pointer;
+}
+
 @tailwind components;
 
 @tailwind utilities;

@@ -1,6 +1,7 @@
 <template>
-  <SmApp>
-    <template #nav-side>
+  <SmApp blank>
+    <SmNav kind="top" class="p-2"/>
+    <SmNav kind="side" class="px-3">
       <router-link to="/" class="p-2">
         <img src="./logo.png" class="w-9" />
       </router-link>
@@ -28,7 +29,7 @@
           </router-link>
         </li>
       </ul>
-    </template>
+    </SmNav>
     <router-view />
   </SmApp>
 </template>
@@ -40,10 +41,10 @@ export default {
       return this.$router.options.routes.slice(0, 4);
     },
     layoutPages: function() {
-      return this.$router.options.routes.slice(4, 8);
+      return this.$router.options.routes.slice(4, 9);
     },
     componentPages: function() {
-      return this.$router.options.routes.slice(8);
+      return this.$router.options.routes.slice(9);
     }
   }
 };

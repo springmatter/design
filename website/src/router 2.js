@@ -7,6 +7,7 @@ import Defaults from "./views/Defaults.vue";
 import Utilities from "./views/Utilities.vue";
 
 import SmAppDocs from "./views/SmAppDocs.vue";
+import SmNavDocs from "./views/SmNavDocs.vue";
 import SmGridLayoutDocs from "./views/SmGridLayoutDocs.vue";
 import SmTabLayoutDocs from "./views/SmTabLayoutDocs.vue";
 import SmTextLayoutDocs from "./views/SmTextLayoutDocs.vue";
@@ -26,12 +27,12 @@ export default new Router({
     {
       path: "/",
       name: "Philosophy",
-      component: Philosophy
+      component: Philosophy,
     },
     {
       path: "/usage",
       name: "Usage",
-      component: Usage
+      component: Usage,
     },
     {
       path: "/defaults",
@@ -47,6 +48,11 @@ export default new Router({
       path: "/SmApp",
       name: "SmApp",
       component: SmAppDocs
+    },
+    {
+      path: "/SmNav",
+      name: "SmNav",
+      component: SmNavDocs
     },
     {
       path: "/SmGridLayout",

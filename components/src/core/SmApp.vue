@@ -1,13 +1,12 @@
 <template>
   <div id="SmApp">
-    <template v-if="!blank">
-      <SmNav kind="top" :title="title" />
-      <SmNav kind="side" :links="links" />
-      <router-view></router-view>
-    </template>
-    <template v-if="blank">
-      <slot></slot>
-    </template>
+    <SmNav kind="top" :title="title">
+      <slot name="nav-top"></slot>
+    </SmNav>
+    <SmNav kind="side" :links="links">
+      <slot name="nav-side"></slot>
+    </SmNav>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -16,12 +15,6 @@ export default {
   name: "SmApp",
   slotted: true,
   props: {
-    blank: {
-      type: Boolean,
-      required: false,
-      description:
-        "Removes all default children of SmApp but maintains its grid structure. This is useful if you want to keep the app layout but tweak the nav bars. Check out the source for this website on github for an example."
-    },
     title: {
       type: String,
       required: false,

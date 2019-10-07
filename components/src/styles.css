@@ -138,6 +138,11 @@ summary {
   display: none !important;
 }
 
+ol,
+ul {
+  @apply list-inside;
+}
+
 ol {
   @apply list-decimal;
 }

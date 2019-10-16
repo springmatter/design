@@ -1,34 +1,14 @@
 <template>
-  <nav :id="'nav-' + kind">
-    <template>
-      <template v-if="kind === 'top'">
-        <router-link class="text-black" to="/" title="Home" v-if="title !== ''">
-          <h5>{{ title }}</h5>
-        </router-link>
-
-        <!-- <router-link -->
-        <!--   class="black" -->
-        <!--   v-for="(bc, index) in breadcrumbs" -->
-        <!--   :key="index" -->
-        <!--   :to="bc.href" -->
-        <!-- > -->
-        <!--   / {{ bc.printed }} -->
-        <!-- </router-link> -->
-        <!-- <userDropdown class="mla p3" /> -->
-      </template>
-      <template v-if="kind === 'side'">
-        <router-link
-          v-for="(link, index) in links"
-          :key="index"
-          :to="link.route"
-          class="mb-3 text-black"
-          black
-        >
-          <SmIcon :name="link.name" />
-        </router-link>
-      </template>
-      <slot></slot>
-    </template>
+  <nav>
+    <router-link
+      v-for="(link, index) in links"
+      :key="index"
+      :to="link.route"
+      class="mb-3 text-black"
+    >
+      <SmIcon :name="link.name" />
+    </router-link>
+    <slot></slot>
   </nav>
 </template>
 
@@ -37,20 +17,11 @@ export default {
   name: "SmNav",
   slotted: true,
   props: {
-    kind: {
-      type: String,
-      required: true,
-      validator: function(value) {
-        return ["top", "side"].indexOf(value) !== -1;
-      },
-      description:
-        "This determines whether the nav is styled as a top or a side nav."
-    },
-    title: {
+    logoPath: {
       type: String,
       required: false,
       description:
-        "This is the title of your app that will appear in the top left on the nav bar."
+        "This is the path to your app's logo that will appear in the top left of the app."
     },
     links: {
       type: Array,

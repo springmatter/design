@@ -8,7 +8,7 @@
     "tailwind.config.js"
   ],
   "scripts": {
-    "serve": "vue-cli-service serve ../website/main.js",
+    "sandbox": "vue-cli-service serve ./sandbox/main.js",
     "pub": "./build.sh && npm publish",
     "build:docs": "rm -rf ../docs/ && vue-cli-service build --dest ../docs/ --modern website/main.js"
   },

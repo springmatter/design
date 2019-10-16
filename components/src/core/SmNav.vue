@@ -45,9 +45,6 @@ export default {
 #nav-top {
   grid-area: topNav;
   display: flex;
-  @apply border-b;
-  @apply border-gray-1;
-  @apply py-2 px-3;
 }
 
 #nav-side {
@@ -55,9 +52,5 @@ export default {
   display: flex;
   flex-flow: column;
   margin-top: -1px;
-  @apply bg-white;
-  @apply border-r;
-  @apply border-gray-1;
-  @apply p-3;
 }
 </style>

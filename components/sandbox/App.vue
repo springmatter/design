@@ -1,6 +1,6 @@
 <template>
   <div>
-    TEST
+    <SmTag color="#1D833B">Achillea Millifolium</SmTag>
   </div>
 </template>
 

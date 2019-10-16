@@ -18,7 +18,8 @@ export default {
     name: {
       type: String,
       required: true,
-      description: "Determines the icon to be used. Must correspond to the name of an icon from the feather icons set (See full list of available icons below)."
+      description:
+        "Determines the icon to be used. Must correspond to the name of an icon from the feather icons set (See full list of available icons below)."
     },
     size: {
       type: String,
@@ -28,7 +29,7 @@ export default {
         return ["s", "m", "l"].indexOf(value) !== -1;
       },
       description: "Determines the size of the icon."
-    },
+    }
   },
   computed: {
     iconCode: function() {
@@ -49,17 +50,11 @@ export default {
 }
 
 .SmIcon.s {
-  @apply w-4;
-  @apply h-4;
 }
 
 .SmIcon.m {
-  @apply w-5;
-  @apply h-5;
 }
 
 .SmIcon.l {
-  @apply w-6;
-  @apply h-6;
 }
 </style>

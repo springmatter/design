@@ -12,12 +12,13 @@ body {
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
+  color: black;
   line-height: 24px;
 }
 
 :focus,
 button:focus {
-  outline: #0062ff solid 2px;
+  outline: #0038ff solid 2px;
   outline-offset: 1px;
 }
 
@@ -76,13 +77,13 @@ strong {
 }
 
 a {
-  @apply text-blue;
+  color: #0038ff;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  @apply text-blue-dark;
+  color: #0032e3;
   text-decoration: none;
 }
 
@@ -107,20 +108,25 @@ form {
   display: flex;
   flex-flow: column wrap;
   position: relative;
-  @apply p-3;
+  padding: 12px;
 }
 
 form > label {
-  @apply mt-3 mb-1;
+  margin-top: 12px;
+  margin-bottom: 4px;
 }
 
 input {
-  @apply bg-white rounded-sm border border-gray-3 block p-1;
+  background: white;
+  border: 1px solid gray;
+  display: block;
+  padding: 4px;
   height: 30px;
 }
 
 select {
-  @apply p-2 border border-gray-3 rounded-sm;
+  padding: 4px;
+  border: 1px solid gray;
   height: 30px;
 }
 

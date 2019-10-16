@@ -10,7 +10,7 @@
 export default {
   name: "SmLoading",
   slotted: false
-}
+};
 </script>
 
 <style scoped>
@@ -23,7 +23,6 @@ export default {
   width: 1rem;
   height: 1rem;
   margin: 2rem 0.3rem;
-  @apply bg-black;
   border-radius: 50%;
   animation: 0.9s bounce infinite alternate;
 }

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 
-import components from "../../components/src/index.js";
+import components from "../src/index.js";
 
 components.forEach(comp => {
   Vue.component(comp.name, comp);

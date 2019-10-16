@@ -19,11 +19,9 @@ export default {
     kind: {
       type: String,
       required: false,
-      default: "blank",
+      default: "",
       validator: function(value) {
-        return (
-          ["primary", "secondary", "alternate", "blank"].indexOf(value) !== -1
-        );
+        return ["primary", "secondary", "alternate", ""].indexOf(value) !== -1;
       },
       description:
         "Determines the visual style of the button. If no kind is applied the button acts as a simple clickable wrapper."
@@ -45,54 +43,79 @@ export default {
 </script>
 
 <style scoped>
-.SmButton {
-  color: white;
+.primary,
+.secondary,
+.alternate {
+  min-width: 176px;
+  height: 48px;
   display: flex;
   align-items: center;
-  padding: 8px;
-}
-
-.SmButton:disabled {
-}
-
-.primary,
-.secondary {
+  justify-content: center;
+  font-weight: 300;
 }
 
 .primary > svg,
 .secondary > svg,
 .alternate > svg {
+  margin-left: 8px;
 }
 
+.SmButton:disabled,
 .primary:disabled,
-.secondary:disabled {
+.secondary:disabled,
+.alternate:disabled {
+  @apply opacity-25;
+  cursor: not-allowed;
 }
 
-.primary {
+.SmButton:active,
+.primary:active,
+.secondary:active {
+  @apply opacity-75;
+}
+
+.alternate:active {
+  @apply opacity-50;
+}
+
+.primary,
+.primary:disabled:hover {
+  @apply bg-primary;
+  color: white;
 }
 
 .primary:hover {
+  @apply bg-primary-hover;
 }
 
-.secondary {
+.secondary,
+.secondary:disabled:hover {
+  @apply bg-secondary;
+  color: white;
+  @apply border-0;
 }
 
 .secondary:hover {
+  background: black;
+  @apply border-2;
+  @apply border-primary;
 }
 
-.alternate {
+.alternate,
+.alternate:disabled:hover {
+  background: white;
+  @apply border;
+  @apply border-secondary;
+  color: black;
 }
 
 .alternate:hover {
+  @apply border-primary;
+  @apply text-primary;
 }
 
-.blank {
-}
-
-.blank:hover {
-}
-
-.small,
-.small:disabled {
+.small {
+  min-width: 120px;
+  height: 32px;
 }
 </style>

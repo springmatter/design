@@ -50,11 +50,17 @@ export default {
 }
 
 .SmIcon.s {
+  width: 16px;
+  height: 16px;
 }
 
 .SmIcon.m {
+  width: 20px;
+  height: 20px;
 }
 
 .SmIcon.l {
+  width: 24px;
+  height: 24px;
 }
 </style>

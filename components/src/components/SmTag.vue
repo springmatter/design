@@ -48,18 +48,18 @@ export default {
 </script>
 
 <style scoped>
-.SmTagDot {
+.SmTag {
   border-radius: 100px;
   white-space: nowrap;
-  padding: 4px 20px 4px 8px;
-  display: flex;
+  padding: 4px 8px 4px 8px;
+  display: inline-flex;
   align-items: center;
 }
 
-.dot {
+.SmTagDot {
   width: 8px;
   height: 8px;
   border-radius: 100px;
-  margin-right: 4px;
+  margin-right: 8px;
 }
 </style>

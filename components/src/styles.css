@@ -11,6 +11,9 @@
   --error: #da1e28;
   --success: #1d833b;
   --highlight: #ffe55e;
+
+  --transition-short: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  --transition-long: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 *,

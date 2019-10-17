@@ -20,19 +20,20 @@ export default {
 }
 
 .SmLoadingDot {
-  width: 1rem;
-  height: 1rem;
-  margin: 2rem 0.3rem;
+  width: 16px;
+  height: 16px;
+  margin: 32px 4px;
   border-radius: 50%;
-  animation: 0.9s bounce infinite alternate;
+  animation: 0.6s bounce infinite alternate;
+  background: var(--secondary);
 }
 
 .SmLoadingDot:nth-child(2) {
-  animation-delay: 0.3s;
+  animation-delay: 0.2s;
 }
 
 .SmLoadingDot:nth-child(3) {
-  animation-delay: 0.6s;
+  animation-delay: 0.4s;
 }
 
 @keyframes bounce {

@@ -1,5 +1,18 @@
 @tailwind base;
 
+:root {
+  --gray1: #f8f9fa;
+  --gray2: #dde2e5;
+  --gray3: #acb5bd;
+  --gray4: #495057;
+  --primary: #0038ff;
+  --primary-hover: #0032e3;
+  --secondary: #141618;
+  --error: #da1e28;
+  --success: #1d833b;
+  --highlight: #ffe55e;
+}
+
 *,
 *::before,
 *::after {
@@ -77,14 +90,16 @@ strong {
 }
 
 a {
-  color: #0038ff;
+  color: var(--primary);
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #0032e3;
+  color: var(--primary-hover);
   text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 [hidden] {

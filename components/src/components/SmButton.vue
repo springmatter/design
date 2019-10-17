@@ -43,6 +43,10 @@ export default {
 </script>
 
 <style scoped>
+.SmButton {
+  display: inline;
+  text-align: left;
+}
 .primary,
 .secondary,
 .alternate {

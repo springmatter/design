@@ -1,30 +1,15 @@
 <template>
   <div id="SmApp">
     <nav id="SmAppNav">
-      <router-link to="/" id="SmAppNavBranding">
+      <router-link to="/">
         <img :src="logoPath" />
       </router-link>
-      <div id="SmAppNavLinks">
-        <router-link
-          v-for="(link, index) in links"
-          :key="index"
-          :to="link.route"
-        >
-          <SmIcon :name="link.icon" size="l" />
-          <span v-if="expanded">{{ link.title }}</span>
-        </router-link>
-      </div>
-      <SmButton id="SmAppNavExpand" @click="expanded = !expanded">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="-1 0 18 24"
-          id="SmAppNavExpandSvg"
-        >
-          <line y1="18" x1="0" y2="18" x2="4" stroke-linecap="round"></line>
-          <line y1="12" x1="0" y2="12" x2="10" stroke-linecap="round"></line>
-          <line y1="6" x1="0" y2="6" x2="16" stroke-linecap="round"></line>
-        </svg>
-      </SmButton>
+      <router-link v-for="(link, index) in links" :key="index" :to="link.route">
+        <SmIcon :name="link.icon" size="l" />
+      </router-link>
+      <router-link to="/settings">
+        <SmIcon name="settings" size="l" />
+      </router-link>
     </nav>
     <router-view></router-view>
   </div>
@@ -34,11 +19,6 @@
 export default {
   name: "SmApp",
   slotted: true,
-  data: function() {
-    return {
-      expanded: false
-    };
-  },
   props: {
     title: {
       type: String,
@@ -83,79 +63,39 @@ export default {
 #SmAppNav {
   width: 64px;
   height: 100%;
-
-  display: flex;
-  flex-direction: column;
-}
-
-#SmAppNavBranding {
-  width: 64px;
-  height: 64px;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#SmAppNavBranding > img {
-  opacity: 0.25;
-  transition: var(--transition-short);
-}
-
-#SmAppNavBranding:hover > img {
-  opacity: 1;
-}
-
-#SmAppNavLinks {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-#SmAppNavLinks > a {
-  padding: 8px;
-  width: 40px;
+#SmAppNav > a {
+  padding: 8px 20px;
   height: 40px;
+  width: 100%;
   color: var(--secondary);
-  display: flex;
-  justify-content: center;
-  align-content: center;
 }
 
-#SmAppNavLinks > a:hover {
-  color: black;
-}
-
-#SmAppNavExpand {
-  width: 64px;
+#SmAppNav > a:first-child {
   height: 64px;
+  margin-bottom: auto;
+  opacity: 0.8;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
-#SmAppNavExpand:hover > svg {
+#SmAppNav > a:first-child:hover {
   opacity: 1;
 }
 
-#SmAppNavExpand:hover > svg > line:nth-child(2) {
-  transform: scaleX(1.57) translateX(0.1px);
-}
-#SmAppNavExpand:hover > svg > line:nth-child(1) {
-  transform: scaleX(3.4) translateX(0.3px);
-}
-
-#SmAppNavExpandSvg {
-  width: 28px;
-  height: 28px;
-  stroke: black;
-  transition: var(--transition-short);
-  opacity: 0.5;
+#SmAppNav > a:last-child {
+  padding: 20px;
+  height: 64px;
+  margin-top: auto;
 }
 
-#SmAppNavExpandSvg > line {
-  transition: var(--transition-short);
+#SmAppNav > a:hover {
+  color: black;
 }
 </style>

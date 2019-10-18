@@ -1,10 +1,8 @@
 import Vue from "vue";
 import App from "./App.vue";
-import Router from "vue-router";
+import router from "./router.js";
 
 import components from "../src/index.js";
-
-Vue.use(Router);
 
 components.forEach(comp => {
   Vue.component(comp.name, comp);
@@ -13,6 +11,6 @@ components.forEach(comp => {
 Vue.config.productionTip = false;
 
 new Vue({
-  router: new Router(),
+  router,
   render: h => h(App)
 }).$mount("#app");

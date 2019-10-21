@@ -14,10 +14,6 @@ export default {
 </script>
 
 <style scoped>
-.SmTextLayout {
-  grid-area: content;
-}
-
 .SmTextLayout > .content {
 }
 

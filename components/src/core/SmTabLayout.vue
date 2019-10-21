@@ -1,27 +1,21 @@
 <template>
   <div class="SmTabLayout">
-    <div class="tab-bar">
+    <div class="SmTabLayoutTabBar">
       <div
-        class="tab-container"
+        class="SmTabLayoutTab"
         v-for="(tab, index) in tabs"
         :key="index"
         :class="{ activeTab: activeTab === index }"
       >
-        <SmButton kind="ghost" @click="switchTab(index)" class="tab-button">
-          <small>
+        <SmButton @click="switchTab(index)">
+          <h5>
             {{ tab.tabName }}
-          </small>
+          </h5>
         </SmButton>
-        <SmButton
-          v-if="index > 0"
-          icon="x"
-          @click="closeTab(index)"
-          class="tab-close"
-          small
-        />
+        <SmButton v-if="tab.canclose" icon="x" @click="closeTab(index)" small />
       </div>
     </div>
-    <div id="currentTab">
+    <div ref="bodies">
       <slot></slot>
     </div>
   </div>
@@ -49,13 +43,13 @@ export default {
   },
   methods: {
     closeTab: function(index) {
-      this.$emit("close-tab", index);
+      this.$emit("closed-tab", index);
       this.switchTab(-1);
     },
     switchTab: function(index) {
-      this.tabs.forEach(function(tab) {
-        tab.style.display = "none";
-      });
+      if (this.$refs.current.firstChild) {
+        this.$refs.current.removeChild(this.$refs.current.firstChild);
+      }
 
       if (index !== -1) {
         this.activeTab = index;
@@ -66,23 +60,18 @@ export default {
           this.activeTab = 0;
         }
       }
-      this.tabs[this.activeTab].style.display = "grid";
+      this.$refs.current.appendChild(this.tabs[this.activeTab]);
     },
     update: function() {
-      var newChilds = Array.from(
-        document.getElementById("currentTab").childNodes
-      );
-      var sw = this.tabs.length < newChilds.length;
-      this.tabs = Array.from(document.getElementById("currentTab").childNodes);
-      const at = this.activeTab;
+      console.log("updating");
+      var newChilds = Array.from(this.$refs.bodies.childNodes);
+      this.tabs = this.tabs.concat(newChilds);
       this.tabs.forEach(function(tab, index) {
-        tab.tabName = tab.getAttribute("data-tab");
-        tab.style.display = index === at ? "grid" : "none";
+        tab.tabName = tab.getAttribute("data-tabname");
+        tab.canclose = tab.getAttribute("data-canclose") !== null;
+        tab.remove();
       });
-
-      if (sw && !this.noSwitch) {
-        this.switchTab(this.tabs.length - 1);
-      }
+      this.switchTab(this.tabs.length - 1);
     }
   },
   mounted: function() {
@@ -92,9 +81,7 @@ export default {
     this.observer = new MutationObserver(this.update);
 
     // Setup the observer
-    this.observer.observe(document.getElementById("currentTab"), {
-      childList: true
-    });
+    this.observer.observe(this.$refs.bodies, { childList: true });
   },
 
   beforeDestroy: function() {
@@ -106,48 +93,20 @@ export default {
 <style scoped>
 .SmTabLayout {
   overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.tab-bar {
-  overflow: scroll;
-  white-space: nowrap;
+.SmTabLayoutTabBar {
+  display: flex;
+  align-items: center;
 }
 
-.tab-bar::-webkit-scrollbar {
-  display: none;
-}
-
-.tab-container {
-  display: inline-block;
-}
-
-.tab-button {
-  color: inherit;
-  display: inline-block;
-}
-
-.tab-close {
-  display: inline-block;
-}
-
-.tab-button:hover,
-.tab-close:hover {
-}
-
-.tab-button:focus,
-.tab-close:focus {
-  outline-offset: -2px;
+.SmTabLayoutTab {
 }
 
 #currentTab {
-  overflow: scroll;
-  height: 1px;
-}
-
-.tab-close {
-}
-
-.activeTab {
-  border-bottom: 1px solid white !important;
 }
 </style>

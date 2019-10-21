@@ -1,27 +1,18 @@
 <template>
   <div class="SmTabLayout">
-    <div class="tab-bar">
-      <div
-        class="tab-container"
+    <div class="SmTabLayout-tabs">
+      <SmButton
         v-for="(tab, index) in tabs"
         :key="index"
-        :class="{ activeTab: activeTab === index }"
+        @click="switchTab(index)"
+        class="SmTabLayout-tab"
       >
-        <SmButton kind="ghost" @click="switchTab(index)" class="tab-button">
-          <small>
-            {{ tab.tabName }}
-          </small>
-        </SmButton>
-        <SmButton
-          v-if="index > 0"
-          icon="x"
-          @click="closeTab(index)"
-          class="tab-close"
-          small
-        />
-      </div>
+        <h5>
+          {{ tab }}
+        </h5>
+      </SmButton>
     </div>
-    <div id="currentTab">
+    <div ref="bodies" class="SmTabLayout-body">
       <slot></slot>
     </div>
   </div>
@@ -31,123 +22,44 @@
 export default {
   name: "SmTabLayout",
   slotted: true,
-  components: {},
-  data: function() {
-    return {
-      tabs: [],
-      activeTab: -1,
-      observer: null
-    };
-  },
   props: {
-    noSwitch: {
-      type: Boolean,
-      required: false,
+    tabs: {
+      required: true,
+      type: Array,
       description:
-        "By default, SmTabLayout will switch to a new tab when it is added as one of its children. This disables that behavior."
+        "A list of tab names. If you remove a tab from DOM be sure to also remove its name from the list."
     }
   },
   methods: {
-    closeTab: function(index) {
-      this.$emit("close-tab", index);
-      this.switchTab(-1);
-    },
     switchTab: function(index) {
-      this.tabs.forEach(function(tab) {
-        tab.style.display = "none";
+      var children = Array.from(this.$refs.bodies.childNodes);
+      children.forEach(function(tab) {
+        tab.classList.add("hidden");
       });
 
-      if (index !== -1) {
-        this.activeTab = index;
-      } else {
-        if (this.activeTab >= this.tabs.length) {
-          this.activeTab = this.tabs.length - 1;
-        } else if (this.activeTab < 0) {
-          this.activeTab = 0;
-        }
-      }
-      this.tabs[this.activeTab].style.display = "grid";
-    },
-    update: function() {
-      var newChilds = Array.from(
-        document.getElementById("currentTab").childNodes
-      );
-      var sw = this.tabs.length < newChilds.length;
-      this.tabs = Array.from(document.getElementById("currentTab").childNodes);
-      const at = this.activeTab;
-      this.tabs.forEach(function(tab, index) {
-        tab.tabName = tab.getAttribute("data-tab");
-        tab.style.display = index === at ? "grid" : "none";
-      });
-
-      if (sw && !this.noSwitch) {
-        this.switchTab(this.tabs.length - 1);
-      }
+      children[index].classList.remove("hidden");
     }
   },
   mounted: function() {
-    // Create the observer (and what to do on changes...)
-    this.activeTab = 0;
-    this.update();
-    this.observer = new MutationObserver(this.update);
-
-    // Setup the observer
-    this.observer.observe(document.getElementById("currentTab"), {
-      childList: true
-    });
-  },
-
-  beforeDestroy: function() {
-    this.observer.disconnect();
+    this.switchTab(0);
   }
 };
 </script>
 
 <style scoped>
-.SmTabLayout {
-  overflow: hidden;
+.SmTabLayout-tabs {
+  width: 100%;
+  height: 64px;
+  border-bottom: 1px solid var(--secondary);
+  border-radius: 0;
+  display: flex;
+  align-items: flex-end;
 }
 
-.tab-bar {
-  overflow: scroll;
-  white-space: nowrap;
+.SmTabLayout-tab {
+  padding: 8px 16px;
 }
-
-.tab-bar::-webkit-scrollbar {
+.hidden {
   display: none;
-}
-
-.tab-container {
-  display: inline-block;
-}
-
-.tab-button {
-  color: inherit;
-  display: inline-block;
-}
-
-.tab-close {
-  display: inline-block;
-}
-
-.tab-button:hover,
-.tab-close:hover {
-}
-
-.tab-button:focus,
-.tab-close:focus {
-  outline-offset: -2px;
-}
-
-#currentTab {
-  overflow: scroll;
-  height: 1px;
-}
-
-.tab-close {
-}
-
-.activeTab {
-  border-bottom: 1px solid white !important;
 }
 </style>

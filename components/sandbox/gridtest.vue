@@ -1,10 +1,8 @@
 <template>
-  <SmTabLayout @closed-tab="closeTest($event)">
-    <SmFlexLayout data-tabname="test1">test1</SmFlexLayout>
-    <SmFlexLayout v-if="open" data-tabname="test2" data-canclose
-      >test2</SmFlexLayout
-    >
-    <SmFlexLayout data-tabname="test3">test3</SmFlexLayout>
+  <SmTabLayout :tabs="['tab1', 'tab2', 'tab3']">
+    <SmFlexLayout :data-tab="{ name: 'tab1' }">test1</SmFlexLayout>
+    <SmFlexLayout :data-tab="{ name: 'tab2' }">test2</SmFlexLayout>
+    <SmFlexLayout :data-tab="{ name: 'tab3' }">test3</SmFlexLayout>
   </SmTabLayout>
 </template>
 

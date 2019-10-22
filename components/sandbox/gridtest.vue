@@ -1,9 +1,95 @@
 <template>
-  <SmTabLayout :tabs="['tab1', 'tab2', 'tab3']">
-    <SmFlexLayout :data-tab="{ name: 'tab1' }">test1</SmFlexLayout>
-    <SmFlexLayout :data-tab="{ name: 'tab2' }">test2</SmFlexLayout>
-    <SmFlexLayout :data-tab="{ name: 'tab3' }">test3</SmFlexLayout>
-  </SmTabLayout>
+  <SmScrollbox class="w-1/2 h-full">
+    <template #header>
+      <h4>Networks for xyz</h4>
+    </template>
+    <div class="flex flex-wrap">
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+      <SmCard class="w-1/3 mx-1" title="Test">
+        test
+      </SmCard>
+    </div>
+  </SmScrollbox>
 </template>
 
 <script>
@@ -25,7 +111,7 @@ export default {
 </script>
 
 <style>
-.ok {
-  width: 280px;
+.SmCard {
+  margin-bottom: 8px;
 }
 </style>

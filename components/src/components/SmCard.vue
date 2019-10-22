@@ -70,7 +70,6 @@ export default {
   color: black;
   background: white;
   position: relative;
-  margin: 8px;
 }
 
 .SmCardLinked:hover::before {

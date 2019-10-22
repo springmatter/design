@@ -58,6 +58,7 @@ export default {
   height: 100vh;
 
   display: flex;
+  overflow: hidden;
 }
 
 #SmAppNav {

@@ -134,23 +134,63 @@ form > label {
   margin-bottom: 4px;
 }
 
-input {
+input,
+select {
   background: white;
-  border: 1px solid gray;
+  border: 1px solid var(--secondary);
   display: block;
-  padding: 4px;
-  height: 30px;
+  padding-left: 16px;
+  width: 344px;
+  height: 40px;
 }
 
 select {
-  padding: 4px;
-  border: 1px solid gray;
-  height: 30px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItY2hldnJvbi1kb3duIj48cG9seWxpbmUgcG9pbnRzPSI2IDkgMTIgMTUgMTggOSI+PC9wb2x5bGluZT48L3N2Zz4=");
+  background-repeat: no-repeat;
+  background-position: center right 16px;
 }
 
-input[type="radio"] {
+::placeholder {
+  color: var(--gray3);
+}
+
+input:invalid {
+  box-shadow: 0 0 0 1px var(--error);
+  border: 1px solid var(--error);
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEwLjI5IDMuODYwMDJMMS44MjAwMiAxOEMxLjY0NTM5IDE4LjMwMjQgMS41NTI5OSAxOC42NDUzIDEuNTUyMDEgMTguOTk0NUMxLjU1MTAzIDE5LjM0MzggMS42NDE1MSAxOS42ODcyIDEuODE0NDUgMTkuOTkwNUMxLjk4NzM4IDIwLjI5MzkgMi4yMzY3NSAyMC41NDY4IDIuNTM3NzMgMjAuNzIzOUMyLjgzODcxIDIwLjkwMSAzLjE4MDgyIDIwLjk5NjIgMy41MzAwMiAyMUgyMC40N0MyMC44MTkyIDIwLjk5NjIgMjEuMTYxMyAyMC45MDEgMjEuNDYyMyAyMC43MjM5QzIxLjc2MzMgMjAuNTQ2OCAyMi4wMTI3IDIwLjI5MzkgMjIuMTg1NiAxOS45OTA1QzIyLjM1ODUgMTkuNjg3MiAyMi40NDkgMTkuMzQzOCAyMi40NDggMTguOTk0NUMyMi40NDcxIDE4LjY0NTMgMjIuMzU0NyAxOC4zMDI0IDIyLjE4IDE4TDEzLjcxIDMuODYwMDJDMTMuNTMxOCAzLjU2NjEzIDEzLjI4MDcgMy4zMjMxNCAxMi45ODEyIDMuMTU0NTFDMTIuNjgxNyAyLjk4NTg3IDEyLjM0MzggMi44OTcyOCAxMiAyLjg5NzI4QzExLjY1NjMgMi44OTcyOCAxMS4zMTg0IDIuOTg1ODcgMTEuMDE4OCAzLjE1NDUxQzEwLjcxOTMgMy4zMjMxNCAxMC40NjgzIDMuNTY2MTMgMTAuMjkgMy44NjAwMlYzLjg2MDAyWiIgc3Ryb2tlPSIjRjAzRDNFIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTIgOVYxMyIgc3Ryb2tlPSIjRjAzRDNFIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTIgMTZWMTYuNSIgc3Ryb2tlPSIjRjAzRDNFIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K");
+  background-repeat: no-repeat;
+  background-position: center right 16px;
+}
+
+input:focus,
+select:focus,
+input[type="search"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--primary);
+  border: 1px solid var(--primary);
+}
+
+input:focus {
+  background: white;
+}
+
+input:placeholder-shown {
   box-shadow: none;
-  height: auto;
+  border: 1px solid var(--secondary);
+  background: white;
+}
+
+input:focus:placeholder-shown {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--primary);
+  border: 1px solid var(--primary);
+}
+
+input:disabled,
+select:disabled {
+  cursor: not-allowed;
+  opacity: 0.25;
 }
 
 input[type="color"] {
@@ -158,6 +198,23 @@ input[type="color"] {
   @apply w-full;
   padding: 0 1px;
   height: 30px;
+}
+
+input[type="search"] {
+  height: 32px;
+  width: 256px;
+  padding-left: 8px;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTcuMzMzMzMgMTIuNjY2N0MxMC4yNzg5IDEyLjY2NjcgMTIuNjY2NyAxMC4yNzg5IDEyLjY2NjcgNy4zMzMzM0MxMi42NjY3IDQuMzg3ODEgMTAuMjc4OSAyIDcuMzMzMzMgMkM0LjM4NzgxIDIgMiA0LjM4NzgxIDIgNy4zMzMzM0MyIDEwLjI3ODkgNC4zODc4MSAxMi42NjY3IDcuMzMzMzMgMTIuNjY2N1oiIHN0cm9rZT0iIzE0MTYxOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0xNC4wMDAxIDE0TDExLjEwMDEgMTEuMSIgc3Ryb2tlPSIjMTQxNjE4IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==");
+  background-repeat: no-repeat;
+  background-position: center right 8px;
+}
+
+input[type="search"]:not(:placeholder-shown) {
+  background: white;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  margin-right: 8px;
 }
 
 input[type="color"]:hover {

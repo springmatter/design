@@ -1,17 +1,11 @@
-<h1 style="text-align: center;">Springmatter Design System</h1>
+# Springmatter Design System
 The Springmatter Design System is a very opinionated set of tools that enables us to rapidly create consistent and clear user experiences.
 
-## Contents
+It includes:
 
-## Usage
+| Package | Description |
+| ------- | ----------- |
+| [@springmatter/components](https://github.com/springmatter/design/tree/master/components) | Component library for building full web applications |
+| [@springmatter/dataviz](https://github.com/springmatter/design/tree/master/dataviz) | Modular dataviz component library |
 
-### Install
-
-`npm install @springmatter/components`
-
-### Import
-
-in your main.js file:
-`import "@springmatter/components";`
-
-Must be using vue-cli 3.0 or later. By importing the lib all of the css is included and vue components are registered globally.
+### [Documentation can be found on our wiki](https://github.com/springmatter/design/wiki)

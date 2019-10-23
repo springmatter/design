@@ -1,5 +1,5 @@
 # Springmatter Design System
-The Springmatter Design System is a very opinionated set of tools that enables us to rapidly create consistent and clear user experiences on the web.
+The Springmatter Design System is a very opinionated set of tools that enables us to rapidly create consistent and clear user experiences on the web. It is build on top of Vue and requires Vue CLI 3 or later.
 
 It includes:
 

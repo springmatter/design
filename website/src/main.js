@@ -3,8 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 
 import ComponentSpec from "./components/ComponentSpec.vue";
-import components from "../../components/src/index.js";
-import "./style.css";
+import components from "../../components/dist/index.js";
 
 var comps = {};
 components.forEach(comp => {

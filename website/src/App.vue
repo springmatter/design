@@ -1,50 +1,15 @@
 <template>
-  <SmApp>
-    <template #nav-side>
-      <router-link to="/" class="p-2">
-        <img src="./logo.png" class="w-9" />
-      </router-link>
-      <h6 class="m-2 mt-5">Introduction</h6>
-      <ul>
-        <li v-for="page in introPages" :key="page.name" class="my-1">
-          <router-link :to="page.path" class="p-2">
-            {{ page.name }}
-          </router-link>
-        </li>
-      </ul>
-      <h6 class="m-2 mt-5">Layout</h6>
-      <ul>
-        <li v-for="page in layoutPages" :key="page.name" class="my-1">
-          <router-link :to="page.path" class="p-2">
-            {{ page.name }}
-          </router-link>
-        </li>
-      </ul>
-      <h6 class="m-2 mt-5">Components</h6>
-      <ul>
-        <li v-for="page in componentPages" :key="page.name" class="my-1">
-          <router-link :to="page.path" class="p-2">
-            {{ page.name }}
-          </router-link>
-        </li>
-      </ul>
-    </template>
-    <router-view />
-  </SmApp>
+  <div class="h-screen w-screen overflow-hidden flex">
+    <nav class="bg-primary"></nav>
+    <main class="flex-grow bg-secondary">
+      <div class="bg-pink-500 w-10 h-10"></div>
+    </main>
+  </div>
 </template>
 
 <script>
-export default {
-  computed: {
-    introPages: function() {
-      return this.$router.options.routes.slice(0, 4);
-    },
-    layoutPages: function() {
-      return this.$router.options.routes.slice(4, 8);
-    },
-    componentPages: function() {
-      return this.$router.options.routes.slice(8);
-    }
-  }
-};
+export default {};
 </script>
+
+<style scoped>
+</style>

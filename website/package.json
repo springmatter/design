@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "serve": "vue-cli-service serve ./src/main.js",
+    "serve": "./build.sh && vue-cli-service serve ./src/main.js",
     "build:docs": "rm -rf ../docs/ && vue-cli-service build --dest ../docs/ --modern ./src/main.js"
   },
   "dependencies": {

@@ -10,21 +10,26 @@
           <small v-if="prop.required" class="ml-1 text-red">Required</small>
           <small class="text-blue">
             {{ prop.type.toString().replace(/function |\(\).*/g, "") }}
-            <span v-if="'validator' in prop && !prop.validator.toString().includes('IGNORE')">
+            <span
+              v-if="
+                'validator' in prop &&
+                  !prop.validator.toString().includes('IGNORE')
+              "
+            >
               {{
                 prop.validator
-                .toString()
-                .match(/\[.*\]/g)[0]
-                .replace(/,/g, " |")
+                  .toString()
+                  .match(/\[.*\]/g)[0]
+                  .replace(/,/g, " |")
               }}
             </span>
           </small>
           <small v-if="'default' in prop" class="text-green">
             default:
-            {{ 
-              prop.type.toString().indexOf("String") !== -1 ?
-                `"${prop.default}"` :
-                prop.default
+            {{
+              prop.type.toString().indexOf("String") !== -1
+                ? `"${prop.default}"`
+                : prop.default
             }}
           </small>
         </dt>
@@ -51,11 +56,11 @@ export default {
     compStr: function() {
       var ps = this.comp.props;
       var compStr = `<${this.comp.name}`;
-      for(let p in ps) {
+      for (let p in ps) {
         if (ps[p].required) {
           var typeStr = ps[p].type.toString().replace(/function |\(\).*/g, "");
 
-          var newProp = `${p}="${typeStr}"`
+          var newProp = `${p}="${typeStr}"`;
           if (typeStr !== "String") {
             newProp = ":" + newProp;
           }
@@ -72,11 +77,13 @@ export default {
       return compStr;
     }
   }
-}
+};
 </script>
 
 <style>
 code {
-  @apply p-1 rounded-sm bg-gray-1 text-xs;
+  border-radius: 2px;
+  padding: 4px;
+  background: var(--gray-1);
 }
 </style>

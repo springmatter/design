@@ -68,54 +68,52 @@ export default {
 .primary:disabled,
 .secondary:disabled,
 .alternate:disabled {
-  @apply opacity-25;
+  opacity: 0.25;
   cursor: not-allowed;
 }
 
 .SmButton:active,
 .primary:active,
 .secondary:active {
-  @apply opacity-75;
+  opacity: 0.75;
 }
 
 .alternate:active {
-  @apply opacity-50;
+  opacity: 0.5;
 }
 
 .primary,
 .primary:disabled:hover {
-  @apply bg-primary;
+  background: var(--primary);
   color: white;
 }
 
 .primary:hover {
-  @apply bg-primary-hover;
+  background: var(--primary-hover);
 }
 
 .secondary,
 .secondary:disabled:hover {
-  @apply bg-secondary;
+  background: var(--secondary);
   color: white;
-  @apply border-0;
+  border: none;
 }
 
 .secondary:hover {
   background: black;
-  @apply border-2;
-  @apply border-primary;
+  border: 2px solid var(--primary);
 }
 
 .alternate,
 .alternate:disabled:hover {
   background: white;
-  @apply border;
-  @apply border-secondary;
   color: black;
+  border: 1px solid var(--secondary);
 }
 
 .alternate:hover {
-  @apply border-primary;
-  @apply text-primary;
+  border: 1px solid var(--primary);
+  color: var(--primary);
 }
 
 .small {

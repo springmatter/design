@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "sandbox": "vue-cli-service serve ./sandbox/main.js",
-    "pub": "./build.sh && npm publish",
-    "build:docs": "rm -rf ../docs/ && vue-cli-service build --dest ../docs/ --modern website/main.js"
+    "build": "./build.sh",
+    "pub": "npm run build && npm publish"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",

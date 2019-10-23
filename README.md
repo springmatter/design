@@ -1,4 +1,7 @@
-# Springmatter Components
+<h1 style="text-align: center;">Springmatter Design System</h1>
+The Springmatter Design System is a very opinionated set of tools that enables us to rapidly create consistent and clear user experiences.
+
+## Contents
 
 ## Usage
 

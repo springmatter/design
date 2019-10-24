@@ -81,5 +81,7 @@ We have a minimal set of colors to help with various visual cues. Each color has
 ### Typography
 We have set defaults for common HTML typography elements. All of our typography elements have 0 margins and altered line-height. We rely on the line-height of these tags to conform with our 8px spacing system. In general, the user of the system should almost never declare custom typography rules in their CSS. For 99% of use cases on of our pre-styled elements should do the trick.
 
-| Element | Description | 
-| ------- | ----------- |
+![typography-scale](https://user-images.githubusercontent.com/4454291/67506831-c8a19400-f65b-11e9-98f3-a760ffa097e4.jpg)
+
+`<h1>`-`<h3>` are good for page-level titles, `<h4>` is good for component-level titles, `<h5>` is good for subtitles and lables, `<small>` is good for small labels/captions/tooltips/etc., and `<p>` is good for blocks of body text. We have also implemented `<i>` and `<b>` to always be italic and bold respectively.
+

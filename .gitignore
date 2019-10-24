@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 components/dist
+components/sandbox
+/sandbox
 /dist
 
 # local env files

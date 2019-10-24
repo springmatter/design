@@ -1,12 +1,12 @@
 <template>
-  <div class="SmFlexLayout">
-    <aside class="SmFlexLayoutLeft">
+  <div class="SmColumnBox">
+    <aside class="SmColumnBoxLeft">
       <slot name="left"></slot>
     </aside>
-    <main class="SmFlexLayoutCenter">
+    <main class="SmColumnBoxCenter">
       <slot></slot>
     </main>
-    <aside class="SmFlexLayoutRight">
+    <aside class="SmColumnBoxRight">
       <slot name="right"></slot>
     </aside>
   </div>
@@ -14,31 +14,31 @@
 
 <script>
 export default {
-  name: "SmFlexLayout",
+  name: "SmColumnBox",
   slotted: true
 };
 </script>
 
 <style scoped>
-.SmFlexLayout {
+.SmColumnBox {
   width: 100%;
   height: 100%;
   display: flex;
 }
 
-.SmFlexLayoutLeft {
+.SmColumnBoxLeft {
   height: 100%;
   margin: 32px 32px;
 }
 
-.SmFlexLayoutCenter {
+.SmColumnBoxCenter {
   flex-grow: 1;
   height: 100%;
   width: 100%;
   margin: 32px 0px 32px 0px;
 }
 
-.SmFlexLayoutRight {
+.SmColumnBoxRight {
   height: 100%;
   margin: 32px 64px;
 }

@@ -1,18 +1,18 @@
 <template>
-  <div class="SmTabLayout">
-    <div class="SmTabLayout-tabs">
+  <div class="SmTabBox">
+    <div class="SmTabBox-tabs">
       <SmButton
         v-for="(tab, index) in tabs"
         :key="index"
         @click="switchTab(index)"
-        class="SmTabLayout-tab"
+        class="SmTabBox-tab"
       >
         <h5>
           {{ tab }}
         </h5>
       </SmButton>
     </div>
-    <div ref="bodies" class="SmTabLayout-body">
+    <div ref="bodies" class="SmTabBox-body">
       <slot></slot>
     </div>
   </div>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "SmTabLayout",
+  name: "SmTabBox",
   slotted: true,
   props: {
     tabs: {
@@ -47,7 +47,7 @@ export default {
 </script>
 
 <style scoped>
-.SmTabLayout-tabs {
+.SmTabBox-tabs {
   width: 100%;
   height: 64px;
   border-bottom: 1px solid var(--secondary);
@@ -56,7 +56,7 @@ export default {
   align-items: flex-end;
 }
 
-.SmTabLayout-tab {
+.SmTabBox-tab {
   padding: 8px 16px;
 }
 .hidden {

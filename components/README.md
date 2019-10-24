@@ -86,7 +86,181 @@ We have set defaults for common HTML typography elements. All of our typography 
 `<h1>`-`<h3>` are good for page-level titles, `<h4>` is good for component-level titles, `<h5>` is good for subtitles and lables, `<small>` is good for small labels/captions/tooltips/etc., and `<p>` is good for blocks of body text. We have also implemented `<i>` and `<b>` to always be italic and bold respectively.
 
 ### Utilities
-We provide a set of CSS utility classes that allow us to quickly develop and tweak component styles. If you are unfamiliar with CSS utility classes here is a [brief explanation](https://tailwindcss.com/docs/utility-first). We are using [Tailwindcss](https://tailwindcss.com) to generate a custom set of utility classes. Here is a full list of them:
+We provide a set of CSS utility classes that allow us to quickly develop and tweak layout. If you are unfamiliar with CSS utility classes here is a [brief explanation](https://tailwindcss.com/docs/utility-first). We are using [Tailwindcss](https://tailwindcss.com) to generate a custom set of utility classes. Here is a full list of them:
 
-| Class | Effect |
-| ----- | ------ |
+#### Flexbox
+```css
+.items-stretch { align-items: stretch; }
+.items-start { align-items: flex-start; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.items-baseline { align-items: baseline; }
+
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.justify-around { justify-content: space-around; }
+
+.flex-row { flex-direction: row; }
+.flex-row-reverse { flex-direction: row-reverse; }
+.flex-col { flex-direction: column; }
+.flex-col-reverse { flex-direction: column-reverse; }
+
+.flex-grow { flex-grow: 1; }
+.flex-grow-0 { flex-grow: 0; }
+
+.flex-shrink { flex-shrink: 1; }
+.flex-shrink-0 { flex-shrink: 0; }
+
+.flex-no-wrap { flex-wrap: nowrap; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-wrap-reverse { flex-wrap: wrap-reverse; }
+```
+
+#### Display
+```css
+.block { display: block; }
+.inline-block { display: inline-block; }
+.inline { display: inline; }
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.table { display: table; }
+.table-row { display: table-row; }
+.table-cell { display: table-cell; }
+.hidden { display: none; }
+```
+
+#### Height
+```css
+.h-0 { height: 0; }
+.h-1 { height: 4px; }
+.h-2 { height: 8px; }
+.h-3 { height: 12px; }
+.h-4 { height: 16px; }
+.h-5 { height: 24px; }
+.h-6 { height: 32px; }
+.h-7 { height: 40px; }
+.h-8 { height: 48px; }
+.h-9 { height: 56px; }
+.h-10 { height: 64px; }
+
+.h-auto { height: auto; }
+.h-px { height: 1px; }
+.h-full { height: 100%; }
+.h-screen { height: 100vh; }
+```
+
+#### Width
+```css
+.w-0 { width: 0; }
+.w-1 { width: 4px; }
+.w-2 { width: 8px; }
+.w-3 { width: 12px; }
+.w-4 { width: 16px; }
+.w-5 { width: 24px; }
+.w-6 { width: 32px; }
+.w-7 { width: 40px; }
+.w-8 { width: 48px; }
+.w-9 { width: 56px; }
+.w-10 { width: 64px; }
+
+.w-1/2 { width: 50%; }
+.w-1/3 { width: 33.333333%; }
+.w-2/3 { width: 66.666667%; }
+.w-1/4 { width: 25%; }
+.w-2/4 { width: 50%; }
+.w-3/4 { width: 75%; }
+.w-1/5 { width: 20%; }
+.w-2/5 { width: 40%; }
+.w-3/5 { width: 60%; }
+.w-4/5 { width: 80%; }
+
+.w-auto { width: auto; }
+.w-px { width: 1px; }
+.w-full { width: 100%; }
+.w-screen { width: 100vw; }
+```
+
+#### Top/Right/Bottom/Left
+```css
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.inset-y-0 { top: 0; bottom: 0; }
+.inset-x-0 { right: 0; left: 0; }
+.top-0 { top: 0; }
+.right-0 { right: 0; }
+.bottom-0 { bottom: 0; }
+.left-0 { left: 0; }
+.inset-auto { top: auto; right: auto; bottom: auto; left: auto; }
+.inset-y-auto { top: auto; bottom: auto; }
+.inset-x-auto { left: auto; right: auto; }
+.top-auto { top: auto; }
+.bottom-auto { bottom: auto; }
+.left-auto { left: auto; }
+.right-auto { right: auto; }
+```
+
+#### Position
+```css
+.static { position: static; }
+.fixed { position: fixed; }
+.absolute { position: absolute; }
+.relative { position: relative; }
+.sticky { position: sticky; }
+```
+
+#### Text
+```css
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+.normal-case { text-transform: none; }
+```
+
+#### Z Index
+```css
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+.z-auto { z-index: auto; }
+```
+
+#### Margin / Padding
+There are many margin and padding classes, so instead of listing them we will explain how they work.
+
+Basic margin/padding classes are formed by the prefixes `m-` or `p-` followed by a number from 0 to 10. These classes will add margin or padding to all sides:
+```css
+.m-0 .m-1 .m-2 ... .m-10
+.p-0 .p-1 .p-2 ... .p-10
+```
+
+You can modify the class to work on only one side by appending one of `t`, `r`, `b`, `l` before the dash, which will target top, right, bottom, and left respectively:
+```css
+.mt-1 .mr-2 .mb-3 .ml-4
+.pt-5 .pr-6 .pb-7 .bl-8
+```
+
+You can also target two sides by appending `x` or `y`, which will target the x and y axis respectively:
+```css
+.mx-2 .my-3
+.px-1 .py-0
+```
+
+Instead of a number after the dash you can use `px` for 1px margins. This will work with all modifiers:
+```css
+.m-px .ml-px .mx-px
+.p-px .pr-px .py-px
+```
+
+Lastly, margins can also take `auto` instead of a number. This will work with all modifiers:
+```css
+.m-auto .ml-auto .mx-auto
+```

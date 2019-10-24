@@ -85,3 +85,8 @@ We have set defaults for common HTML typography elements. All of our typography 
 
 `<h1>`-`<h3>` are good for page-level titles, `<h4>` is good for component-level titles, `<h5>` is good for subtitles and lables, `<small>` is good for small labels/captions/tooltips/etc., and `<p>` is good for blocks of body text. We have also implemented `<i>` and `<b>` to always be italic and bold respectively.
 
+### Utilities
+We provide a set of CSS utility classes that allow us to quickly develop and tweak component styles. If you are unfamiliar with CSS utility classes here is a [brief explanation](https://tailwindcss.com/docs/utility-first). We are using [Tailwindcss](https://tailwindcss.com) to generate a custom set of utility classes. Here is a full list of them:
+
+| Class | Effect |
+| ----- | ------ |

@@ -1,11 +1,16 @@
 <template>
   <div ref="container" class="full">
-    <div :id="'tooltip_'+graphId" class="tooltip"></div>
-    <div class="labels" :style="{maxWidth: gWidth+'px'}">
-      <div v-for="(label, index) in yLabels" :key="label" class="label" @mouseover="highlight(label)">
-          <span class="dot" :style="{backgroundColor:colors[index]}"></span>
-          {{label}}
-        </div>
+    <div :id="'tooltip_' + graphId" class="tooltip"></div>
+    <div class="labels" :style="{ maxWidth: gWidth + 'px' }">
+      <div
+        v-for="(label, index) in yLabels"
+        :key="label"
+        class="label"
+        @mouseover="highlight(label)"
+      >
+        <span class="dot" :style="{ backgroundColor: colors[index] }"></span>
+        {{ label }}
+      </div>
     </div>
     <svg class="full svg">
       <g v-if="dualAxis" class="colorBar">
@@ -13,38 +18,38 @@
           :x1="plotInset"
           :y1="plotInset"
           :x2="plotInset"
-          :y2="gHeight+plotInset"
-          :style="{stroke:colors[0]}"
+          :y2="gHeight + plotInset"
+          :style="{ stroke: colors[0] }"
         />
         <line
-          :x1="plotInset+gWidth+1"
+          :x1="plotInset + gWidth + 1"
           :y1="plotInset"
-          :x2="plotInset+gWidth+1"
-          :y2="gHeight+plotInset"
-          :style="{stroke:colors[1]}"
+          :x2="plotInset + gWidth + 1"
+          :y2="gHeight + plotInset"
+          :style="{ stroke: colors[1] }"
         />
       </g>
-      <g :id="'xAxis_'+graphId" style="text-anchor:end" />
-      <g :id="'yAxis_'+graphId" />
-      <g v-if="dualAxis" :id="'yAxis-Right_'+graphId" />
+      <g :id="'xAxis_' + graphId" style="text-anchor:end" />
+      <g :id="'yAxis_' + graphId" />
+      <g v-if="dualAxis" :id="'yAxis-Right_' + graphId" />
       <g class="inset">
         <g class="grid">
-          <g :id="'xGrid_'+graphId" />
-          <g :id="'yGrid_'+graphId" />
+          <g :id="'xGrid_' + graphId" />
+          <g :id="'yGrid_' + graphId" />
         </g>
         <path
           v-for="(path, index) in paths"
           :key="path"
           class="dataPath"
           :stroke="colors[index]"
-          :id="'path_'+yLabels[index]"
+          :id="'path_' + yLabels[index]"
           :d="path"
         />
         <g v-for="(series, cnt) in data" :key="cnt">
           <g v-for="(pt, index) in series" :key="index">
             <line
               class="newLine"
-              :id="'line_'+yLabels[cnt]+'_'+index"
+              :id="'line_' + yLabels[cnt] + '_' + index"
               :x1="pt.x_px"
               :y1="pt.y_px"
               :x2="pt.x_px"
@@ -53,7 +58,7 @@
             <circle
               class="point"
               :class="yLabels[cnt]"
-              :id="'pt_'+yLabels[cnt]+'_'+index"
+              :id="'pt_' + yLabels[cnt] + '_' + index"
               r="4"
               :cx="pt.x_px"
               :cy="pt.y_px"
@@ -363,6 +368,7 @@ export default {
   @apply py-2;
   @apply m-2;
   @apply rounded-full;
+
   background: whitesmoke;
   border: 1px solid lightgrey;
 }

@@ -409,6 +409,7 @@ export default {
   border: 1px solid lightgrey;
   pointer-events: none;
   transform: translate(60px, 60px);
+  z-index: 9999;
 }
 
 .colorBar {

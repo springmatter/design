@@ -352,23 +352,26 @@ export default {
 
 <style>
 .labels {
-  @apply flex;
+  display: flex;
   transform: translate(60px, 5px);
 }
 
 .label {
-  @apply flex-auto;
-  @apply text-center;
-  @apply px-4;
-  @apply py-2;
-  @apply m-2;
-  @apply rounded-full;
+  flex: 1 1 auto;
+  text-align: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem; 
+  padding-left: 1rem; 
+  padding-right: 1rem;
+  margin: 0.5rem;
+  border-radius: 9999px;
   background: whitesmoke;
   border: 1px solid lightgrey;
 }
 
 .dot {
-  @apply mx-2;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
   height: 10px;
   width: 10px;
   border-radius: 50%;
@@ -376,8 +379,8 @@ export default {
 }
 
 .full {
-  @apply w-full;
-  @apply h-full;
+  width: 100%; 
+  height: 100%;
   position: relative;
 }
 
@@ -391,9 +394,9 @@ export default {
 }
 
 .tooltip {
-  @apply p-2;
-  @apply text-xs;
-  @apply rounded-full;
+  padding: 0.5rem;
+  font-size: .75rem;
+  border-radius: 9999px;
   opacity: 0;
   position: absolute;
   text-align: "center";

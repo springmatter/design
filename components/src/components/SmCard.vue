@@ -16,7 +16,6 @@
 <script>
 export default {
   name: "SmCard",
-  slotted: true,
   data: function() {
     return {
       linked: false
@@ -26,24 +25,19 @@ export default {
     modal: {
       type: Boolean,
       required: false,
-      default: false,
-      description:
-        "Styles the card for use as a modal window that appears centered on top of existing content. Adds a close button that emits a 'close' event. User is responsible for hiding and showing the modal."
+      default: false
     },
     title: {
       type: String,
-      required: false,
-      description: "Adds a title to the top of the card."
+      required: false
     },
     subtitle: {
       type: String,
-      required: false,
-      description: "Adds a subtitle to the card."
+      required: false
     },
     sidetitle: {
       type: String,
-      required: false,
-      description: "Adds a sidetitle to the card."
+      required: false
     }
   },
   methods: {

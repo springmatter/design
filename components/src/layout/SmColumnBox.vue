@@ -14,8 +14,7 @@
 
 <script>
 export default {
-  name: "SmColumnBox",
-  slotted: true
+  name: "SmColumnBox"
 };
 </script>
 

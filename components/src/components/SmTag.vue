@@ -10,7 +10,6 @@
 <script>
 export default {
   name: "SmTag",
-  slotted: true,
   props: {
     color: {
       type: String,

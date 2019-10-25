@@ -8,8 +8,7 @@
 
 <script>
 export default {
-  name: "SmLoading",
-  slotted: false
+  name: "SmLoading"
 };
 </script>
 

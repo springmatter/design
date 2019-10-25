@@ -2,12 +2,12 @@
   <div id="SmApp">
     <nav id="SmAppNav">
       <router-link to="/">
-        <img :src="logoPath" />
+        <img :src="logoSrc" />
       </router-link>
       <router-link v-for="(link, index) in links" :key="index" :to="link.route">
         <SmIcon :name="link.icon" size="l" />
       </router-link>
-      <router-link to="/settings">
+      <router-link to="/settings" v-if="!noSettings">
         <SmIcon name="settings" size="l" />
       </router-link>
     </nav>
@@ -18,25 +18,15 @@
 <script>
 export default {
   name: "SmApp",
-  slotted: true,
   props: {
-    title: {
+    logoSrc: {
       type: String,
-      required: false,
-      description:
-        "This is the title of your app that will appear in the top left on the nav bar."
-    },
-    logoPath: {
-      type: String,
-      required: false,
-      description:
-        "This is the path to your app's logo that will appear in the top left of the app."
+      required: false
     },
     links: {
       type: Array,
       required: false,
       validator: function(value) {
-        // IGNORE
         if (value.length > 0) {
           return (
             "icon" in value[0] && "route" in value[0] && "title" in value[0]
@@ -44,9 +34,12 @@ export default {
         } else {
           return true;
         }
-      },
-      description:
-        "These are the links that will appear in the side nav bar. It needs to be an array of objects with keys 'name' (the name of the icon that will represent your link) and 'route' (the route you'd like to go to in the form '/route-here'). Example: [ { icon: 'map', route: '/maps', title: 'Map List' }, { icon: 'archive', route: '/library', title: 'Target Library' }, ... ]"
+      }
+    },
+    noSettings: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   }
 };

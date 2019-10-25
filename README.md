@@ -8,7 +8,7 @@ It includes:
 | [@springmatter/components](https://github.com/springmatter/design/tree/master/components) | Component library for building full web applications |
 | [@springmatter/dataviz](https://github.com/springmatter/design/tree/master/dataviz) | Modular dataviz component library |
 
-Documentation can be found in each package's README
+### [Full documentation can be found on the wiki](https://github.com/springmatter/design/wiki)
 
 ## Principles
 

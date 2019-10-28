@@ -27,8 +27,9 @@ export default {
       type: Array,
       required: false,
       validator: function(value) {
+        console.log(value);
         value.forEach(function(l) {
-          if (!("icon" in l) || !("path" in l)) {
+          if (!("icon" in l) || !("route" in l)) {
             return false;
           }
         });

@@ -27,12 +27,11 @@ export default {
       type: Array,
       required: false,
       validator: function(value) {
-        console.log(value);
-        value.forEach(function(l) {
-          if (!("icon" in l) || !("route" in l)) {
+        for (let link of value) {
+          if (!link.icon || !link.route) {
             return false;
           }
-        });
+        }
 
         return true;
       }

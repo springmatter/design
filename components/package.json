@@ -1,11 +1,9 @@
 {
   "name": "@springmatter/components",
-  "version": "3.4.0",
+  "version": "4.0.0",
   "main": "dist/index.js",
   "files": [
-    "src",
-    "dist/*",
-    "tailwind.config.js"
+    "dist/"
   ],
   "scripts": {
     "sandbox": "vue-cli-service serve ./sandbox/main.js",

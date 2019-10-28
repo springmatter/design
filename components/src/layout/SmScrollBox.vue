@@ -21,6 +21,8 @@ export default {
   padding: 16px;
   border-radius: 0;
   border-bottom: 1px solid var(--secondary);
+  display: flex;
+  align-items: center;
 }
 
 .SmScrollbox-main {

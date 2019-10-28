@@ -27,13 +27,13 @@ export default {
       type: Array,
       required: false,
       validator: function(value) {
-        if (value.length > 0) {
-          return (
-            "icon" in value[0] && "route" in value[0] && "title" in value[0]
-          );
-        } else {
-          return true;
-        }
+        value.forEach(function(l) {
+          if (!("icon" in l) || !("path" in l)) {
+            return false;
+          }
+        });
+
+        return true;
       }
     },
     noSettings: {

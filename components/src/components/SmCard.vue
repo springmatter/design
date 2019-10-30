@@ -1,24 +1,33 @@
 <template>
-  <div class="SmCard" :class="{ SmCardLinked: linked, SmCardModal: modal }">
-    <SmButton
-      v-if="modal"
-      class="SmCardModalCloseBtn"
-      icon="x"
-      @click="$emit('closed')"
-    />
+  <div class="SmCard" :class="{ SmCardLinked: linked || expandable, SmCardModal: modal }" @click="expanded? contract(): expand()">
+    <SmButton v-if="modal" class="SmCardModalCloseBtn" icon="x" @click="$emit('closed')" />
     <h5 v-if="sidetitle" class="SmCardSidetitle">{{ sidetitle }}</h5>
     <h4 v-if="title">{{ title }}</h4>
     <h5 v-if="subtitle" class="SmCardSubtitle">{{ subtitle }}</h5>
     <slot></slot>
+    <div v-if="expanded" class="below-fold">
+      <slot name="below-fold"></slot>
+    </div>
+      <SmIcon
+      class="SmCardChevron"
+      v-if="expandable"
+      name="chevron-down"
+    />
   </div>
 </template>
 
 <script>
+import SmIcon from "./SmIcon.vue";
+
 export default {
   name: "SmCard",
+  components: {
+    SmIcon,
+  },
   data: function() {
     return {
-      linked: false
+      linked: false,
+      expanded: false
     };
   },
   props: {
@@ -38,6 +47,12 @@ export default {
     sidetitle: {
       type: String,
       required: false
+    },
+    expandable: {
+      type: Boolean,
+      required: false,
+      default: false,
+      description: "Adds functionality to expand card and compress card."
     }
   },
   methods: {
@@ -45,6 +60,16 @@ export default {
       this.linked =
         this.$el.parentNode.tagName === "A" ||
         this.$el.parentNode.tagName === "BUTTON";
+    },
+    expand: function() {
+      this.expanded = true;
+      var icon = document.getElementsByClassName("SmCardChevron")[0];
+      icon.style.transform = "rotate(180deg)";
+    },
+    contract: function() {
+      this.expanded = false;
+      var icon = document.getElementsByClassName("SmCardChevron")[0];
+      icon.style.transform = "rotate(0deg)";
     }
   },
   beforeUpdate: function() {
@@ -102,5 +127,11 @@ export default {
 
 .SmCardSubtitle {
   margin: 2px 2px 12px 2px;
+}
+
+.SmCardChevron {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 </style>

@@ -63,6 +63,8 @@ module.exports = {
   },
   variants: {
     alignItems: [],
+    alignSelf: [],
+    alignContent: [],
     display: [],
     flexDirection: [],
     flexGrow: [],
@@ -80,8 +82,6 @@ module.exports = {
     zIndex: []
   },
   corePlugins: {
-    alignContent: false,
-    alignSelf: false,
     container: false,
     cursor: false,
     appearance: false,

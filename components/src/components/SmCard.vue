@@ -9,7 +9,9 @@
     <h5 v-if="sidetitle" class="SmCardSidetitle">{{ sidetitle }}</h5>
     <h4 v-if="title">{{ title }}</h4>
     <h5 v-if="subtitle" class="SmCardSubtitle">{{ subtitle }}</h5>
-    <slot></slot>
+    <div class="SmCard-content">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -102,5 +104,11 @@ export default {
 
 .SmCardSubtitle {
   margin: 2px 2px 12px 2px;
+}
+
+.SmCardContent {
+  width: 100%;
+  height: 100%;
+  margin-top: 16px;
 }
 </style>

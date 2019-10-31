@@ -4,12 +4,12 @@
       {{selection}}
       <SmIcon class="SmDropdownChevron" name="chevron-down" />
     </div>
-    <div v-if="expanded">
-      <SmSearch v-if="searchable" />
+    <div v-if="expanded" @searched="updateResults">
+      <SmSearch v-if="searchable" :targets="targets" />
       <div
         v-for="(result, index) in results"
         :key="result"
-        :class="[index == 0 ? 'topResultClass':'', index != Object.keys(results).length - 1 ? 'resultClass':'']"
+        :class="[index == 0 && !searchable? 'topResultClass':'', index != Object.keys(results).length - 1 ? 'resultClass':'']"
         @click="selectTarget(result)"
       >{{result}}</div>
     </div>
@@ -79,6 +79,10 @@ export default {
       this.expanded = false;
       var icon = document.getElementsByClassName("SmDropdownChevron")[0];
       icon.style.transform = "rotate(0deg)";
+    },
+    updateResults(results) {
+        console.log('searched')
+      this.results = results;
     }
   }
 };
@@ -102,7 +106,6 @@ export default {
   position: absolute;
   right: 0;
   bottom: 0;
-  z-index: 1;
 }
 
 .selectionClass {

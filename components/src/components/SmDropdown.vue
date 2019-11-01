@@ -4,12 +4,12 @@
       {{selection}}
       <SmIcon class="SmDropdownChevron" name="chevron-down" />
     </div>
-    <div v-if="expanded" @searched="updateResults">
-      <SmSearch v-if="searchable" :targets="targets" />
+    <div v-if="expanded">
+      <SmSearch v-if="searchable" :targets="targets" @searched="updateResults" />
       <div
-        v-for="(result, index) in results"
-        :key="result"
-        :class="[index == 0 && !searchable? 'topResultClass':'', index != Object.keys(results).length - 1 ? 'resultClass':'']"
+        v-for="(result, index) in displayList"
+        :key="index"
+        :class="[index == 0 && !searchable? 'topResultClass':'', index != Object.keys(displayList).length - 1 ? 'resultClass':'']"
         @click="selectTarget(result)"
       >{{result}}</div>
     </div>
@@ -29,7 +29,8 @@ export default {
   data: function() {
     return {
       expanded: false,
-      selection: "Select..."
+      selection: "Select...",
+      displayList: []
     };
   },
   computed: {
@@ -67,6 +68,7 @@ export default {
   },
   methods: {
     expand: function() {
+      this.displayList = this.results;
       this.expanded = true;
       var icon = document.getElementsByClassName("SmDropdownChevron")[0];
       icon.style.transform = "rotate(180deg)";
@@ -80,9 +82,9 @@ export default {
       var icon = document.getElementsByClassName("SmDropdownChevron")[0];
       icon.style.transform = "rotate(0deg)";
     },
-    updateResults(results) {
-        console.log('searched')
-      this.results = results;
+    updateResults(searchedResults) {
+      this.displayList = searchedResults;
+      console.log(searchedResults);
     }
   }
 };

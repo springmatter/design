@@ -1,6 +1,6 @@
 <template>
   <div id="SmSearchDiv">
-    <input class="SmSearch" v-model="filter" placeholder="Search..." :keyup="filterResults()" />
+    <input class="SmSearch" v-model="filter" placeholder="Search..." @keyup="filterResults" />
     <SmIcon class="SmSearchIcon" name="search" />
   </div>
 </template>
@@ -44,7 +44,16 @@ export default {
   },
   methods: {
     filterResults() {
-      this.results = this.fuse.search(this.filter)
+      // If filter is empty, return all results
+      if (this.filter == "") {
+        let all = [];
+        for (var i = 0; i < this.targets.length; i++) {
+          all.push(this.targets[i][this.options.id]);
+        }
+        this.results = all;
+      } else {
+        this.results = this.fuse.search(this.filter);
+      }
       this.$emit("searched", this.results);
     }
   }

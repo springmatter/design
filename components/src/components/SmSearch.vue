@@ -65,14 +65,15 @@ export default {
   border-radius: 9999px;
   border: 1px solid grey;
   width: 100%;
+  height: 36px;
   position: relative;
   padding-right: 40px;
-  margin-bottom: 5px;
-  margin-top: 2px;
+  margin-bottom: 8px;
+  margin-top: 4px;
 }
 
 .SmSearchIcon {
   float: right;
-  transform: translate(-14px, -35px);
+  transform: translate(-14px, -36px);
 }
 </style>

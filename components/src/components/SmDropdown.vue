@@ -1,17 +1,20 @@
 <template>
   <div class="SmDropdown">
     <div class="selectionClass" @click="expanded? contract(): expand()">
-      {{selection}}
+      {{precedingText + selection}}
       <SmIcon class="SmDropdownChevron" name="chevron-down" />
     </div>
     <div v-if="expanded">
-      <SmSearch v-if="searchable" :targets="targets" @searched="updateResults" />
+      <SmSearch v-if="searchable" :targets="searchTargets" @searched="updateResults" />
       <div
         v-for="(result, index) in displayList"
         :key="index"
-        :class="[index == 0 && !searchable? 'topResultClass':'', index != Object.keys(displayList).length - 1 ? 'resultClass':'']"
+        :class="[index == 0 && !searchable? 'topResultClass':'', 
+                 index != Object.keys(displayList).length - 1 ? 'resultClass':'lastResultClass', 
+                 searchable? 'searchAlign':'']"
         @click="selectTarget(result)"
       >{{result}}</div>
+      <div v-if="noneFound" class="noResult">no result found</div>
     </div>
   </div>
 </template>
@@ -29,7 +32,9 @@ export default {
   data: function() {
     return {
       expanded: false,
-      selection: "Select...",
+      noneFound: false,
+      precedingText: "Select...",
+      selection: '',
       displayList: []
     };
   },
@@ -45,6 +50,18 @@ export default {
         results.push(this.targets[i][key]);
       }
       return results;
+    },
+    searchTargets: function() {
+      if (this.targetType == "string") {
+        // Build a dictionary.
+        let dictList = [];
+        for (var i = 0; i < this.targets.length; i++) {
+          dictList.push({ item: this.targets[i] });
+        }
+        return dictList;
+      } else {
+        return this.targets;
+      }
     }
   },
   props: {
@@ -74,7 +91,8 @@ export default {
       icon.style.transform = "rotate(180deg)";
     },
     selectTarget(result) {
-      this.selection = "Selected: " + result;
+      this.precedingText = "Selected: "
+      this.selection = result;
       this.contract();
     },
     contract: function() {
@@ -84,7 +102,11 @@ export default {
     },
     updateResults(searchedResults) {
       this.displayList = searchedResults;
-      console.log(searchedResults);
+      if (this.displayList.length == 0) {
+        this.noneFound = true;
+      } else {
+        this.noneFound = false;
+      }
     }
   }
 };
@@ -114,16 +136,36 @@ export default {
   padding-bottom: 2px;
 }
 
+.searchAlign {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
 .resultClass {
   border-radius: 0px;
   border-bottom: 1px solid lightgrey;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
 }
 
 .topResultClass {
-  border-top: 1px solid lightgrey;
+  border-top: 1px solid black;
+  margin-top: 6px;
+  padding-top: 6px;
 }
 
-.resultClass:hover {
+.lastResultClass {
+  padding-bottom: 6px;
+}
+
+.noResult {
+  color: grey;
+  padding-bottom: 6px;
+  text-align: center;
+}
+
+.resultClass:hover,
+.lastResultClass:hover {
   color: var(--primary-hover);
 }
 </style>

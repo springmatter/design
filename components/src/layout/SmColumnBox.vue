@@ -27,18 +27,18 @@ export default {
 
 .SmColumnBoxLeft {
   height: 100%;
-  margin: 32px 32px;
+  padding: 32px 32px;
 }
 
 .SmColumnBoxCenter {
   flex-grow: 1;
   height: 100%;
   width: 100%;
-  margin: 32px 0px 32px 0px;
+  padding: 32px 0px 32px 0px;
 }
 
 .SmColumnBoxRight {
   height: 100%;
-  margin: 32px 64px;
+  padding: 32px 64px;
 }
 </style>

@@ -1,20 +1,26 @@
 <template>
-  <div class="SmDropdown">
-    <div class="selectionClass" @click="expanded? contract(): expand()">
+  <div>
+    <div
+      class="selectionClass"
+      :class="{highlightSelection: expanded}"
+      @click="expanded? contract(): expand()"
+    >
       {{precedingText + selection}}
-      <SmIcon class="SmDropdownChevron" name="chevron-down" />
+      <SmIcon class="SmDropdownChevron" :class="{chevronRotate: expanded}" name="chevron-down" />
     </div>
-    <div v-if="expanded">
-      <SmSearch v-if="searchable" :targets="searchTargets" @searched="updateResults" />
-      <div
-        v-for="(result, index) in displayList"
-        :key="index"
-        :class="[index == 0 && !searchable? 'topResultClass':'', 
-                 index != Object.keys(displayList).length - 1 ? 'resultClass':'lastResultClass', 
-                 searchable? 'searchAlign':'']"
-        @click="selectTarget(result)"
-      >{{result}}</div>
-      <div v-if="noneFound" class="noResult">no result found</div>
+    <div v-if="expanded" class="SmDropdown">
+      <div class="SmSearch" v-if="searchable">
+        <SmSearch :targets="targets" @searched="updateResults" />
+      </div>
+      <div class="results">
+        <div
+          v-for="(result, index) in results"
+          :key="index"
+          class="resultClass"
+          @click="selectTarget(result)"
+        >{{result}}</div>
+        <div v-if="noneFound" class="noResult">No Results Found</div>
+      </div>
     </div>
   </div>
 </template>
@@ -34,48 +40,15 @@ export default {
       expanded: false,
       noneFound: false,
       precedingText: "Select...",
-      selection: '',
-      displayList: []
+      selection: "",
+      results: [],
     };
-  },
-  computed: {
-    results: function() {
-      if (this.targetType == "string") {
-        return this.targets;
-      }
-      // Else, use first key as a display for results.
-      let results = [];
-      for (var i = 0; i < this.targets.length; i++) {
-        let key = Object.keys(this.targets[i])[0];
-        results.push(this.targets[i][key]);
-      }
-      return results;
-    },
-    searchTargets: function() {
-      if (this.targetType == "string") {
-        // Build a dictionary.
-        let dictList = [];
-        for (var i = 0; i < this.targets.length; i++) {
-          dictList.push({ item: this.targets[i] });
-        }
-        return dictList;
-      } else {
-        return this.targets;
-      }
-    }
   },
   props: {
     targets: {
       type: Array,
       required: true,
       description: "A list of targets to select."
-    },
-    targetType: {
-      type: String,
-      required: false,
-      default: "string",
-      description:
-        "Used to determine if 'targets' is a list of dictionaries or strings."
     },
     searchable: {
       type: Boolean,
@@ -85,24 +58,22 @@ export default {
   },
   methods: {
     expand: function() {
-      this.displayList = this.results;
+      this.results = this.targets;
       this.expanded = true;
-      var icon = document.getElementsByClassName("SmDropdownChevron")[0];
-      icon.style.transform = "rotate(180deg)";
     },
     selectTarget(result) {
-      this.precedingText = "Selected: "
+      this.precedingText = "Selected: ";
       this.selection = result;
+      this.$emit('input', this.selection)
       this.contract();
     },
     contract: function() {
       this.expanded = false;
-      var icon = document.getElementsByClassName("SmDropdownChevron")[0];
-      icon.style.transform = "rotate(0deg)";
+      this.noneFound = false;
     },
     updateResults(searchedResults) {
-      this.displayList = searchedResults;
-      if (this.displayList.length == 0) {
+      this.results = searchedResults;
+      if (this.results.length == 0) {
         this.noneFound = true;
       } else {
         this.noneFound = false;
@@ -114,58 +85,67 @@ export default {
 
 <style scoped>
 .SmDropdown {
-  border: 1px solid var(--secondary);
-  padding: 8px 16px 6px 16px;
-  display: inline-block;
+  box-shadow: 0 0 0 1px var(--secondary);
+  border-radius: 0px 0px 2px 2px;
   color: black;
   background: white;
-  position: relative;
-}
-
-.SmDropdown:hover {
-  border: 1px solid var(--primary-hover);
-}
-
-.SmDropdownChevron {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  margin-top: -2px;
+  width: 100%;
 }
 
 .selectionClass {
-  padding-bottom: 2px;
+  border: 1px solid var(--secondary);
+  color: black;
+  background: white;
+  position: relative;
+  padding: 8px 16px;
+  z-index: 1;
+  user-select: none;
 }
 
-.searchAlign {
-  margin-left: 16px;
-  margin-right: 16px;
+.highlightSelection {
+  border: 1px solid var(--primary-hover);
+  box-shadow: 0 0 0 1px var(--primary-hover);
+}
+
+.SmDropdownChevron {
+  position: relative;
+  float: right;
+  margin-top: 2px;
+}
+
+.chevronRotate {
+  transform: rotate(180deg);
+}
+
+.SmSearch {
+  position: relative;
+  margin: 0px 12px;
+  padding: 14px 4px 12px 4px;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+}
+
+.results {
+  padding: 8px 0px;
+  overflow: scroll;
+  max-height: 176px;
 }
 
 .resultClass {
+  padding: 4px 16px;
   border-radius: 0px;
-  border-bottom: 1px solid lightgrey;
-  margin-bottom: 6px;
-  padding-bottom: 6px;
+  cursor: pointer;
+  user-select: none;
 }
 
-.topResultClass {
-  border-top: 1px solid black;
-  margin-top: 6px;
-  padding-top: 6px;
-}
-
-.lastResultClass {
-  padding-bottom: 6px;
+.resultClass:hover {
+  background: var(--primary-hover);
+  color: white;
 }
 
 .noResult {
   color: grey;
-  padding-bottom: 6px;
   text-align: center;
-}
-
-.resultClass:hover,
-.lastResultClass:hover {
-  color: var(--primary-hover);
 }
 </style>

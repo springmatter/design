@@ -1,7 +1,12 @@
 <template>
   <div id="SmSearchDiv">
-    <input class="SmSearch" v-model="filter" placeholder="Search..." @keyup="filterResults" />
-    <SmIcon class="SmSearchIcon" name="search" />
+    <input
+      type="search"
+      class="SmSearch"
+      v-model="filter"
+      placeholder="Search"
+      @keyup="filterResults"
+    />
   </div>
 </template>
 
@@ -19,16 +24,17 @@ export default {
   },
   computed: {
     options: function() {
-      // First key will be returned.
+      // Check if targets is a list of strings or dictionaries to set correct keys.
+      let keys =
+        typeof this.targets[0] == "string" ? [] : Object.keys(this.targets[0]);
       return {
         shouldSort: true,
-        threshold: 0.6,
+        threshold: 0.3,
         location: 0,
         distance: 100,
         maxPatternLength: 32,
         minMatchCharLength: 1,
-        keys: Object.keys(this.targets[0]),
-        id: Object.keys(this.targets[0])[0]
+        keys: keys
       };
     },
     fuse: function() {
@@ -39,20 +45,22 @@ export default {
     targets: {
       type: Array,
       required: true,
-      description: "A list of targets to select."
+      description: "A list of targets (strings or dictionaries) to select."
     }
   },
   methods: {
     filterResults() {
       // If filter is empty, return all results
       if (this.filter == "") {
-        let all = [];
-        for (var i = 0; i < this.targets.length; i++) {
-          all.push(this.targets[i][this.options.id]);
-        }
-        this.results = all;
+        this.results = this.targets;
       } else {
         this.results = this.fuse.search(this.filter);
+        // If list is a string, access indexed values.
+        if (typeof this.targets[0] == "string") {
+          for (var i = 0; i < this.results.length; i++) {
+            this.results[i] = this.targets[this.results[i]];
+          }
+        }
       }
       this.$emit("searched", this.results);
     }
@@ -62,18 +70,7 @@ export default {
 
 <style scoped>
 .SmSearch {
-  border-radius: 9999px;
-  border: 1px solid grey;
-  width: 100%;
-  height: 36px;
   position: relative;
-  padding-right: 40px;
-  margin-bottom: 8px;
-  margin-top: 4px;
-}
-
-.SmSearchIcon {
-  float: right;
-  transform: translate(-14px, -36px);
+  width: 100%;
 }
 </style>

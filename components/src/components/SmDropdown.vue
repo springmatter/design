@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div class="rel">
     <div
       class="selectionClass"
       :class="{highlightSelection: expanded}"
       @click="expanded? contract(): expand()"
+      :id="id"
     >
       {{precedingText + selection}}
       <SmIcon class="SmDropdownChevron" :class="{chevronRotate: expanded}" name="chevron-down" />
@@ -56,10 +57,22 @@ export default {
       description: "Provides Fuse search functionality."
     }
   },
+  computed: { 
+    id: function() { 
+      let id = ''
+      for (var t in this.targets) { 
+        id += t
+      }
+      return id
+    },
+  },
   methods: {
     expand: function() {
       this.results = this.targets;
       this.expanded = true;
+      // Select the component's unique selection box and raise z-index. 
+      let selectionBox = document.getElementById(this.id)
+      selectionBox.style.zIndex = 9999
     },
     selectTarget(result) {
       this.precedingText = "Selected: ";
@@ -70,6 +83,9 @@ export default {
     contract: function() {
       this.expanded = false;
       this.noneFound = false;
+      // Select the component's unique selection box and lower z-index. 
+      let selectionBox = document.getElementById(this.id)
+      selectionBox.style.zIndex = 1
     },
     updateResults(searchedResults) {
       this.results = searchedResults;
@@ -84,13 +100,20 @@ export default {
 </script>
 
 <style scoped>
+
+.rel { 
+  position: relative;
+}
+
 .SmDropdown {
   box-shadow: 0 0 0 1px var(--secondary);
   border-radius: 0px 0px 2px 2px;
   color: black;
   background: white;
   margin-top: -2px;
+  position: absolute;
   width: 100%;
+  z-index: 9998;
 }
 
 .selectionClass {
@@ -99,7 +122,6 @@ export default {
   background: white;
   position: relative;
   padding: 8px 16px;
-  z-index: 1;
   user-select: none;
 }
 

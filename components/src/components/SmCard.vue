@@ -2,7 +2,7 @@
   <div
     class="SmCard"
     :class="{ SmCardLinked: linked || expandable, SmCardModal: modal }"
-    @click="expanded ? contract() : expand()"
+    @click="expanded = true"
   >
     <SmButton
       v-if="modal"
@@ -18,7 +18,14 @@
     <div v-if="expanded" class="below-fold">
       <slot name="below-fold"></slot>
     </div>
-    <SmIcon class="SmCardChevron" v-if="expandable" name="chevron-down" />
+    <SmIcon
+      class="SmCardChevron"
+      v-if="expandable"
+      name="chevron-down"
+      style="{
+        transform: expanded ? 'rotate(180deg)' : 'none',
+      }"
+    />
   </div>
 </template>
 
@@ -60,16 +67,6 @@ export default {
       this.linked =
         this.$el.parentNode.tagName === "A" ||
         this.$el.parentNode.tagName === "BUTTON";
-    },
-    expand: function() {
-      this.expanded = true;
-      var icon = document.getElementsByClassName("SmCardChevron")[0];
-      icon.style.transform = "rotate(180deg)";
-    },
-    contract: function() {
-      this.expanded = false;
-      var icon = document.getElementsByClassName("SmCardChevron")[0];
-      icon.style.transform = "rotate(0deg)";
     }
   },
   beforeUpdate: function() {

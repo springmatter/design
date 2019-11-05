@@ -10,16 +10,18 @@
         x="50%"
         y="50%"
       />
-      <g v-for="(level, index) in polyDict" :key="index">
-        <polygon
-          v-for="(points, cnt) in level"
-          :key="cnt"
-          :id="level"
-          :points="points"
-          :style="{fill:colors[index], fillOpacity:0.25, strokeOpacity:1.0, stroke:colors[index], transform: 'translate('+(gWidth/2 - imgWidth/2)+'px,'+(gHeight/2 - imgHeight/2) +'px)'}"
-          @mouseover="mouseover($event)"
-          @mouseout="mouseout($event)"
-        />
+      <g v-for="(set, num) in polyDicts" :key="num">
+        <g v-for="(level, index) in set" :key="index">
+          <polygon
+            v-for="(points, cnt) in level"
+            :key="cnt"
+            :id="level"
+            :points="points"
+            :style="{fill:colors[num][index], fillOpacity:0.25, strokeOpacity:1.0, stroke:colors[num][index], transform: 'translate('+(gWidth/2 - imgWidth/2)+'px,'+(gHeight/2 - imgHeight/2) +'px)'}"
+            @mouseover="mouseover($event)"
+            @mouseout="mouseout($event)"
+          />
+        </g>
       </g>
     </svg>
     <svg :width="gWidth" height="40px" class="slider">
@@ -32,6 +34,7 @@
 <script>
 import * as d3 from "d3";
 import gradient from "gradient-color";
+import "./styles.css";
 
 export default {
   name: "Heatmap",
@@ -50,19 +53,39 @@ export default {
       imgHeight: 0,
       imgWidth: 0,
       plotInset: 40,
-      colors: [],
-      polyDict: {}
+      availableGradients: ["peach","berry","lime"],
+      polyDicts: Array(this.geojsonLocations.length).fill({}),
+      colors: Array(this.geojsonLocations.length).fill([]), 
     };
   },
   computed: {
     bounding: function() {
       return this.$refs.container.getBoundingClientRect();
+    },
+    themeColors: function() {
+      let themes = Array(this.geojsonLocations.length).fill([]);
+      let index = 0;
+      for (var j = 0; j < this.geojsonLocations.length; j++) {
+        // Try to give each probability plot a different gradient. If there aren't enough gradients, reuse gradients.
+        if (index > this.availableGradients.length - 1) {
+          index = 0;
+        }
+        let theme = this.availableGradients[index];
+        // Each gradient should have only two colors defined in the style sheet.
+        for (var i = 1; i <= 2; i++) {
+          let color = getComputedStyle(
+            document.documentElement
+          ).getPropertyValue("--" + theme + i);
+          themes[j].push(color);
+        }
+        index += 1;
+      }
+      return themes;
     }
   },
   methods: {
     createImage() {
-       let self = this;
-
+      let self = this;
       // Define a width and height for the graph.
       this.gWidth = this.bounding.width - this.plotInset * 2;
       this.gHeight = this.bounding.height - this.plotInset * 2;
@@ -86,10 +109,15 @@ export default {
           self.imgWidth = self.gWidth;
           self.imgHeight = scaleFactor * self.imgHeight;
         }
-        let docImg = document.getElementById('jpg_'+self.jpgLocation)
+        let docImg = document.getElementById("jpg_" + self.jpgLocation);
         // Transpose to be in center of div.
-        docImg.style.transform = 'translate(' + (-self.imgWidth/2)+'px,'+(-self.imgHeight/2)+'px)'
-        self.plotContours()
+        docImg.style.transform =
+          "translate(" +
+          -self.imgWidth / 2 +
+          "px," +
+          -self.imgHeight / 2 +
+          "px)";
+        self.plotContours();
       };
       img.src = this.jpgLocation;
 
@@ -98,7 +126,7 @@ export default {
         .style("cursor", "ew-resize")
         .call(drag);
     },
-    plotContours() { 
+    plotContours() {
       var x = d3
         .scaleLinear()
         .domain([this.westBound, this.eastBound])
@@ -107,8 +135,9 @@ export default {
         .scaleLinear()
         .domain([this.southBound, this.northBound])
         .range([this.imgHeight, 0]);
-      let self = this
+      let self = this;
       for (var i = 0; i < this.geojsonLocations.length; i++) {
+        let index = i;
         d3.json(this.geojsonLocations[i]).then(function(contours) {
           for (var feature of contours.features) {
             var points = "";
@@ -118,24 +147,22 @@ export default {
               points += y(point[1]);
               points += " ";
             });
-            if (feature.properties.level in self.polyDict) {
-              self.polyDict[feature.properties.level].push(points);
+            if (feature.properties.level in self.polyDicts[index]) {
+              self.polyDicts[index][feature.properties.level].push(points);
             } else {
-              self.polyDict[feature.properties.level] = [points];
+              self.polyDicts[index][feature.properties.level] = [points];
             }
           }
-          // TODO: use dif gradients for dif probability maps.
-          self.colors = gradient(
-            ["#FFCC00", "#FF7B00", "#E00404", "#940000"],
-            Object.keys(self.polyDict).length
-          );
-          self.$forceUpdate();
+          self.colors[index] = gradient(self.themeColors[index], Object.keys(self.polyDicts[index]).length);
+          self.$forceUpdate()
         });
       }
     },
     mouseover(event) {
       if (event.target.tagName == "polygon") {
-        event.target.style.stroke = "purple";
+        event.target.style.stroke =  getComputedStyle(
+            document.documentElement
+          ).getPropertyValue("--primary-hover");
       }
     },
     mouseout(event) {
@@ -181,7 +208,7 @@ export default {
 
 .inset {
   transform: translate(40px, 20px);
-  border: 1px solid lightgrey;
+  border: 1px solid var(--gray3);
   border-radius: 8px;
 }
 </style>

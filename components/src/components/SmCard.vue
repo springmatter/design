@@ -1,5 +1,9 @@
 <template>
-  <div class="SmCard" :class="{ SmCardLinked: linked, SmCardModal: modal }">
+  <div
+    class="SmCard"
+    :class="{ SmCardLinked: linked || expandable, SmCardModal: modal }"
+    @click="expanded ? contract() : expand()"
+  >
     <SmButton
       v-if="modal"
       class="SmCardModalCloseBtn"
@@ -11,15 +15,25 @@
     <h5 v-if="subtitle" class="SmCardSubtitle">{{ subtitle }}</h5>
     <div class="SmCardSpace" v-if="sidetitle || title || subtitle"></div>
     <slot></slot>
+    <div v-if="expanded" class="below-fold">
+      <slot name="below-fold"></slot>
+    </div>
+    <SmIcon class="SmCardChevron" v-if="expandable" name="chevron-down" />
   </div>
 </template>
 
 <script>
+import SmIcon from "./SmIcon.vue";
+
 export default {
   name: "SmCard",
+  components: {
+    SmIcon
+  },
   data: function() {
     return {
-      linked: false
+      linked: false,
+      expanded: false
     };
   },
   props: {
@@ -39,6 +53,12 @@ export default {
     sidetitle: {
       type: String,
       required: false
+    },
+    expandable: {
+      type: Boolean,
+      required: false,
+      default: false,
+      description: "Adds functionality to expand card and compress card."
     }
   },
   methods: {
@@ -46,6 +66,16 @@ export default {
       this.linked =
         this.$el.parentNode.tagName === "A" ||
         this.$el.parentNode.tagName === "BUTTON";
+    },
+    expand: function() {
+      this.expanded = true;
+      var icon = document.getElementsByClassName("SmCardChevron")[0];
+      icon.style.transform = "rotate(180deg)";
+    },
+    contract: function() {
+      this.expanded = false;
+      var icon = document.getElementsByClassName("SmCardChevron")[0];
+      icon.style.transform = "rotate(0deg)";
     }
   },
   beforeUpdate: function() {
@@ -107,5 +137,11 @@ export default {
 
 .SmCardSpace {
   height: 16px;
+}
+
+.SmCardChevron {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 </style>

@@ -23,13 +23,8 @@
 </template>
 
 <script>
-import SmIcon from "./SmIcon.vue";
-
 export default {
   name: "SmCard",
-  components: {
-    SmIcon
-  },
   data: function() {
     return {
       linked: false,

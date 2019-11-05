@@ -57,8 +57,7 @@ export default {
     expandable: {
       type: Boolean,
       required: false,
-      default: false,
-      description: "Adds functionality to expand card and compress card."
+      default: false
     }
   },
   methods: {

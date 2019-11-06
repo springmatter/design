@@ -13,7 +13,6 @@
 <script>
 import SmIcon from "./SmIcon.vue";
 import * as Fuse from "fuse.js";
-
 export default {
   name: "SmSearch",
   data: function() {
@@ -62,7 +61,6 @@ export default {
           }
         }
       }
-      this.$emit("searched", this.results);
       this.$emit("input", this.results);
     }
   }

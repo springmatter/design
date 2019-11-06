@@ -11,7 +11,7 @@
     </div>
     <div v-if="expanded" class="SmDropdown">
       <div class="SmSearch" v-if="searchable">
-        <SmSearch :targets="targets" @searched="updateResults" />
+        <SmSearch v-model="results" :targets="targets"/>
       </div>
       <div class="results">
         <div
@@ -20,7 +20,7 @@
           class="resultClass"
           @click="selectTarget(result)"
         >{{result}}</div>
-        <div v-if="noneFound" class="noResult">No Results Found</div>
+        <div v-if="results.length==0" class="noResult">No Results Found</div>
       </div>
     </div>
   </div>
@@ -39,7 +39,6 @@ export default {
   data: function() {
     return {
       expanded: false,
-      noneFound: false,
       precedingText: "Select...",
       selection: "",
       results: [],
@@ -82,19 +81,10 @@ export default {
     },
     contract: function() {
       this.expanded = false;
-      this.noneFound = false;
       // Select the component's unique selection box and lower z-index. 
       let selectionBox = document.getElementById(this.id)
       selectionBox.style.zIndex = 1
     },
-    updateResults(searchedResults) {
-      this.results = searchedResults;
-      if (this.results.length == 0) {
-        this.noneFound = true;
-      } else {
-        this.noneFound = false;
-      }
-    }
   }
 };
 </script>

@@ -2,7 +2,7 @@
   <div
     class="SmCard"
     :class="{ SmCardLinked: linked || expandable, SmCardModal: modal }"
-    @click="expanded = true"
+    @click="expanded = !expanded"
   >
     <SmButton
       v-if="modal"
@@ -13,7 +13,6 @@
     <h5 v-if="sidetitle" class="SmCardSidetitle">{{ sidetitle }}</h5>
     <h4 v-if="title">{{ title }}</h4>
     <h5 v-if="subtitle" class="SmCardSubtitle">{{ subtitle }}</h5>
-    <div class="SmCardSpace" v-if="sidetitle || title || subtitle"></div>
     <slot></slot>
     <div v-if="expanded" class="below-fold">
       <slot name="below-fold"></slot>
@@ -22,8 +21,8 @@
       class="SmCardChevron"
       v-if="expandable"
       name="chevron-down"
-      style="{
-        transform: expanded ? 'rotate(180deg)' : 'none',
+      :style="{
+        transform: expanded ? 'rotate(180deg)' : 'none'
       }"
     />
   </div>
@@ -105,11 +104,11 @@ export default {
   border: 1px solid var(--primary-hover);
 }
 
-/* .SmCardModal {
+.SmCardModal {
   position: fixed;
   top: 40vh;
   transform: translateY(-50%);
-} */
+}
 
 .SmCardModal > .SmCardModalCloseBtn {
   position: absolute;
@@ -126,13 +125,11 @@ export default {
   margin: 2px 2px 12px 2px;
 }
 
-.SmCardSpace {
-  height: 16px;
-}
-
 .SmCardChevron {
   position: absolute;
   right: 0;
   bottom: 0;
+  margin-right: 16px;
+  margin-bottom: 8px;
 }
 </style>

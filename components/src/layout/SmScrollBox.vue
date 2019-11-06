@@ -23,6 +23,7 @@ export default {
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;
+  padding-bottom: 8px;
 }
 
 .SmScrollbox-main {

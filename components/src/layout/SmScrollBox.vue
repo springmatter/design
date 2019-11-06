@@ -23,6 +23,7 @@ export default {
   border-bottom: 1px solid var(--secondary);
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .SmScrollbox-main {

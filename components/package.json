@@ -1,6 +1,6 @@
 {
   "name": "@springmatter/components",
-  "version": "4.1.3",
+  "version": "4.1.4",
   "main": "dist/index.js",
   "files": [
     "dist/"
@@ -8,7 +8,9 @@
   "scripts": {
     "sandbox": "vue-cli-service serve ./sandbox/main.js",
     "build": "./build.sh",
-    "pub": "npm run build && npm publish"
+    "pub": "npm run build && npm publish",
+    "pub-patch": "npm version patch && npm run pub",
+    "pub-minor": "npm version minor && npm run pub"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",

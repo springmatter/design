@@ -17,8 +17,7 @@ export default {
 
 <style>
 .SmScrollbox-header {
-  height: 64px;
-  padding: 16px 0;
+  min-height: 64px;
   border-radius: 0;
   border-bottom: 1px solid var(--secondary);
   display: flex;

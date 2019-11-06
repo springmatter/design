@@ -21,7 +21,7 @@ export default {
   border-radius: 0;
   border-bottom: 1px solid var(--secondary);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   flex-wrap: wrap;
 }
 

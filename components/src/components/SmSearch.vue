@@ -63,6 +63,7 @@ export default {
         }
       }
       this.$emit("searched", this.results);
+      this.$emit("input", this.results);
     }
   }
 };

@@ -1,15 +1,13 @@
 <template>
-  <div class="rel">
+  <div class="SmDropdown">
     <div
-      class="selectionClass"
-      :class="{highlightSelection: expanded}"
-      @click="expanded? contract(): expand()"
-      :id="id"
+      :class="{selectionClass: true, highlightSelection: expanded}"
+      @click="expanded = !expanded"
     >
       {{precedingText + selection}}
       <SmIcon class="SmDropdownChevron" :class="{chevronRotate: expanded}" name="chevron-down" />
     </div>
-    <div v-if="expanded" class="SmDropdown">
+    <div v-if="expanded" class="SmDropdownList">
       <div class="SmSearch" v-if="searchable">
         <SmSearch v-model="results" :targets="targets"/>
       </div>
@@ -48,54 +46,33 @@ export default {
     targets: {
       type: Array,
       required: true,
-      description: "A list of targets to select."
     },
     searchable: {
       type: Boolean,
-      required: false,
-      description: "Provides Fuse search functionality."
+      required: false, 
     }
   },
-  computed: { 
-    id: function() { 
-      let id = ''
-      for (var t in this.targets) { 
-        id += t
-      }
-      return id
-    },
-  },
   methods: {
-    expand: function() {
-      this.results = this.targets;
-      this.expanded = true;
-      // Select the component's unique selection box and raise z-index. 
-      let selectionBox = document.getElementById(this.id)
-      selectionBox.style.zIndex = 9999
-    },
     selectTarget(result) {
       this.precedingText = "Selected: ";
       this.selection = result;
       this.$emit('input', this.selection)
       this.contract();
     },
-    contract: function() {
-      this.expanded = false;
-      // Select the component's unique selection box and lower z-index. 
-      let selectionBox = document.getElementById(this.id)
-      selectionBox.style.zIndex = 1
-    },
-  }
+  }, 
+  created: function() { 
+    this.results = this.targets;
+  } 
 };
 </script>
 
 <style scoped>
 
-.rel { 
+.SmDropdown { 
   position: relative;
 }
 
-.SmDropdown {
+.SmDropdownList {
   box-shadow: 0 0 0 1px var(--secondary);
   border-radius: 0px 0px 2px 2px;
   color: black;
@@ -104,6 +81,7 @@ export default {
   position: absolute;
   width: 100%;
   z-index: 9998;
+
 }
 
 .selectionClass {
@@ -118,6 +96,7 @@ export default {
 .highlightSelection {
   border: 1px solid var(--primary-hover);
   box-shadow: 0 0 0 1px var(--primary-hover);
+  z-index: 9999;
 }
 
 .SmDropdownChevron {

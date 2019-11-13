@@ -38,7 +38,6 @@ export default {
 <style>
 .SmImage {
   position: relative;
-  border: 1px solid var(--secondary);
   display: flex;
   align-items: center;
   justify-content: center;

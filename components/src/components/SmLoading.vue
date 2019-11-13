@@ -16,9 +16,9 @@ export default {
 .SmLoading {
   display: flex;
   justify-content: center;
-  align-content: center;
-  width: full;
-  height: full;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .SmLoadingDot {

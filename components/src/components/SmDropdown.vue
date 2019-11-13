@@ -2,16 +2,20 @@
   <div class="rel">
     <div
       class="selectionClass"
-      :class="{highlightSelection: expanded}"
-      @click="expanded? contract(): expand()"
+      :class="{ highlightSelection: expanded }"
+      @click="expanded ? contract() : expand()"
       :id="id"
     >
-      {{precedingText + selection}}
-      <SmIcon class="SmDropdownChevron" :class="{chevronRotate: expanded}" name="chevron-down" />
+      {{ precedingText + selection }}
+      <SmIcon
+        class="SmDropdownChevron"
+        :class="{ chevronRotate: expanded }"
+        name="chevron-down"
+      />
     </div>
     <div v-if="expanded" class="SmDropdown">
       <div class="SmSearch" v-if="searchable">
-        <SmSearch v-model="results" :targets="targets"/>
+        <SmSearch v-model="results" :targets="targets" />
       </div>
       <div class="results">
         <div
@@ -19,29 +23,24 @@
           :key="index"
           class="resultClass"
           @click="selectTarget(result)"
-        >{{result}}</div>
-        <div v-if="results.length==0" class="noResult">No Results Found</div>
+        >
+          {{ result }}
+        </div>
+        <div v-if="results.length == 0" class="noResult">No Results Found</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SmIcon from "./SmIcon.vue";
-import SmSearch from "./SmSearch.vue";
-
 export default {
   name: "SmDropDown",
-  components: {
-    SmIcon,
-    SmSearch
-  },
   data: function() {
     return {
       expanded: false,
       precedingText: "Select...",
       selection: "",
-      results: [],
+      results: []
     };
   },
   props: {
@@ -56,42 +55,41 @@ export default {
       description: "Provides Fuse search functionality."
     }
   },
-  computed: { 
-    id: function() { 
-      let id = ''
-      for (var t in this.targets) { 
-        id += t
+  computed: {
+    id: function() {
+      let id = "";
+      for (var t in this.targets) {
+        id += t;
       }
-      return id
-    },
+      return id;
+    }
   },
   methods: {
     expand: function() {
       this.results = this.targets;
       this.expanded = true;
-      // Select the component's unique selection box and raise z-index. 
-      let selectionBox = document.getElementById(this.id)
-      selectionBox.style.zIndex = 9999
+      // Select the component's unique selection box and raise z-index.
+      let selectionBox = document.getElementById(this.id);
+      selectionBox.style.zIndex = 9999;
     },
     selectTarget(result) {
       this.precedingText = "Selected: ";
       this.selection = result;
-      this.$emit('input', this.selection)
+      this.$emit("input", this.selection);
       this.contract();
     },
     contract: function() {
       this.expanded = false;
-      // Select the component's unique selection box and lower z-index. 
-      let selectionBox = document.getElementById(this.id)
-      selectionBox.style.zIndex = 1
-    },
+      // Select the component's unique selection box and lower z-index.
+      let selectionBox = document.getElementById(this.id);
+      selectionBox.style.zIndex = 1;
+    }
   }
 };
 </script>
 
 <style scoped>
-
-.rel { 
+.rel {
   position: relative;
 }
 

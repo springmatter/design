@@ -53,9 +53,9 @@ export default {
       default: "unset",
       validator: function(value) {
         const MATCH = value.match(
-          /([0-9]*px|[0-9]*%|right|left|top|bottom|center|unset)/g
+          /([0-9]*px|[0-9]*%|right|left|top|bottom|center)/g
         );
-        return MATCH !== null && MATCH.length === 2;
+        return (MATCH !== null && MATCH.length === 2) || value === "unset";
       }
     }
   }

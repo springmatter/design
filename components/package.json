@@ -12,7 +12,8 @@
     "pub-minor": "npm version minor && npm run pub"
   },
   "dependencies": {
-    "feather-icons": "^4.24.1"
+    "feather-icons": "^4.24.1",
+    "fuse.js": "^3.4.5"
   },
   "devDependencies": {
     "tailwindcss": "^1.1.3"

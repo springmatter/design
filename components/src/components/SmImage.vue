@@ -6,6 +6,10 @@
         @load="srcLoading = false"
         v-show="!srcLoading && !loading"
         class="SmImageImg"
+        :style="{
+          objectFit: objectFit,
+          objectPosition: objectPosition
+        }"
       />
     </transition>
     <div class="SmImageGlow" v-if="srcLoading || loading">
@@ -30,6 +34,28 @@ export default {
     loading: {
       required: false,
       type: Boolean
+    },
+    objectFit: {
+      required: false,
+      type: String,
+      default: "unset",
+      validator: function(value) {
+        return (
+          ["contain", "cover", "fill", "none", "scale-down"].indexOf(value) !==
+          -1
+        );
+      }
+    },
+    objectPosition: {
+      required: false,
+      type: String,
+      default: "unset",
+      validator: function(value) {
+        const MATCH = value.match(
+          /([0-9]*px|[0-9]*%|right|left|top|bottom|center)/g
+        );
+        return MATCH !== null && MATCH.length === 2;
+      }
     }
   }
 };

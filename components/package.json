@@ -6,25 +6,15 @@
     "dist/"
   ],
   "scripts": {
-    "sandbox": "vue-cli-service serve ./sandbox/main.js",
     "build": "./build.sh",
     "pub": "npm run build && npm publish",
     "pub-patch": "npm version patch && npm run pub",
     "pub-minor": "npm version minor && npm run pub"
   },
   "dependencies": {
-    "babel-runtime": "^6.26.0",
-    "core-js": "^2.6.5",
-    "feather-icons": "^4.24.1",
-    "tailwindcss": "^1.1.2",
-    "vue": "^2.6.10",
-    "vue-markdown": "^2.2.4",
-    "vue-router": "^3.0.3",
-    "vuex": "^3.0.1"
+    "feather-icons": "^4.24.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.11.0",
-    "@vue/cli-service": "^3.11.0",
-    "vue-template-compiler": "^2.6.10"
+    "tailwindcss": "^1.1.3"
   }
 }

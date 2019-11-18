@@ -13,7 +13,7 @@
         {{ label }}
       </div>
     </div>
-    <svg ref="svg" class="svg" :viewBox="viewBox" @mousemove="selectPoint($event)" @mouseout="tooltip.shown = false">
+    <svg ref="svg" class="svg" :viewBox="viewBox" @mousemove="selectPoint" @mouseout="tooltip.shown = false">
       <g v-if="dualAxis" class="colorBar">
         <line
           :x1="plotInset.x"
@@ -43,6 +43,7 @@
           v-for="(path, index) in paths"
           :key="path"
           class="dataPath"
+          ref="dataPath"
           :stroke="colors[index]"
           :id="'path_' + yLabels[index]"
           :d="path"
@@ -53,7 +54,7 @@
           <text :x="tooltip.cx + tooltip.x_offset" :y="(tooltip.cy+4)" class="tooltipText">
             {{tooltip.val}}
           </text>
-          <circle :cx="tooltip.cx" :cy="tooltip.cy" r="4" :fill="tooltip.fill"/>
+          <circle :cx="tooltip.cx" :cy="tooltip.cy" r="4" :fill="tooltip.fill" style="pointer-events: none"/>
         </g>
       </g>
     </svg>
@@ -61,6 +62,7 @@
 </template>
 
 <script>
+import * as styles from "./styles.css";
 import * as d3 from "d3";
 
 export default {
@@ -121,7 +123,7 @@ export default {
       return this.svgWidth - this.plotInset.x*2;
     }, 
     colors: function() { 
-      let N = this.xValues.length 
+      let N = this.yValues.length 
       let ret = []
       for(var i=1; i<=N; i++) { 
         let color =  getComputedStyle(
@@ -129,6 +131,7 @@ export default {
           ).getPropertyValue("--series"+i)
         ret.push(color)
       }
+      console.log(ret)
       return ret
     }
   },
@@ -287,14 +290,13 @@ export default {
       mouse.x = event.clientX;
       mouse.y = event.clientY;
       mouse = mouse.matrixTransform(m.inverse());
-      // Find closest point within 50px. 
-      var min_dist = Infinity
+      // Find closest point within 64px. 
+      var min_dist = 100
       var pt; 
-      for(var i=0; i<this.data.length; i++) { 
-        let arr = []
-        for(var j=0; j<this.data[i].length; j++) { 
+      for(var i=0; i<this.data.length; i++) {
+        for (var j=0; j<this.data[i].length; j++) {
           if (Math.abs(this.data[i][j]['x_px'] - mouse.x) <= 64 && Math.abs(this.data[i][j]['y_px'] - mouse.y) <= 64) { 
-            let dist = Math.sqrt(Math.pow(this.data[i][j]['x_px'] - mouse.x, 2) + Math.pow(this.data[i][j]['y_px'] - mouse.y, 2))
+            let dist = Math.sqrt(Math.pow(this.data[i][j]['x_px'] - mouse.x, 2) + Math.pow(this.data[i][j]['y_px'] - mouse.y, 2))  
             if (dist < min_dist) { 
               pt = { 
                 'val': this.data[i][j]['y'], 
@@ -302,6 +304,7 @@ export default {
                 'y_px': this.data[i][j]['y_px'], 
                 'index': i
               }
+              min_dist = dist
             }
           }
         }
@@ -322,19 +325,9 @@ export default {
         this.tooltip.shown = false
       }
     },
-    removeMarkers(event) {
-      // Transition point, line, and tooltip.
-      let point = event.target;
-      point.style.opacity = 0.0;
-      let label = point.id.split("_")[1];
-      let cnt = point.id.split("_")[2];
-      let line = document.getElementById("line_" + label + "_" + cnt);
-      line.style.stroke = "transparent";
-      this.tooltip.shown = false;
-    },
     highlight(event) {
       let label = event.target
-      let paths = d3.selectAll("path.dataPath")
+      let paths = d3.selectAll(this.$refs.dataPath)
       .filter(function() {
         return this.id != "path_"+label.id
        })
@@ -395,6 +388,7 @@ export default {
   display: inline-block;
   vertical-align: middle;
   pointer-events: none;
+  transform: translate(0px, -1px);
 }
 
 .svg .xAxisDate { 
@@ -440,6 +434,7 @@ export default {
   stroke: black; 
   font-size: 10px;
   stroke-width: 0.2;
+  pointer-events: none;
 }
 
 .colorBar {
@@ -458,6 +453,7 @@ export default {
   stroke: grey;
   stroke-dasharray: 5;
   fill: none;
+  pointer-events: none;
 }
 
 .svg .dataPath {

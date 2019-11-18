@@ -9,6 +9,7 @@
       outlineOffset: `${-(outlineWidth + 1)}px`
     }"
     ref="img"
+    @click="$emit('click', $event)"
   />
 </template>
 

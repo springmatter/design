@@ -1,6 +1,6 @@
 <template>
   <div class="SmCard" :class="{ SmCardLinked: linked || expandable, SmCardModal: modal }" @click="expanded? contract(): expand()">
-    <SmButton v-if="modal" class="SmCardModalCloseBtn" icon="x" @click="$emit('closed')" />
+    <SmButton v-if="modal" class="SmCardModalCloseBtn" icon="x" @click="$emit('close')" />
     <h5 v-if="sidetitle" class="SmCardSidetitle">{{ sidetitle }}</h5>
     <h4 v-if="title">{{ title }}</h4>
     <h5 v-if="subtitle" class="SmCardSubtitle">{{ subtitle }}</h5>

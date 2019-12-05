@@ -4,7 +4,7 @@
       :class="{selectionClass: true, highlightSelection: expanded}"
       @click="expanded = !expanded"
     >
-      {{precedingText + selection}}
+      {{selection}}
       <SmIcon class="SmDropdownChevron" :class="{chevronRotate: expanded}" name="chevron-down" />
     </div>
     <div v-if="expanded" class="SmDropdownList">
@@ -25,19 +25,11 @@
 </template>
 
 <script>
-import SmIcon from "./SmIcon.vue";
-import SmSearch from "./SmSearch.vue";
-
 export default {
-  name: "SmDropDown",
-  components: {
-    SmIcon,
-    SmSearch
-  },
+  name: "SmDropdown",
   data: function() {
     return {
       expanded: false,
-      precedingText: "Select...",
       selection: "",
       results: [],
     };
@@ -54,7 +46,6 @@ export default {
   },
   methods: {
     selectTarget(result) {
-      this.precedingText = "Selected: ";
       this.selection = result;
       this.$emit('input', this.selection)
       this.contract();

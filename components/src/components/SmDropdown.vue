@@ -48,7 +48,7 @@ export default {
     selectTarget(result) {
       this.selection = result;
       this.$emit('input', this.selection)
-      this.contract();
+      this.expanded = false;
     },
   }, 
   created: function() { 
@@ -82,6 +82,7 @@ export default {
   position: relative;
   padding: 8px 16px;
   user-select: none;
+  height: 40px;
 }
 
 .highlightSelection {

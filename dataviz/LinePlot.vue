@@ -1,74 +1,60 @@
 <template>
-  <div ref="container" class="full">
-    <div :id="'tooltip_' + graphId" class="tooltip"></div>
-    <div class="labels" :style="{ maxWidth: gWidth + 'px' }">
+  <div class="LinePlot">
+    <div class="labels">
       <div
         v-for="(label, index) in yLabels"
         :key="label"
+        :id="label"
         class="label"
-        @mouseover="highlight(label)"
+        @mouseover="highlight"
+        @mouseout="removeHighlight"
       >
         <span class="dot" :style="{ backgroundColor: colors[index] }"></span>
         {{ label }}
       </div>
     </div>
-    <svg class="full svg">
+    <svg ref="svg" class="svg" :viewBox="viewBox" @mousemove="selectPoint" @mouseout="tooltip.shown = false">
       <g v-if="dualAxis" class="colorBar">
         <line
-          :x1="plotInset"
-          :y1="plotInset"
-          :x2="plotInset"
-          :y2="gHeight + plotInset"
+          :x1="plotInset.x"
+          :y1="plotInset.y"
+          :x2="plotInset.x"
+          :y2="gHeight + plotInset.y"
           :style="{ stroke: colors[0] }"
         />
         <line
-          :x1="plotInset + gWidth + 1"
-          :y1="plotInset"
-          :x2="plotInset + gWidth + 1"
-          :y2="gHeight + plotInset"
+          :x1="plotInset.x + gWidth + 1"
+          :y1="plotInset.y"
+          :x2="plotInset.x + gWidth + 1"
+          :y2="gHeight + plotInset.y"
           :style="{ stroke: colors[1] }"
         />
       </g>
-      <g :id="'xAxis_' + graphId" style="text-anchor:end" />
-      <g :id="'yAxis_' + graphId" />
-      <g v-if="dualAxis" :id="'yAxis-Right_' + graphId" />
-      <g class="inset">
+      <g ref="xAxis" :class="{xAxisDate: dateTime, xAxisNum: !dateTime}" />
+      <g ref="yAxisL" class="yAxis"/>
+      <g v-if="dualAxis" ref="yAxisR" class="dualAxis" />
+      <g class="rectGroup" ref="rectGroup">
+        <rect :width="gWidth" :height="gHeight" class="bgRect"/>
         <g class="grid">
-          <g :id="'xGrid_' + graphId" />
-          <g :id="'yGrid_' + graphId" />
+          <g ref="xGrid" />
+          <g ref="yGrid" />
         </g>
         <path
           v-for="(path, index) in paths"
           :key="path"
           class="dataPath"
+          ref="dataPath"
           :stroke="colors[index]"
           :id="'path_' + yLabels[index]"
           :d="path"
         />
-        <g v-for="(series, cnt) in data" :key="cnt">
-          <g v-for="(pt, index) in series" :key="index">
-            <line
-              class="newLine"
-              :id="'line_' + yLabels[cnt] + '_' + index"
-              :x1="pt.x_px"
-              :y1="pt.y_px"
-              :x2="pt.x_px"
-              :y2="gHeight"
-            />
-            <circle
-              class="point"
-              :class="yLabels[cnt]"
-              :id="'pt_' + yLabels[cnt] + '_' + index"
-              r="4"
-              :cx="pt.x_px"
-              :cy="pt.y_px"
-              :ptx="pt.x"
-              :pty="pt.y"
-              :fill="colors[cnt]"
-              @mouseover="activateHover($event)"
-              @mouseout="removeMarkers($event)"
-            />
-          </g>
+        <g v-if="tooltip.shown" >
+          <line :x1="tooltip.cx" :y1="tooltip.cy" :x2="tooltip.cx" :y2="gHeight" class="tooltipLine"/>
+          <circle :cx="tooltip.cx + tooltip.x_offset" :cy="tooltip.cy" r="16" class="tooltip"/>        
+          <text :x="tooltip.cx + tooltip.x_offset" :y="(tooltip.cy+4)" class="tooltipText">
+            {{tooltip.val}}
+          </text>
+          <circle :cx="tooltip.cx" :cy="tooltip.cy" r="4" :fill="tooltip.fill" style="pointer-events: none"/>
         </g>
       </g>
     </svg>
@@ -76,71 +62,84 @@
 </template>
 
 <script>
+import * as styles from "./styles.css";
 import * as d3 from "d3";
 
 export default {
   props: {
-    xType: {
-      type: String,
-      required: true,
-      description:
-        "Will only check to see if type is 'date.' If so, date-time is parsed from string."
+    dateTime: {
+      type: Boolean,
+      required: false,
     },
     xValues: {
       type: Array,
       required: true,
-      description:
-        "An array of 'x' values to associate with each array in yValues."
     },
     yValues: {
       type: Array,
       required: true,
-      description:
-        "An array of arrays where each array defines values in association with xValues for a set that defines a line."
     },
     yLabels: {
       type: Array,
       required: true,
-      description:
-        "Identifies labels for each yValues array in the same indexed order."
     },
     dualAxis: {
       type: Boolean,
       required: false,
       default: false,
-      description: "Flag for creating two 'y' axes."
     }
   },
   data() {
     return {
       data: [],
       paths: [],
-      plotInset: 60,
-      gWidth: 0,
-      gHeight: 0,
-      colors: ["green", "blue", "red"]
+      plotInset: { 
+        x: 48,
+        y: 16, 
+      }, 
+      svgWidth: 600,
+      svgHeight: 400,
+      tooltip: { 
+        shown: false, 
+        cx: 0, 
+        cy: 0, 
+        x_offset: 0,
+        fill: '', 
+        val: "0"
+      }
     };
   },
   computed: {
-    graphId: function() {
-      let ids = "";
-      this.yLabels.forEach(label => {
-        ids += label;
-      });
-      return ids;
+    viewBox: function() { 
+      return "0 0 "+this.svgWidth + " " + this.svgHeight;
+    }, 
+    gHeight: function() { 
+      if (this.dateTime){ 
+        return this.svgHeight - this.plotInset.y*4;
+      }
+      return this.svgHeight - this.plotInset.y*3;
+    }, 
+    gWidth: function() { 
+      return this.svgWidth - this.plotInset.x*2;
+    }, 
+    colors: function() { 
+      let N = this.yValues.length 
+      let ret = []
+      for(var i=1; i<=N; i++) { 
+        let color =  getComputedStyle(
+            document.documentElement
+          ).getPropertyValue("--series"+i)
+        ret.push(color)
+      }
+      console.log(ret)
+      return ret
     }
   },
   methods: {
     createGraph() {
-      // Get bounding width and height of exterior container.
-      let bounding = this.$refs.container.getBoundingClientRect();
-      // Define a width and height for the graph.
-      this.gWidth = bounding.width - this.plotInset * 2;
-      this.gHeight = bounding.height - this.plotInset * 2;
-
       // Enforce type of x data if of type 'date.'
       let xData = [];
-      if (this.xType == "date") {
+      if (this.dateTime) {
         this.xValues.forEach((x, index) => {
           xData[index] = new Date(x);
         });
@@ -153,7 +152,7 @@ export default {
 
       // Set scale functions.
       var scaleX;
-      if (this.xType == "date") {
+      if (this.dateTime) {
         scaleX = d3
           .scaleTime()
           .domain(xRange)
@@ -199,12 +198,12 @@ export default {
       function make_y_gridlines() {
         return d3.axisLeft(scaleY[0]).ticks(5);
       }
-      d3.select("#xGrid_" + this.graphId).call(
+      d3.select(this.$refs.xGrid).call(
         make_x_gridlines()
           .tickSize(this.gHeight)
           .tickFormat("")
       );
-      d3.select("#yGrid_" + this.graphId).call(
+      d3.select(this.$refs.yGrid).call(
         make_y_gridlines()
           .tickSize(-this.gWidth)
           .tickFormat("")
@@ -213,19 +212,11 @@ export default {
       // Add axes.
       var xAxis = d3.axisBottom(scaleX).ticks(10);
       let gX = d3
-        .select("#xAxis_" + this.graphId)
-        .attr(
-          "transform",
-          "translate(" +
-            this.plotInset +
-            "," +
-            (this.gHeight + this.plotInset) +
-            ")"
-        )
+        .select(this.$refs.xAxis)
         .call(xAxis)
         .call(g => g.select(".domain").remove()); // Remove connecting line.
       // Rotate date text.
-      if (this.xType == "date") {
+      if (this.dateTime) {
         gX.selectAll("text")
           .attr("dx", "-.8em")
           .attr("dy", ".15em")
@@ -233,25 +224,13 @@ export default {
       }
       var yAxis = d3.axisLeft(scaleY[0]).ticks(10);
       let gYL = d3
-        .select("#yAxis_" + this.graphId)
-        .attr(
-          "transform",
-          "translate(" + this.plotInset + "," + this.plotInset + ")"
-        )
+        .select(this.$refs.yAxisL)
         .call(yAxis)
         .call(g => g.select(".domain").remove());
       if (this.dualAxis) {
         let yAxisR = d3.axisRight(scaleY[1]).ticks(10);
         let gYR = d3
-          .select("#yAxis-Right_" + this.graphId)
-          .attr(
-            "transform",
-            "translate(" +
-              (this.plotInset + this.gWidth) +
-              "," +
-              this.plotInset +
-              ")"
-          )
+          .select(this.$refs.yAxisR)
           .call(yAxisR)
           .call(g => g.select(".domain").remove());
       }
@@ -305,48 +284,59 @@ export default {
         this.paths.push(valueline(series));
       });
     },
-    activateHover(event) {
-      let point = event.target;
-      point.style.opacity = 1.0;
-      // Determine location of tooltip in px
-      let i = point.cx.baseVal.value;
-      let j = point.cy.baseVal.value;
-      // Extract names and locate other objects
-      let label = point.id.split("_")[1];
-      let cnt = point.id.split("_")[2];
-      let line = document.getElementById("line_" + label + "_" + cnt);
-      line.style.stroke = "grey";
-      // Determine mouse position in plot
-      let left = i;
-      let right = Math.abs(this.gWidth - i);
-      let h = Math.min(...[left, right]);
-      // Transition tooltip.
-      let tt = document.getElementById("tooltip_" + this.graphId);
-      tt.style.opacity = 1.0;
-      let val = Number(point.getAttribute("pty"));
-      tt.innerHTML = val.toFixed(2);
-      tt.style.top = j - 10 + "px";
-      if (h == left) {
-        tt.style.left = i + 10 + "px";
-      } else {
-        tt.style.left = i - 52 + "px";
+    selectPoint(event) { 
+      var m = this.$refs.rectGroup.getScreenCTM();
+      var mouse = this.$refs.svg.createSVGPoint()
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
+      mouse = mouse.matrixTransform(m.inverse());
+      // Find closest point within 64px. 
+      var min_dist = 100
+      var pt; 
+      for(var i=0; i<this.data.length; i++) {
+        for (var j=0; j<this.data[i].length; j++) {
+          if (Math.abs(this.data[i][j]['x_px'] - mouse.x) <= 64 && Math.abs(this.data[i][j]['y_px'] - mouse.y) <= 64) { 
+            let dist = Math.sqrt(Math.pow(this.data[i][j]['x_px'] - mouse.x, 2) + Math.pow(this.data[i][j]['y_px'] - mouse.y, 2))  
+            if (dist < min_dist) { 
+              pt = { 
+                'val': this.data[i][j]['y'], 
+                'x_px': this.data[i][j]['x_px'], 
+                'y_px': this.data[i][j]['y_px'], 
+                'index': i
+              }
+              min_dist = dist
+            }
+          }
+        }
+      }
+      if (pt != undefined) { 
+        this.tooltip.cx = pt.x_px 
+        this.tooltip.cy = pt.y_px
+        this.tooltip.fill = this.colors[pt.index]
+        this.tooltip.val = Number(pt.val).toFixed(2)
+        let left = pt.x_px
+        let right = Math.abs(this.gWidth - pt.x_px)
+        let h = Math.min(...[left,right])
+        if (h == left) { this.tooltip.x_offset = 30 }
+        else { this.tooltip.x_offset = -30 }
+        this.tooltip.shown = true; 
+      }
+      else { 
+        this.tooltip.shown = false
       }
     },
-    removeMarkers(event) {
-      // Transition point, line, and tooltip.
-      let point = event.target;
-      point.style.opacity = 0.0;
-      let label = point.id.split("_")[1];
-      let cnt = point.id.split("_")[2];
-      let line = document.getElementById("line_" + label + "_" + cnt);
-      line.style.stroke = "transparent";
-      let tt = document.getElementById("tooltip_" + this.graphId);
-      tt.style.opacity = 0.0;
-    },
-    highlight(label, item) {
-      console.log("highlight");
-      // let label = event.target
-      // label.style.border = "1px solid grey"
+    highlight(event) {
+      let label = event.target
+      let paths = d3.selectAll(this.$refs.dataPath)
+      .filter(function() {
+        return this.id != "path_"+label.id
+       })
+      .attr('class', 'svg greyout')
+    }, 
+    removeHighlight() { 
+      let paths = d3.selectAll("path.greyout")
+      .classed('svg greyout', false)
+      .classed('dataPath', true)
     }
   },
   mounted() {
@@ -355,83 +345,123 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
+.LinePlot {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 8px; 
+}
+
 .labels {
   display: flex;
-  transform: translate(60px, 5px);
+  margin: 16px 48px 0px;
+  flex-direction: row; 
+  justify-content: space-between;
+}
+
+.bgRect { 
+  fill: white; 
 }
 
 .label {
-  flex: 1 1 auto;
-  text-align: center;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin: 0.5rem;
-  border-radius: 9999px;
-  background: whitesmoke;
+  border-radius: 2px;
+  padding: 4px;
+  padding-right: 12px;
   border: 1px solid lightgrey;
+  font-size: 18px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.label:hover { 
+   border: 1px solid var(--primary-hover);
 }
 
 .dot {
   margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  height: 10px;
-  width: 10px;
+  margin-right: 0.2rem;
+  height: 8px;
+  width: 8px;
   border-radius: 50%;
   display: inline-block;
+  vertical-align: middle;
+  pointer-events: none;
+  transform: translate(0px, -1px);
 }
 
-.full {
-  width: 100%;
-  height: 100%;
-  position: relative;
+.svg .xAxisDate { 
+  text-anchor: end;
+  transform: translate(48px,352px);
+}
+
+.svg .xAxisNum { 
+  transform: translate(48px, 369px);
+}
+
+.svg .yAxis { 
+  transform: translate(48px, 16px)
+}
+
+.svg .dualAxis { 
+  transform: translate(552px, 16px)
 }
 
 .svg {
-  top: -50px;
-  left: 0px;
+  display: inline-block;
+  position: relative;
 }
 
 .svg .grid {
   color: lightgrey;
 }
 
+.svg .greyout { 
+  fill: none;
+  stroke: lightgrey;
+}
+
 .tooltip {
-  padding: 0.5rem;
-  font-size: 0.75rem;
-  border-radius: 9999px;
-  opacity: 0;
-  position: absolute;
-  text-align: "center";
-  background: whitesmoke;
-  border: 1px solid lightgrey;
+   stroke: lightgrey; 
+   stroke-width: 1; 
+   fill: white; 
+   pointer-events: none;
+}
+
+.tooltipText { 
+  text-anchor: middle; 
+  stroke: black; 
+  font-size: 10px;
+  stroke-width: 0.2;
   pointer-events: none;
-  transform: translate(60px, 60px);
-  z-index: 9999;
 }
 
 .colorBar {
   opacity: 0.3;
   stroke-width: 2;
 }
+
 .svg .point {
   opacity: 0;
   stroke: transparent;
   stroke-width: 40;
 }
-.svg .newLine {
+
+.svg .tooltipLine {
   stroke-width: 1;
-  stroke: transparent;
+  stroke: grey;
   stroke-dasharray: 5;
   fill: none;
+  pointer-events: none;
 }
+
 .svg .dataPath {
   fill: none;
   pointer-events: none;
 }
-.svg .inset {
-  transform: translate(60px, 60px);
+
+.rectGroup {
+  transform: translate(48px,16px);
 }
 </style>

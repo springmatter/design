@@ -5,8 +5,11 @@
     @click="$emit('click')"
     @mouseover="$emit('mouseover')"
     @mouseenter="$emit('mouseenter')"
+    :style="{
+      lineHeight: icon ? '0' : 'inherit',
+      padding: icon ? '4px' : 'unset'
+    }"
   >
-    <slot></slot>
     <SmIcon v-if="icon" :name="icon" :size="small ? 's' : 'm'" />
   </button>
 </template>
@@ -40,6 +43,7 @@ export default {
   display: inline;
   text-align: left;
 }
+
 .primary,
 .secondary,
 .alternate {

@@ -8,7 +8,7 @@
       v-if="modal"
       class="SmCardModalCloseBtn"
       icon="x"
-      @click="$emit('closed')"
+      @click="$emit('close')"
     />
     <h5 v-if="sidetitle" class="SmCardSidetitle">{{ sidetitle }}</h5>
     <h4 v-if="title">{{ title }}</h4>
@@ -112,8 +112,8 @@ export default {
 
 .SmCardModal > .SmCardModalCloseBtn {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 4px;
+  right: 4px;
 }
 
 .SmCardSidetitle {

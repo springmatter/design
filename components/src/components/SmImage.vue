@@ -4,10 +4,6 @@
     class="SmImage"
     @load="srcLoading = false"
     :class="{ SmImageLoading: srcLoading || loading }"
-    :style="{
-      outlineWidth: loading || srcLoading ? `${outlineWidth}px` : 0,
-      outlineOffset: `${-(outlineWidth + 1)}px`
-    }"
     ref="img"
     @click="$emit('click', $event)"
   />
@@ -31,9 +27,6 @@ export default {
       required: false,
       type: Boolean
     }
-  },
-  mounted: function() {
-    this.outlineWidth = this.$refs.img.offsetWidth / 2;
   }
 };
 </script>
@@ -41,8 +34,10 @@ export default {
 <style>
 .SmImageLoading {
   animation: glow 0.75s ease-in-out infinite alternate;
+  outline-width: 1000px;
   outline-color: var(--gray2);
   outline-style: solid;
+  outline-offset: -1000px;
   padding: 0px;
 }
 

@@ -1,11 +1,15 @@
 <template>
   <div class="SmDropdown">
     <div
-      :class="{selectionClass: true, highlightSelection: expanded}"
+      :class="{ selectionClass: true, highlightSelection: expanded }"
       @click="expanded = !expanded"
     >
-      {{selection}}
-      <SmIcon class="SmDropdownChevron" :class="{chevronRotate: expanded}" name="chevron-down" />
+      {{ selection }}
+      <SmIcon
+        class="SmDropdownChevron"
+        :class="{ chevronRotate: expanded }"
+        name="chevron-down"
+      />
     </div>
     <div v-if="expanded" class="SmDropdownList">
       <div class="SmSearch" v-if="searchable">
@@ -28,7 +32,7 @@
 
 <script>
 export default {
-  name: "SmDropDown",
+  name: "SmDropdown",
   data: function() {
     return {
       expanded: false,
@@ -39,29 +43,28 @@ export default {
   props: {
     targets: {
       type: Array,
-      required: true,
+      required: true
     },
     searchable: {
       type: Boolean,
-      required: false, 
+      required: false
     }
   },
   methods: {
     selectTarget(result) {
       this.selection = result;
-      this.$emit('input', this.selection)
+      this.$emit("input", this.selection);
       this.expanded = false;
-    },
-  }, 
-  created: function() { 
+    }
+  },
+  created: function() {
     this.results = this.targets;
-  } 
+  }
 };
 </script>
 
 <style scoped>
-
-.SmDropdown { 
+.SmDropdown {
   position: relative;
 }
 
@@ -74,7 +77,6 @@ export default {
   position: absolute;
   width: 100%;
   z-index: 9998;
-
 }
 
 .selectionClass {

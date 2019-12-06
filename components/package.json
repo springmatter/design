@@ -7,9 +7,9 @@
   ],
   "scripts": {
     "build": "./build.sh",
-    "pub": "npm run build && npm publish",
-    "pub-patch": "npm version patch && npm run pub",
-    "pub-minor": "npm version minor && npm run pub"
+    "pub": "yarn run build && yarn publish",
+    "pub-patch": "yarn version patch && yarn run pub",
+    "pub-minor": "yarn version minor && yarn run pub"
   },
   "dependencies": {
     "feather-icons": "^4.24.1",

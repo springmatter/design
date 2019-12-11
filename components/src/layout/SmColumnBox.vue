@@ -39,6 +39,6 @@ export default {
 
 .SmColumnBoxRight {
   height: 100%;
-  padding: 32px 64px;
+  padding: 32px 32px;
 }
 </style>

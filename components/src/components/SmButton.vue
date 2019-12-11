@@ -10,6 +10,7 @@
       padding: icon ? '4px' : 'unset'
     }"
   >
+    <slot></slot>
     <SmIcon v-if="icon" :name="icon" :size="small ? 's' : 'm'" />
   </button>
 </template>

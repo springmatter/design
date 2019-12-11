@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .SmScrollbox-header {
   min-height: 64px;
   border-radius: 0;
@@ -28,7 +28,7 @@ export default {
 
 .SmScrollbox-main {
   overflow-y: scroll;
-  padding: 0 16px;
+  padding: 0;
   height: calc(100% - 64px);
 }
 

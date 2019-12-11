@@ -114,6 +114,7 @@ export default {
   position: absolute;
   top: 4px;
   right: 4px;
+  z-index: 10000;
 }
 
 .SmCardSidetitle {

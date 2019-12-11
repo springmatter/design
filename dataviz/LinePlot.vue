@@ -13,7 +13,13 @@
         {{ label }}
       </div>
     </div>
-    <svg ref="svg" class="svg" :viewBox="viewBox" @mousemove="selectPoint" @mouseout="tooltip.shown = false">
+    <svg
+      ref="svg"
+      class="svg"
+      :viewBox="viewBox"
+      @mousemove="selectPoint"
+      @mouseout="tooltip.shown = false"
+    >
       <g v-if="dualAxis" class="colorBar">
         <line
           :x1="plotInset.x"
@@ -31,10 +37,10 @@
         />
       </g>
       <g ref="xAxis" :class="{xAxisDate: dateTime, xAxisNum: !dateTime}" />
-      <g ref="yAxisL" class="yAxis"/>
+      <g ref="yAxisL" class="yAxis" />
       <g v-if="dualAxis" ref="yAxisR" class="dualAxis" />
       <g class="rectGroup" ref="rectGroup">
-        <rect :width="gWidth" :height="gHeight" class="bgRect"/>
+        <rect :width="gWidth" :height="gHeight" class="bgRect" />
         <g class="grid">
           <g ref="xGrid" />
           <g ref="yGrid" />
@@ -48,13 +54,27 @@
           :id="'path_' + yLabels[index]"
           :d="path"
         />
-        <g v-if="tooltip.shown" >
-          <line :x1="tooltip.cx" :y1="tooltip.cy" :x2="tooltip.cx" :y2="gHeight" class="tooltipLine"/>
-          <circle :cx="tooltip.cx + tooltip.x_offset" :cy="tooltip.cy" r="16" class="tooltip"/>        
-          <text :x="tooltip.cx + tooltip.x_offset" :y="(tooltip.cy+4)" class="tooltipText">
-            {{tooltip.val}}
-          </text>
-          <circle :cx="tooltip.cx" :cy="tooltip.cy" r="4" :fill="tooltip.fill" style="pointer-events: none"/>
+        <g v-if="tooltip.shown">
+          <line
+            :x1="tooltip.cx"
+            :y1="tooltip.cy"
+            :x2="tooltip.cx"
+            :y2="gHeight"
+            class="tooltipLine"
+          />
+          <circle :cx="tooltip.cx + tooltip.x_offset" :cy="tooltip.cy" r="16" class="tooltip" />
+          <text
+            :x="tooltip.cx + tooltip.x_offset"
+            :y="(tooltip.cy+4)"
+            class="tooltipText"
+          >{{tooltip.val}}</text>
+          <circle
+            :cx="tooltip.cx"
+            :cy="tooltip.cy"
+            r="4"
+            :fill="tooltip.fill"
+            style="pointer-events: none"
+          />
         </g>
       </g>
     </svg>
@@ -69,70 +89,69 @@ export default {
   props: {
     dateTime: {
       type: Boolean,
-      required: false,
+      required: false
     },
     xValues: {
       type: Array,
-      required: true,
+      required: true
     },
     yValues: {
       type: Array,
-      required: true,
+      required: true
     },
     yLabels: {
       type: Array,
-      required: true,
+      required: true
     },
     dualAxis: {
       type: Boolean,
       required: false,
-      default: false,
+      default: false
     }
   },
   data() {
     return {
       data: [],
       paths: [],
-      plotInset: { 
+      plotInset: {
         x: 48,
-        y: 16, 
-      }, 
+        y: 16
+      },
       svgWidth: 600,
       svgHeight: 400,
-      tooltip: { 
-        shown: false, 
-        cx: 0, 
-        cy: 0, 
+      tooltip: {
+        shown: false,
+        cx: 0,
+        cy: 0,
         x_offset: 0,
-        fill: '', 
+        fill: "",
         val: "0"
       }
     };
   },
   computed: {
-    viewBox: function() { 
-      return "0 0 "+this.svgWidth + " " + this.svgHeight;
-    }, 
-    gHeight: function() { 
-      if (this.dateTime){ 
-        return this.svgHeight - this.plotInset.y*4;
+    viewBox: function() {
+      return "0 0 " + this.svgWidth + " " + this.svgHeight;
+    },
+    gHeight: function() {
+      if (this.dateTime) {
+        return this.svgHeight - this.plotInset.y * 4;
       }
-      return this.svgHeight - this.plotInset.y*3;
-    }, 
-    gWidth: function() { 
-      return this.svgWidth - this.plotInset.x*2;
-    }, 
-    colors: function() { 
-      let N = this.yValues.length 
-      let ret = []
-      for(var i=1; i<=N; i++) { 
-        let color =  getComputedStyle(
-            document.documentElement
-          ).getPropertyValue("--series"+i)
-        ret.push(color)
+      return this.svgHeight - this.plotInset.y * 3;
+    },
+    gWidth: function() {
+      return this.svgWidth - this.plotInset.x * 2;
+    },
+    colors: function() {
+      let N = this.yValues.length;
+      let ret = [];
+      for (var i = 0; i < N; i++) {
+        let color = getComputedStyle(document.documentElement).getPropertyValue(
+          "--series" + i
+        );
+        ret.push(color);
       }
-      console.log(ret)
-      return ret
+      return ret;
     }
   },
   methods: {
@@ -284,59 +303,69 @@ export default {
         this.paths.push(valueline(series));
       });
     },
-    selectPoint(event) { 
+    selectPoint(event) {
       var m = this.$refs.rectGroup.getScreenCTM();
-      var mouse = this.$refs.svg.createSVGPoint()
+      var mouse = this.$refs.svg.createSVGPoint();
       mouse.x = event.clientX;
       mouse.y = event.clientY;
       mouse = mouse.matrixTransform(m.inverse());
-      // Find closest point within 64px. 
-      var min_dist = 100
-      var pt; 
-      for(var i=0; i<this.data.length; i++) {
-        for (var j=0; j<this.data[i].length; j++) {
-          if (Math.abs(this.data[i][j]['x_px'] - mouse.x) <= 64 && Math.abs(this.data[i][j]['y_px'] - mouse.y) <= 64) { 
-            let dist = Math.sqrt(Math.pow(this.data[i][j]['x_px'] - mouse.x, 2) + Math.pow(this.data[i][j]['y_px'] - mouse.y, 2))  
-            if (dist < min_dist) { 
-              pt = { 
-                'val': this.data[i][j]['y'], 
-                'x_px': this.data[i][j]['x_px'], 
-                'y_px': this.data[i][j]['y_px'], 
-                'index': i
-              }
-              min_dist = dist
+      // Find closest point within 64px.
+      var min_dist = 100;
+      var pt;
+      for (var i = 0; i < this.data.length; i++) {
+        for (var j = 0; j < this.data[i].length; j++) {
+          if (
+            Math.abs(this.data[i][j]["x_px"] - mouse.x) <= 64 &&
+            Math.abs(this.data[i][j]["y_px"] - mouse.y) <= 64
+          ) {
+            let dist = Math.sqrt(
+              Math.pow(this.data[i][j]["x_px"] - mouse.x, 2) +
+                Math.pow(this.data[i][j]["y_px"] - mouse.y, 2)
+            );
+            if (dist < min_dist) {
+              pt = {
+                val: this.data[i][j]["y"],
+                x_px: this.data[i][j]["x_px"],
+                y_px: this.data[i][j]["y_px"],
+                index: i
+              };
+              min_dist = dist;
             }
           }
         }
       }
-      if (pt != undefined) { 
-        this.tooltip.cx = pt.x_px 
-        this.tooltip.cy = pt.y_px
-        this.tooltip.fill = this.colors[pt.index]
-        this.tooltip.val = Number(pt.val).toFixed(2)
-        let left = pt.x_px
-        let right = Math.abs(this.gWidth - pt.x_px)
-        let h = Math.min(...[left,right])
-        if (h == left) { this.tooltip.x_offset = 30 }
-        else { this.tooltip.x_offset = -30 }
-        this.tooltip.shown = true; 
-      }
-      else { 
-        this.tooltip.shown = false
+      if (pt != undefined) {
+        this.tooltip.cx = pt.x_px;
+        this.tooltip.cy = pt.y_px;
+        this.tooltip.fill = this.colors[pt.index];
+        this.tooltip.val = Number(pt.val).toFixed(2);
+        let left = pt.x_px;
+        let right = Math.abs(this.gWidth - pt.x_px);
+        let h = Math.min(...[left, right]);
+        if (h == left) {
+          this.tooltip.x_offset = 30;
+        } else {
+          this.tooltip.x_offset = -30;
+        }
+        this.tooltip.shown = true;
+      } else {
+        this.tooltip.shown = false;
       }
     },
     highlight(event) {
-      let label = event.target
-      let paths = d3.selectAll(this.$refs.dataPath)
-      .filter(function() {
-        return this.id != "path_"+label.id
-       })
-      .attr('class', 'svg greyout')
-    }, 
-    removeHighlight() { 
-      let paths = d3.selectAll("path.greyout")
-      .classed('svg greyout', false)
-      .classed('dataPath', true)
+      let label = event.target;
+      let paths = d3
+        .selectAll(this.$refs.dataPath)
+        .filter(function() {
+          return this.id != "path_" + label.id;
+        })
+        .attr("class", "svg greyout");
+    },
+    removeHighlight() {
+      let paths = d3
+        .selectAll("path.greyout")
+        .classed("svg greyout", false)
+        .classed("dataPath", true);
     }
   },
   mounted() {
@@ -346,23 +375,22 @@ export default {
 </script>
 
 <style scoped>
-
 .LinePlot {
   display: inline-block;
   position: relative;
   width: 100%;
-  padding-bottom: 8px; 
+  padding-bottom: 8px;
 }
 
 .labels {
   display: flex;
   margin: 16px 48px 0px;
-  flex-direction: row; 
+  flex-direction: row;
   justify-content: space-between;
 }
 
-.bgRect { 
-  fill: white; 
+.bgRect {
+  fill: white;
 }
 
 .label {
@@ -375,8 +403,8 @@ export default {
   cursor: pointer;
 }
 
-.label:hover { 
-   border: 1px solid var(--primary-hover);
+.label:hover {
+  border: 1px solid var(--primary-hover);
 }
 
 .dot {
@@ -391,21 +419,21 @@ export default {
   transform: translate(0px, -1px);
 }
 
-.svg .xAxisDate { 
+.svg .xAxisDate {
   text-anchor: end;
-  transform: translate(48px,352px);
+  transform: translate(48px, 352px);
 }
 
-.svg .xAxisNum { 
+.svg .xAxisNum {
   transform: translate(48px, 369px);
 }
 
-.svg .yAxis { 
-  transform: translate(48px, 16px)
+.svg .yAxis {
+  transform: translate(48px, 16px);
 }
 
-.svg .dualAxis { 
-  transform: translate(552px, 16px)
+.svg .dualAxis {
+  transform: translate(552px, 16px);
 }
 
 .svg {
@@ -417,21 +445,21 @@ export default {
   color: lightgrey;
 }
 
-.svg .greyout { 
+.svg .greyout {
   fill: none;
   stroke: lightgrey;
 }
 
 .tooltip {
-   stroke: lightgrey; 
-   stroke-width: 1; 
-   fill: white; 
-   pointer-events: none;
+  stroke: lightgrey;
+  stroke-width: 1;
+  fill: white;
+  pointer-events: none;
 }
 
-.tooltipText { 
-  text-anchor: middle; 
-  stroke: black; 
+.tooltipText {
+  text-anchor: middle;
+  stroke: black;
   font-size: 10px;
   stroke-width: 0.2;
   pointer-events: none;
@@ -462,6 +490,6 @@ export default {
 }
 
 .rectGroup {
-  transform: translate(48px,16px);
+  transform: translate(48px, 16px);
 }
 </style>

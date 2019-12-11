@@ -108,6 +108,9 @@ export default {
   position: fixed;
   top: 40vh;
   transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 
 .SmCardModal > .SmCardModalCloseBtn {

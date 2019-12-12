@@ -1,6 +1,6 @@
 {
   "name": "@springmatter/dataviz",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "description": "Springmatter dataviz components",
   "license": "ISC",
   "dependencies": {

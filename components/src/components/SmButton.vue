@@ -5,6 +5,8 @@
     @click="$emit('click')"
     @mouseover="$emit('mouseover')"
     @mouseenter="$emit('mouseenter')"
+    @mouseout="$emit('mouseout')"
+    @mouseleave="$emit('mouseleave')"
     :style="{
       lineHeight: icon ? '0' : 'inherit',
       padding: icon ? '4px' : 'unset'

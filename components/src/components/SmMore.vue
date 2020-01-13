@@ -1,5 +1,5 @@
 <template>
-  <div class="maxWidth" :class="{ raiseZ: expanded }">
+  <div class="relative" :class="{ raiseZ: expanded }">
     <div @click="expanded = !expanded">
       <SmButton
         icon="more-vertical"
@@ -8,25 +8,14 @@
       />
     </div>
     <div v-if="expanded" class="options">
-      <SmButton
-        v-if="info"
-        class="option"
-        @click="$emit('info'), (expanded = false)"
-        ><div class="pl-2">Info</div></SmButton
+      <div
+        v-for="(option, index) in options"
+        :key="index"
+        class="option flex items-center"
+        @click="$emit(option), (expanded = false)"
       >
-      <SmButton
-        v-if="edit"
-        class="option"
-        @click="$emit('edit'), (expanded = false)"
-      >
-        <div class="pl-2">Edit</div></SmButton
-      >
-      <SmButton
-        v-if="del"
-        class="option"
-        @click="$emit('delete'), (expanded = false)"
-        ><div class="pl-2">Delete</div></SmButton
-      >
+        <div class="pl-2 pr-10">{{ option }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,9 +29,7 @@ export default {
     };
   },
   props: {
-    edit: Boolean,
-    del: Boolean,
-    info: Boolean
+    options: Array
   }
 };
 </script>
@@ -72,11 +59,7 @@ export default {
   background: white;
   transform: translateY(31px);
   position: absolute;
-  width: 100%;
-}
-.maxWidth {
-  width: 112px;
-  position: absolute;
+  right: 0;
 }
 .raiseZ {
   z-index: 50;

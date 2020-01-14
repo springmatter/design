@@ -12,7 +12,9 @@
         v-for="(option, index) in options"
         :key="index"
         class="option flex items-center"
-        @click="$emit(option), (expanded = false)"
+        @click="
+          $emit(option.replace(' ', '_').toLowerCase()), (expanded = false)
+        "
       >
         <div class="pl-2 pr-10">{{ option }}</div>
       </div>

@@ -1,6 +1,6 @@
 {
   "name": "@springmatter/components",
-  "version": "4.6.5",
+  "version": "4.6.6",
   "main": "dist/index.js",
   "files": [
     "dist/"

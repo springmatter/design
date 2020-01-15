@@ -15,6 +15,12 @@ import SmIcon from "./SmIcon.vue";
 import * as Fuse from "fuse.js";
 export default {
   name: "SmSearch",
+  props: {
+    targets: {
+      type: Array,
+      required: true
+    }
+  },
   data: function() {
     return {
       results: [],
@@ -38,13 +44,6 @@ export default {
     },
     fuse: function() {
       return new Fuse(this.targets, this.options);
-    }
-  },
-  props: {
-    targets: {
-      type: Array,
-      required: true,
-      description: "A list of targets (strings or dictionaries) to select."
     }
   },
   methods: {

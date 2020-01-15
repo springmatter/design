@@ -4,7 +4,7 @@
       :class="{ selectionClass: true, highlightSelection: expanded }"
       @click="expanded = !expanded"
     >
-      {{ selection }}
+      {{ selection.display }}
       <SmIcon
         class="SmDropdownChevron"
         :class="{ chevronRotate: expanded }"
@@ -20,9 +20,9 @@
           v-for="(result, index) in results"
           :key="index"
           class="resultClass"
-          @click="selectTarget(result)"
+          @click="selectTarget(result, index)"
         >
-          {{ result }}
+          {{ targetKey ? result[targetKey] : result }}
         </div>
         <div v-if="results.length == 0" class="noResult">No Results Found</div>
       </div>
@@ -36,7 +36,10 @@ export default {
   data: function() {
     return {
       expanded: false,
-      selection: "",
+      selection: {
+        display: "",
+        return: null
+      },
       results: []
     };
   },
@@ -48,12 +51,23 @@ export default {
     searchable: {
       type: Boolean,
       required: false
+    },
+    targetKey: {
+      type: String,
+      required: false
     }
   },
   methods: {
-    selectTarget(result) {
-      this.selection = result;
-      this.$emit("input", this.selection);
+    selectTarget(result, index) {
+      if (this.targetKey) {
+        this.selection.display = result[this.targetKey];
+        this.selection.return = this.targets[index];
+      } else {
+        this.selection.display = result;
+        this.selection.return = result;
+      }
+      this.$emit("input", this.selection.return);
+      this.results = this.targets;
       this.expanded = false;
     }
   },

@@ -6,7 +6,7 @@
         :key="label"
         :id="label"
         class="label"
-        @mouseover="highlight"
+        @mouseover="showHighlight"
         @mouseout="removeHighlight"
       >
         <span class="dot" :style="{ backgroundColor: colors[index] }"></span>
@@ -36,7 +36,7 @@
           :style="{ stroke: colors[1] }"
         />
       </g>
-      <g ref="xAxis" :class="{xAxisDate: dateTime, xAxisNum: !dateTime}" />
+      <g ref="xAxis" :class="{ xAxisDate: dateTime, xAxisNum: !dateTime }" />
       <g ref="yAxisL" class="yAxis" />
       <g v-if="dualAxis" ref="yAxisR" class="dualAxis" />
       <g class="rectGroup" ref="rectGroup">
@@ -47,12 +47,18 @@
         </g>
         <path
           v-for="(path, index) in paths"
-          :key="path"
+          :key="index"
           class="dataPath"
           ref="dataPath"
-          :stroke="colors[index]"
-          :id="'path_' + yLabels[index]"
-          :d="path"
+          :stroke="
+            highlight.show
+              ? highlight.label == path.label
+                ? path.color
+                : 'lightgrey'
+              : path.color
+          "
+          :id="'path_' + path.label"
+          :d="path.d"
         />
         <g v-if="tooltip.shown">
           <line
@@ -62,12 +68,19 @@
             :y2="gHeight"
             class="tooltipLine"
           />
-          <circle :cx="tooltip.cx + tooltip.x_offset" :cy="tooltip.cy" r="16" class="tooltip" />
+          <circle
+            :cx="tooltip.cx + tooltip.x_offset"
+            :cy="tooltip.cy"
+            r="16"
+            class="tooltip"
+          />
           <text
             :x="tooltip.cx + tooltip.x_offset"
-            :y="(tooltip.cy+4)"
+            :y="tooltip.cy + 4"
             class="tooltipText"
-          >{{tooltip.val}}</text>
+          >
+            {{ tooltip.val }}
+          </text>
           <circle
             :cx="tooltip.cx"
             :cy="tooltip.cy"
@@ -126,6 +139,10 @@ export default {
         x_offset: 0,
         fill: "",
         val: "0"
+      },
+      highlight: {
+        show: false,
+        label: null
       }
     };
   },
@@ -300,7 +317,11 @@ export default {
               return scaleY[0](series.y);
             });
         }
-        this.paths.push(valueline(series));
+        this.paths.push({
+          d: valueline(series),
+          label: this.yLabels[index],
+          color: this.colors[index]
+        });
       });
     },
     selectPoint(event) {
@@ -352,20 +373,20 @@ export default {
         this.tooltip.shown = false;
       }
     },
-    highlight(event) {
+    showHighlight(event) {
       let label = event.target;
-      let paths = d3
-        .selectAll(this.$refs.dataPath)
-        .filter(function() {
-          return this.id != "path_" + label.id;
-        })
-        .attr("class", "svg greyout");
+      let path = this.paths.find(function(path) {
+        return path.label == label.id;
+      });
+      this.paths = this.paths.filter(function(path) {
+        return path.label != label.id;
+      });
+      this.paths.push(path);
+      this.highlight.show = true;
+      this.highlight.label = label.id;
     },
     removeHighlight() {
-      let paths = d3
-        .selectAll("path.greyout")
-        .classed("svg greyout", false)
-        .classed("dataPath", true);
+      this.highlight.show = false;
     }
   },
   mounted() {
@@ -445,11 +466,6 @@ export default {
   color: lightgrey;
 }
 
-.svg .greyout {
-  fill: none;
-  stroke: lightgrey;
-}
-
 .tooltip {
   stroke: lightgrey;
   stroke-width: 1;
@@ -487,6 +503,7 @@ export default {
 .svg .dataPath {
   fill: none;
   pointer-events: none;
+  stroke-width: 1.5;
 }
 
 .rectGroup {

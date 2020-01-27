@@ -7,7 +7,7 @@
         :id="label"
         class="label"
         @mouseover="showHighlight"
-        @mouseout="removeHighlight"
+        @mouseout="highlight.show = false"
       >
         <span class="dot" :style="{ backgroundColor: colors[index] }"></span>
         {{ label }}
@@ -295,6 +295,7 @@ export default {
         }
         this.data.push(series);
       });
+
       // Define an svg 'path' for each line.
       this.data.forEach((series, index) => {
         var valueline;
@@ -384,9 +385,6 @@ export default {
       this.paths.push(path);
       this.highlight.show = true;
       this.highlight.label = label.id;
-    },
-    removeHighlight() {
-      this.highlight.show = false;
     }
   },
   mounted() {
@@ -405,39 +403,40 @@ export default {
 
 .labels {
   display: flex;
-  margin: 16px 48px 0px;
+  margin: 16px 8% 0px;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.bgRect {
-  fill: white;
-}
-
 .label {
-  border-radius: 2px;
-  padding: 4px;
-  padding-right: 12px;
+  padding: 4px 16px;
   border: 1px solid lightgrey;
-  font-size: 18px;
-  vertical-align: middle;
+  font-size: 14px;
   cursor: pointer;
+  text-align: center;
 }
 
 .label:hover {
   border: 1px solid var(--primary-hover);
 }
 
+.bgRect {
+  fill: white;
+}
+
 .dot {
-  margin-left: 0.5rem;
   margin-right: 0.2rem;
   height: 8px;
   width: 8px;
   border-radius: 50%;
   display: inline-block;
-  vertical-align: middle;
   pointer-events: none;
   transform: translate(0px, -1px);
+}
+
+.svg {
+  display: inline-block;
+  position: relative;
 }
 
 .svg .xAxisDate {
@@ -455,11 +454,6 @@ export default {
 
 .svg .dualAxis {
   transform: translate(552px, 16px);
-}
-
-.svg {
-  display: inline-block;
-  position: relative;
 }
 
 .svg .grid {

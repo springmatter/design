@@ -1,12 +1,11 @@
 <template>
-  <div class="relative" :class="{ raiseZ: expanded }">
-    <div @click="expanded = !expanded">
-      <SmButton
-        icon="more-vertical"
-        class="icon"
-        :class="{ iconBorder: expanded }"
-      />
-    </div>
+  <div class="relative" :class="{ raiseZ: expanded }" @focusout="expanded=false">
+    <SmButton
+      icon="more-vertical"
+      class="icon"
+      :class="{ iconBorder: expanded }"
+      @click="expanded = !expanded"
+    />
     <div v-if="expanded" class="options">
       <div
         v-for="(option, index) in options"

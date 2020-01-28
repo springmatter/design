@@ -1,15 +1,14 @@
 <template>
   <div ref="container" class="full">
-    <svg viewBox="0 0 100 100">
+    <svg ref="svg" class="svg" :viewBox="viewBox">
       <g v-for="(level, index) in polyDict" :key="index">
         <polygon
           v-for="(points, cnt) in level"
           :key="cnt"
-          :id="level"
+          :id="index"
           :points="points"
-          :stroke="colors[index]"
-          stroke-width="0.25"
-          :style="{ fill: colors[index], fillOpacity: 0.35 }"
+          stroke-width="0.5"
+          :style="{ fill: colors[index], fillOpacity: 0.2 }"
           @mouseover="mouseover($event)"
           @mouseout="mouseout($event)"
         />
@@ -25,77 +24,77 @@
 <script>
 import * as d3 from "d3";
 import gradient from "gradient-color";
-import "./styles.css";
 
 export default {
   name: "Heatmap",
   props: {
-    geojsonLocation: String,
-    northBound: Number,
-    eastBound: Number,
-    westBound: Number,
-    southBound: Number,
-    gradientIndex: Number
+    width: Number,
+    height: Number,
+    geojson: String,
+    bounds: Object
   },
   data() {
     return {
       polyDict: {},
+      originalWidth: 0,
+      originalHeight: 0,
+      showContours: false,
+      theme: ["#ffe55e", "#da1e28"],
       colors: []
     };
   },
   computed: {
-    theme: function() {
-      let colorStart = getComputedStyle(
-        document.documentElement
-      ).getPropertyValue("--gradient" + this.gradientIndex + "a");
-      let colorStop = getComputedStyle(
-        document.documentElement
-      ).getPropertyValue("--gradient" + this.gradientIndex + "b");
-      return [colorStart.substring(1), colorStop.substring(1)];
+    viewBox: function() {
+      return "0 0 " + this.originalWidth + " " + this.originalHeight;
     }
   },
   methods: {
     plotContours() {
       var x = d3
         .scaleLinear()
-        .domain([this.westBound, this.eastBound])
-        .range([0, 100]);
+        .domain([this.bounds.west, this.bounds.east])
+        .range([0, this.width]);
       var y = d3
         .scaleLinear()
-        .domain([this.southBound, this.northBound])
-        .range([100, 0]);
+        .domain([this.bounds.south, this.bounds.north])
+        .range([this.height, 0]);
       let self = this;
-      d3.json(this.geojsonLocation).then(function(contours) {
-        console.log(contours);
-        for (var feature of contours.features) {
-          var points = "";
-          feature.geometry.coordinates[0].forEach(function(point) {
-            points += x(point[0]);
-            points += ",";
-            points += y(point[1]);
-            points += " ";
-          });
-          if (feature.properties.level in self.polyDict) {
-            self.polyDict[feature.properties.level].push(points);
-          } else {
-            self.polyDict[feature.properties.level] = [points];
-          }
+      let contours = JSON.parse(this.geojson);
+      for (var feature of contours.features) {
+        var points = "";
+        feature.geometry.coordinates[0].forEach(function(point) {
+          points += x(point[0]);
+          points += ",";
+          points += y(point[1]);
+          points += " ";
+        });
+        var levelNum;
+        if (feature.properties.level.charAt(0) == "l") {
+          levelNum = feature.properties.level.substring(5);
+        } else {
+          levelNum = feature.properties.level;
         }
-        self.colors = gradient(self.theme, Object.keys(self.polyDict).length);
-        self.$forceUpdate();
-      });
+        if (levelNum in self.polyDict) {
+          self.polyDict[levelNum].push(points);
+        } else {
+          self.polyDict[levelNum] = [points];
+        }
+      }
+      self.colors = gradient(self.theme, Object.keys(self.polyDict).length);
+      self.$forceUpdate();
     },
     mouseover(event) {
-      if (event.target.tagName == "polygon") {
-        event.target.style.stroke = getComputedStyle(
-          document.documentElement
-        ).getPropertyValue("--primary-hover");
-      }
+      event.target.style.stroke = "white";
+      event.target.style.strokeOpacity = 1;
+      console.log(Number(event.target.id) / Object.keys(this.polyDict).length);
+      this.$emit(
+        "highlighted",
+        (Number(event.target.id) + 1) / Object.keys(this.polyDict).length
+      );
     },
     mouseout(event) {
-      if (event.target.tagName == "polygon") {
-        event.target.style.stroke = event.target.style.fill;
-      }
+      event.target.style.stroke = event.target.style.fill;
+      event.target.style.strokeOpacity = 0.2;
     }
     // dragmove() {
     //   let circle = d3.select("circle");
@@ -117,6 +116,8 @@ export default {
     // }
   },
   mounted() {
+    this.originalWidth = this.width;
+    this.originalHeight = this.height;
     this.plotContours();
   }
 };
@@ -129,5 +130,10 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
+}
+.svg {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 </style>
